@@ -1,0 +1,43 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.Supplier.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierModel[0].SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierModel[0].SupplierCategory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SupplierModel) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierCategory)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.SupplierId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.SupplierId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.SupplierId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

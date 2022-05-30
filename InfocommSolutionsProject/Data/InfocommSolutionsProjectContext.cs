@@ -25,10 +25,11 @@ public class InfocommSolutionsProjectContext : IdentityDbContext<Accounts>
 
     //public DbSet<Accounts> AccountTable { get; set; }
     public DbSet<ProductModel> Products { get; set; }
-
     public DbSet<OrdersModel> Orders { get; set; }
-
     public DbSet<PaymentModel> Payment { get; set; }
+    public DbSet<SupplierModel> Suppliers { get; set; }
+    public DbSet<SupplierOrdersModel> SupplierOrders { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
