@@ -17,14 +17,14 @@ namespace InfocommSolutionsProject.Models
         public string LastName { get; set; }
         //[Required]
         //public string Password { get; set; }
-        //[Required]
+        
         //public string Role { get; set; }
         //[Required]
         //public string AccountStatus { get; set; }
-        [Required]
-        public string Address { get; set; }
-        [Required]
-        public string PostalCode { get; set; }
+
+        public string? Address { get; set; }
+        
+        public string? PostalCode { get; set; }
         //[Required]
         //public string Email { get; set; }
         [Required]

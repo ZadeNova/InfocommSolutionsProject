@@ -137,7 +137,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.PaymentModel", b =>
@@ -165,7 +165,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasIndex("AccountsId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.ProductModel", b =>
@@ -204,7 +204,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.SupplierModel", b =>
@@ -223,7 +223,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.SupplierOrdersModel", b =>
@@ -255,7 +255,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("SupplierOrders");
+                    b.ToTable("SupplierOrders", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
