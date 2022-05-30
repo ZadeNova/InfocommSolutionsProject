@@ -19,22 +19,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using InfocommSolutionsProject.Models;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<InfocommSolutionsProjectUser> _signInManager;
-        private readonly UserManager<InfocommSolutionsProjectUser> _userManager;
-        private readonly IUserStore<InfocommSolutionsProjectUser> _userStore;
-        private readonly IUserEmailStore<InfocommSolutionsProjectUser> _emailStore;
+        private readonly SignInManager<Accounts> _signInManager;
+        private readonly UserManager<Accounts> _userManager;
+        private readonly IUserStore<Accounts> _userStore;
+        private readonly IUserEmailStore<Accounts> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<InfocommSolutionsProjectUser> userManager,
-            IUserStore<InfocommSolutionsProjectUser> userStore,
-            SignInManager<InfocommSolutionsProjectUser> signInManager,
+            UserManager<Accounts> userManager,
+            IUserStore<Accounts> userStore,
+            SignInManager<Accounts> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -114,7 +115,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+                
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -155,27 +156,27 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private InfocommSolutionsProjectUser CreateUser()
+        private Accounts CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<InfocommSolutionsProjectUser>();
+                return Activator.CreateInstance<Accounts>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(InfocommSolutionsProjectUser)}'. " +
-                    $"Ensure that '{nameof(InfocommSolutionsProjectUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(Accounts)}'. " +
+                    $"Ensure that '{nameof(Accounts)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<InfocommSolutionsProjectUser> GetEmailStore()
+        private IUserEmailStore<Accounts> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<InfocommSolutionsProjectUser>)_userStore;
+            return (IUserEmailStore<Accounts>)_userStore;
         }
     }
 }

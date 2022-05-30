@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using InfocommSolutionsProject.Areas.Identity.Data
-
-@inject SignInManager<InfocommSolutionsProjectUser> SignInManager
-@inject UserManager<InfocommSolutionsProjectUser> UserManager
+@using InfocommSolutionsProject.Models;
+@inject SignInManager<Accounts> SignInManager
+@inject UserManager<Accounts> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
