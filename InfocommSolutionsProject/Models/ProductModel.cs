@@ -15,10 +15,12 @@ namespace InfocommSolutionsProject.Models
         [Required]
         public string Description { get; set; }
         [Required]
+        [Display(Name = "Discount Status")]
         public bool DiscountStatus { get; set; }
         [Required]
         public int Discount { get; set; }
         [Required]
+        [Display(Name = "Image Path")]
         public string ImagePath { get; set; }
     }
 }

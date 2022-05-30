@@ -16,8 +16,10 @@ namespace InfocommSolutionsProject.Models
         [DataType(DataType.DateTime)]
         public DateTime DateOfOrder { get; set; }
         [Required]
+        [Display(Name = "Order Status")]
         public string OrderStatus { get; set; }
         [Required]
+        [Display(Name = "Order Price")]
         public double OrderPrice { get; set; }
 
 
