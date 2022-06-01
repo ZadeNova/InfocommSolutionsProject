@@ -22,10 +22,10 @@ builder.Services.AddDefaultIdentity<Accounts>(options => options.SignIn.RequireC
 
 
 // testing
-builder.Services.AddAuthorization(options => {
-    options.AddPolicy("Admin", policy => policy.RequireClaim("IamAdmin"));
+//builder.Services.AddAuthorization(options => {
+//    //options.AddPolicy("Admin", policy => policy.RequireClaim("IamAdmin"));
 
-});
+//});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
