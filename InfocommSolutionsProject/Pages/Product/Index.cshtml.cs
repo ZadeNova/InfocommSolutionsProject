@@ -10,6 +10,7 @@ using InfocommSolutionsProject.Models;
 
 namespace InfocommSolutionsProject.Pages.Product
 {
+    
     public class IndexModel : PageModel
     {
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;

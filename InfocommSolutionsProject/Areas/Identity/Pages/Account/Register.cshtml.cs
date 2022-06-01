@@ -20,9 +20,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using InfocommSolutionsProject.Models;
+using System.Security.Claims;
+using InfocommSolutionsProject.Data;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
+    
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Accounts> _signInManager;
@@ -139,8 +142,10 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 user.CreatedAt = DateTime.Now;
                 //user.Address = "Singapore";
                 //user.PostalCode = "123456";
+                
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
+                //var AddClaim = await _userManager.AddClaimAsync(user, new Claim("Admin",user.Id));
+                //var AddRoles = await _userManager.AddToRoleAsync(user, "TheAdmin");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
