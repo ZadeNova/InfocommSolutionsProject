@@ -138,7 +138,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 // Edit stuff here
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
-                user.UserName = Input.Username;
+                //user.UserName = Input.Username;
                 user.CreatedAt = DateTime.Now;
                 //user.Address = "Singapore";
                 //user.PostalCode = "123456";
