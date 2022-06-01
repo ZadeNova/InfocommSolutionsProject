@@ -7,7 +7,7 @@ using InfocommSolutionsProject.Services;
 using System.Security.Claims;
 using System.Security.Policy;
 using Microsoft.AspNetCore.Identity.UI.Services;
-
+using AspNetCore.ReCaptcha;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("InfocommSolutionsProjectContextConnection") ?? throw new InvalidOperationException("Connection string 'InfocommSolutionsProjectContextConnection' not found.");
@@ -20,7 +20,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddDefaultIdentity<Accounts>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<InfocommSolutionsProjectContext>(); ;
 
-
+builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha"));
 // testing
 //builder.Services.AddAuthorization(options => {
 //    //options.AddPolicy("Admin", policy => policy.RequireClaim("IamAdmin"));

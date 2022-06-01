@@ -1,5 +1,6 @@
 ﻿@page "/Accounts/Register"
 @model RegisterModel
+@using AspNetCore.ReCaptcha
 @{
     ViewData["Title"] = "Register";
 }
@@ -42,6 +43,8 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            @Html.ReCaptcha()
+            <recaptcha />
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>

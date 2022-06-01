@@ -22,11 +22,11 @@ using Microsoft.Extensions.Logging;
 using InfocommSolutionsProject.Models;
 using System.Security.Claims;
 using InfocommSolutionsProject.Data;
-
+using AspNetCore.ReCaptcha;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
-    
+    [ValidateReCaptcha]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Accounts> _signInManager;
@@ -195,6 +195,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
+            ModelState.AddModelError(String.Empty, "Click the recaptcha to submit ");
             return Page();
         }
 

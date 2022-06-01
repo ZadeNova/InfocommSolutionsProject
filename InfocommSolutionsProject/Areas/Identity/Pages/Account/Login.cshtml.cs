@@ -17,8 +17,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using InfocommSolutionsProject.Models;
 using System.Security.Claims;
+using AspNetCore.ReCaptcha;
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
+
+    [ValidateReCaptcha]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<Accounts> _signInManager;
@@ -62,6 +65,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -84,8 +88,9 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
-        }
 
+        }
+      
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -136,8 +141,8 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
-
             // If we got this far, something failed, redisplay form
+            ModelState.AddModelError(String.Empty, "Click the recaptcha to submit ");
             return Page();
         }
     }
