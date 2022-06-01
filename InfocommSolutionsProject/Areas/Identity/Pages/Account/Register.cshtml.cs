@@ -23,6 +23,7 @@ using InfocommSolutionsProject.Models;
 using System.Security.Claims;
 using InfocommSolutionsProject.Data;
 
+
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
     
@@ -34,13 +35,17 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<Accounts> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _RoleManager;
+        private readonly InfocommSolutionsProjectContext _dbContext;
 
         public RegisterModel(
             UserManager<Accounts> userManager,
             IUserStore<Accounts> userStore,
             SignInManager<Accounts> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            InfocommSolutionsProjectContext dbContext,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -48,6 +53,8 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _dbContext = dbContext;
+            _RoleManager = roleManager;
         }
 
         /// <summary>
@@ -148,7 +155,16 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 //var AddRoles = await _userManager.AddToRoleAsync(user, "TheAdmin");
                 if (result.Succeeded)
                 {
+                    // Create the roles.
+                    if (!await _RoleManager.RoleExistsAsync(ApplicationRoles.AdminRole)) await _RoleManager.CreateAsync(new IdentityRole(ApplicationRoles.AdminRole));
+                    if (!await _RoleManager.RoleExistsAsync(ApplicationRoles.CustomerRole)) await _RoleManager.CreateAsync(new IdentityRole(ApplicationRoles.CustomerRole));
+                    if (!await _RoleManager.RoleExistsAsync(ApplicationRoles.SGAEstaff)) await _RoleManager.CreateAsync(new IdentityRole(ApplicationRoles.SGAEstaff));
+
+
                     _logger.LogInformation("User created a new account with password.");
+
+                    // Add customer role to user
+                    await _userManager.AddToRoleAsync(user, ApplicationRoles.CustomerRole);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
