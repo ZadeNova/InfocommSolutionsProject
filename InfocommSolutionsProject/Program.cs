@@ -11,10 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("InfocommSolutionsProjectContextConnection") ?? throw new InvalidOperationException("Connection string 'InfocommSolutionsProjectContextConnection' not found.");
 System.Diagnostics.Debug.WriteLine(connectionString);
 builder.Services.AddDbContext<InfocommSolutionsProjectContext>(options =>
-    options.UseSqlServer(connectionString));;
+    options.UseSqlServer(connectionString)); ;
 
-builder.Services.AddDefaultIdentity<Accounts>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<InfocommSolutionsProjectContext>();;
+builder.Services.AddDefaultIdentity<Accounts>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<InfocommSolutionsProjectContext>(); ;
 
 // testing
 //builder.Services.AddAuthorization(options => {
@@ -35,7 +35,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
