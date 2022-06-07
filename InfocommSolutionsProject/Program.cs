@@ -62,6 +62,7 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Product/Edit", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Create", "RequireAdministratorRole");
     options.Conventions.AuthorizeFolder("/Payment");
+    options.Conventions.AuthorizePage("/Dashboard", "RequirbothRole");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");
     //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");
@@ -107,12 +108,13 @@ app.UseStaticFiles();
 // added new stuff - Zade
 app.UseRouting();
 app.UseCors("Everything");
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<IotSensorWeb.Hubs.SensorHub>("/sensor");
 });
 
-app.UseAuthentication(); 
-app.UseAuthorization();
+
 app.MapRazorPages();
 app.Run();
