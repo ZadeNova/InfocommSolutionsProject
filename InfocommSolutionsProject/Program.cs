@@ -9,8 +9,13 @@ using System.Security.Policy;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using AspNetCore.ReCaptcha;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 var services = builder.Services;
@@ -70,21 +75,42 @@ services.AddRazorPages(options =>
 // Add services to the container.
 services.AddRazorPages();
 
+// Add SignalR service. IOT related stuff
+services.AddSignalR();
+services.AddCors(o =>
+{
+    o.AddPolicy("Everything", p =>
+    {
+        p.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
+});
+
+
 var app = builder.Build();
+
+IOT _ioTHubEventsReader = new IOT(app.Services);
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-
+    
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
 
+System.Diagnostics.Debug.WriteLine("Sussybaka!!!!!");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+// added new stuff - Zade
 app.UseRouting();
+app.UseCors("Everything");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<IotSensorWeb.Hubs.SensorHub>("/sensor");
+});
+
 app.UseAuthentication(); 
 app.UseAuthorization();
 app.MapRazorPages();
