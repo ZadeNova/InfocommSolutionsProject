@@ -9,7 +9,7 @@ namespace InfocommSolutionsProject.Models
         [Required]
         [Display(Name = "Card Number")]
         public int CardNumber { get; set; }
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Required]
         [Display(Name = "Date of Expiry")]
         public DateTime DateOfExpiry { get; set; }
