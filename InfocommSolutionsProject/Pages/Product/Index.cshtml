@@ -6,11 +6,14 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
+<h1>View Product</h1>
+@if (User.IsInRole(InfocommSolutionsProject.Models.Roles.Admin))
+{
+    <p>
     <a asp-page="Create">Create New</a>
 </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -68,11 +71,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
+          @if (User.IsInRole(InfocommSolutionsProject.Models.Roles.Admin))
+{
             <td>
+              
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+}
         </tr>
 }
     </tbody>

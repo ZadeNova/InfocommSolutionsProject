@@ -24,9 +24,16 @@
 		<li class="nav-item">
 			<a class="nav-link text-dark" asp-area="" asp-page="/Product/Index">Products</a>
 		</li>
-		<li class="nav-item">
+		@if ((User.IsInRole(InfocommSolutionsProject.Models.Roles.Admin )) || (User.IsInRole(InfocommSolutionsProject.Models.Roles.SGAE_STAFF)))
+		{
+			<li class="nav-item">
 			<a class="nav-link text-dark" asp-area="" asp-page="/Supplier/Index">Supplier</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/SupplierOrders/Index">Supply Orders</a>
+		</li>
+		}
+		
 		<li class="nav-item">
 			<a class="nav-link text-dark" asp-area="" asp-page="/Payment">Payment</a>
 		</li>

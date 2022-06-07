@@ -18,21 +18,27 @@ using Microsoft.Extensions.Logging;
 using InfocommSolutionsProject.Models;
 using System.Security.Claims;
 using AspNetCore.ReCaptcha;
+
+
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
 
     [ValidateReCaptcha]
+   
     public class LoginModel : PageModel
     {
+     
         private readonly SignInManager<Accounts> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
+       /* private readonly UserManager<Accounts> _userManager*/
         public LoginModel(SignInManager<Accounts> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+         //_userManager=userManager;
             _logger = logger;
         }
 
+      
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -90,7 +96,8 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
 
         }
-      
+
+
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -106,20 +113,18 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
-        }
+        } 
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 //Claim aclaim = new Claim("LoggedIn", Input.Email);
-                
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -140,6 +145,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
+
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError(String.Empty, "Click the recaptcha to submit ");
