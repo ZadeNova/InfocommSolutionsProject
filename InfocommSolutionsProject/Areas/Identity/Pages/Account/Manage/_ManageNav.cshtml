@@ -1,5 +1,4 @@
-﻿@using InfocommSolutionsProject.Models;
-@inject SignInManager<Accounts> SignInManager
+﻿@inject SignInManager<Accounts> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
