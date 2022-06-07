@@ -45,6 +45,7 @@ services.AddAuthorization(options =>
     options.AddPolicy("RequirbothRole",
       policy => policy.RequireRole("SGAE_STAFF" , "Admin"));
   
+
 });
 
 services.AddRazorPages(options =>
@@ -55,7 +56,7 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Product/Delete", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Edit", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Create", "RequireAdministratorRole");
-
+    options.Conventions.AuthorizeFolder("/Payment");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");
     //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");

@@ -1,0 +1,45 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.Payment.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PaymentModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PaymentModel.Id" />
+            <div class="form-group">
+                <label asp-for="PaymentModel.CardNumber" class="control-label"></label>
+                <input asp-for="PaymentModel.CardNumber" class="form-control" />
+                <span asp-validation-for="PaymentModel.CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentModel.DateOfExpiry" class="control-label"></label>
+                <input asp-for="PaymentModel.DateOfExpiry" class="form-control" />
+                <span asp-validation-for="PaymentModel.DateOfExpiry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentModel.SecurityCode" class="control-label"></label>
+                <input asp-for="PaymentModel.SecurityCode" class="form-control" />
+                <span asp-validation-for="PaymentModel.SecurityCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
