@@ -10,6 +10,7 @@ namespace InfocommSolutionsProject.Pages
     {
         public void OnGet()
         {
+            
         }
     }
 }

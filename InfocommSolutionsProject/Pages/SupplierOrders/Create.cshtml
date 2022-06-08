@@ -1,5 +1,8 @@
 ﻿@page
 @model InfocommSolutionsProject.Pages.SupplierOrders.CreateModel
+@using InfocommSolutionsProject.Models
+@using InfocommSolutionsProject.Data
+
 
 @{
     ViewData["Title"] = "Create";
@@ -13,7 +16,33 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+            @{
+                //var UserData = new List<SelectListItem>()
+                //{
+                //    foreach(var a in Models.Accounts)
+                //}
+                //;
+
+            }
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            @*<label asp-for="SupplierOrdersModel.AccountID" class="control-label"></label>
+            <select asp-for="SupplierOrdersModel.AccountID" class="form-control" asp-items="@Model.UserSelectList"></select>
+            <span asp-validation-for="SupplierOrdersModel.AccountID" class="form-control"></span>
+*@
+            <div class="form-group">
+                <label asp-for="SupplierOrdersModel.AccountID.Id" class="control-label"></label>
+                <input asp-for="SupplierOrdersModel.AccountID.Id" class="form-control" />
+                <span asp-validation-for="SupplierOrdersModel.AccountID" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SupplierOrdersModel.SupplierID.SupplierId" class="control-label"></label>
+                <input asp-for="SupplierOrdersModel.SupplierID.SupplierId" class="form-control" />
+                @*<span asp-validation-for="SupplierOrdersModel.SupplierID" class="text-danger"></span>*@
+            </div>
             <div class="form-group">
                 <label asp-for="SupplierOrdersModel.DateOfOrder" class="control-label"></label>
                 <input asp-for="SupplierOrdersModel.DateOfOrder" class="form-control" />
