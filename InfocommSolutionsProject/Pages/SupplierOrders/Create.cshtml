@@ -31,17 +31,23 @@
             <select asp-for="SupplierOrdersModel.AccountID" class="form-control" asp-items="@Model.UserSelectList"></select>
             <span asp-validation-for="SupplierOrdersModel.AccountID" class="form-control"></span>
 *@
-            <div class="form-group">
-                <label asp-for="SupplierOrdersModel.AccountID.Id" class="control-label"></label>
-                <input asp-for="SupplierOrdersModel.AccountID.Id" class="form-control" />
-                <span asp-validation-for="SupplierOrdersModel.AccountID" class="text-danger"></span>
+           <div class="form-group">
+            <label asp-for="SupplierOrdersModel.AccountID" class="control-label"></label>
+            <select asp-for="SupplierOrdersModel.AccountID" name="accid" class="form-control" asp-items="@Model.UserSelectList">
+                 <option value="0">Please select</option>
+                
+            </select>
+            <span asp-validation-for="SupplierOrdersModel.AccountID" class="form-control"></span>
+             </div>
 
-            </div>
+          <div class="form-group">
 
-            <div class="form-group">
-                <label asp-for="SupplierOrdersModel.SupplierID.SupplierId" class="control-label"></label>
-                <input asp-for="SupplierOrdersModel.SupplierID.SupplierId" class="form-control" />
-                @*<span asp-validation-for="SupplierOrdersModel.SupplierID" class="text-danger"></span>*@
+                <label asp-for="SupplierOrdersModel.SupplierID" class="control-label"></label>
+                <select asp-for="SupplierOrdersModel.SupplierID"  name="suppieid" class="form-control" asp-items="@Model.SupplierList" >
+                     <option value="0">Please select</option>
+                </select>
+               
+                <span asp-validation-for="SupplierOrdersModel.SupplierID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SupplierOrdersModel.DateOfOrder" class="control-label"></label>

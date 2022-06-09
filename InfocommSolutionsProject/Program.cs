@@ -61,6 +61,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
 });
 
+
 services.AddRazorPages(options =>
 {
    
@@ -70,6 +71,7 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Product/Edit", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Create", "RequireAdministratorRole");
     options.Conventions.AuthorizeFolder("/Payment");
+    options.Conventions.AuthorizeFolder("/Product");
     options.Conventions.AuthorizePage("/Dashboard", "RequirbothRole");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");

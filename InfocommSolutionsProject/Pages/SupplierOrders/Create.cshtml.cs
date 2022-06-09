@@ -31,10 +31,14 @@ namespace InfocommSolutionsProject.Pages.SupplierOrders
             //ViewData["AccountsList"] = UserData;
             //foreach (var i in Models.Accounts) System.Diagnostics.Debug.WriteLine(i);
             PopulateUserList(_context);
-
+            PopulateSupplierList(_context);
             return Page();
         }
-
+        public void PopulateSupplierList(InfocommSolutionsProjectContext _context, object userobj = null)
+        {
+            var supplerdata = from SupplierModel in _context.Suppliers select SupplierModel;
+            SupplierList = new SelectList(supplerdata, "SupplierId", "SupplierName", userobj);
+        }
         public void PopulateUserList(InfocommSolutionsProjectContext _context , object userobj = null)
         {
             var UserData = from user in _context.Users select user;
@@ -45,14 +49,18 @@ namespace InfocommSolutionsProject.Pages.SupplierOrders
         public SupplierOrdersModel SupplierOrdersModel { get; set; } = default!;
 
         public SelectList UserSelectList { get; set; }
-        
+        public SelectList SupplierList { get; set; }
+        public string aid { get; set; }
+        public string sid { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            aid = Request.Form["accid"].ToString();
+            sid = Request.Form["suppieid"].ToString();
             //SupplierOrdersModel.AccountID = (from users in _context.Users where users.Id.Equals("0e1de4b2-e453-4f8b-b81d-3e8f875f42bb") select users) ;
-            SupplierOrdersModel.AccountID = _context.Users.First(i => i.Id == "0e1de4b2-e453-4f8b-b81d-3e8f875f42bb");
-            SupplierOrdersModel.SupplierID = _context.Suppliers.First(i => i.SupplierId.ToString() == "784FB0CC-3C12-4396-D7C5-08DA4902AAAE");
+            SupplierOrdersModel.AccountID = _context.Users.First(i => i.Id == aid);
+            SupplierOrdersModel.SupplierID = _context.Suppliers.First(i => i.SupplierId.ToString() == sid);
             //SupplierOrdersModel.SupplierID = "F5163474-AE47-4F30-FD9A-08DA48A8718D";
             //System.Diagnostics.Debug.WriteLine(SupplierOrdersModel.OrderStatus);
             System.Diagnostics.Debug.WriteLine(SupplierOrdersModel.AccountID);
