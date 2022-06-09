@@ -70,7 +70,6 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Product/Delete", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Edit", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Create", "RequireAdministratorRole");
-    options.Conventions.AuthorizeFolder("/Payment");
     options.Conventions.AuthorizeFolder("/Product");
     options.Conventions.AuthorizePage("/Dashboard", "RequirbothRole");
     //options.Conventions.AuthorizePage("/Contact");

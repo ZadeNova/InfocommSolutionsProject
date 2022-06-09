@@ -1,14 +1,14 @@
 ﻿@page
-@model InfocommSolutionsProject.Pages.Payment.IndexModel
+@model InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Payment</h1>
+<h1>Adding payment</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="PaymentCreate">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -38,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.SecurityCode)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./PaymentEdit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./PaymentDetails" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./PaymentDelete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

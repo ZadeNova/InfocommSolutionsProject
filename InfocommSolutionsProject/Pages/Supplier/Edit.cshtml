@@ -20,11 +20,15 @@
                 <input asp-for="SupplierModel.SupplierName" class="form-control" />
                 <span asp-validation-for="SupplierModel.SupplierName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           <div class="form-group">
                 <label asp-for="SupplierModel.SupplierCategory" class="control-label"></label>
-                <input asp-for="SupplierModel.SupplierCategory" class="form-control" />
+                @*<input asp-for="SupplierModel.SupplierCategory" class="form-control" />*@
+                 <select asp-for="SupplierModel.SupplierCategory"  class="form-control" >
+                 <option value="">Please select</option>
+                  <option value="Cucumbers Seed">Cucumbers Seed</option>
+                   <option value="fertilizer">fertilizer</option>
+            </select>
                 <span asp-validation-for="SupplierModel.SupplierCategory" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

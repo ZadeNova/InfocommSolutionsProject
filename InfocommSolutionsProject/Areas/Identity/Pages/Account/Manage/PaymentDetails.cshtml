@@ -1,5 +1,5 @@
 ﻿@page
-@model InfocommSolutionsProject.Pages.Payment.DetailsModel
+@model InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -32,6 +32,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.PaymentModel?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./PaymentEdit" asp-route-id="@Model.PaymentModel?.Id">Edit</a> |
+    <a asp-page="./PaymentIndex">Back to List</a>
 </div>

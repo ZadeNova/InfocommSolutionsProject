@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
 
-namespace InfocommSolutionsProject.Pages.Payment
+namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
 {
     public class EditModel : PageModel
     {
@@ -43,10 +43,10 @@ namespace InfocommSolutionsProject.Pages.Payment
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             _context.Attach(PaymentModel).State = EntityState.Modified;
 
@@ -66,7 +66,7 @@ namespace InfocommSolutionsProject.Pages.Payment
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./PaymentIndex");
         }
 
         private bool PaymentModelExists(int id)

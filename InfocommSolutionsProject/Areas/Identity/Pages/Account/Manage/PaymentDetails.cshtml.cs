@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
 
-namespace InfocommSolutionsProject.Pages.Payment
+namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
 {
     public class DetailsModel : PageModel
     {
