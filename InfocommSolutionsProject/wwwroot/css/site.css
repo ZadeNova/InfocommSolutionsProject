@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.ImageThumbnail {
+    height: 200px;
+    width: auto;
+}
+
+.ProductImageIndexDisplay {
+    height: 145px;
+    width: 145px;
+}

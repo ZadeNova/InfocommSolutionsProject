@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+   
 }
 
 <h1>View Product</h1>
@@ -39,7 +40,7 @@
                 @Html.DisplayNameFor(model => model.Product[0].Discount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].ImagePath)
+               Image
             </th>
             <th></th>
         </tr>
@@ -69,7 +70,8 @@
                 @Html.DisplayFor(modelItem => item.Discount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
+                @{ var ProductImagePath = "~/Images/ProductImages/" + (item.ImagePath ?? "noimage.jpg");}
+                <img src="@ProductImagePath" asp-append-version="true" class="ProductImageIndexDisplay"/>
             </td>
           @if (User.IsInRole(InfocommSolutionsProject.Models.Roles.Admin))
 {

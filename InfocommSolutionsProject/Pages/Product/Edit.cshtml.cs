@@ -8,20 +8,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace InfocommSolutionsProject.Pages.Product
 {
     public class EditModel : PageModel
     {
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public EditModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context)
+        
+
+        public EditModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context, IWebHostEnvironment webHostEnvironment)
         {
+            this.webHostEnvironment = webHostEnvironment;
             _context = context;
+            
         }
 
         [BindProperty]
         public ProductModel Product { get; set; } = default!;
+
+        public IFormFile? ImageUpload { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -35,6 +45,7 @@ namespace InfocommSolutionsProject.Pages.Product
             {
                 return NotFound();
             }
+            
             Product = product;
             return Page();
         }
@@ -45,7 +56,20 @@ namespace InfocommSolutionsProject.Pages.Product
         {
             if (!ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("execute model state ss");
                 return Page();
+            }
+            System.Diagnostics.Debug.WriteLine($"Is it empty? {Product.ImagePath}");
+            System.Diagnostics.Debug.WriteLine($"{ImageUpload != null} {Product.ImagePath != null}");
+            if (ImageUpload != null)
+            {
+                if (Product.ImagePath != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Delete image executed");
+                    string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Images/ProductImages", Product.ImagePath);
+                    System.IO.File.Delete(filePath);
+                }
+                Product.ImagePath = ProcessUploadedFile();
             }
 
             _context.Attach(Product).State = EntityState.Modified;
@@ -72,6 +96,25 @@ namespace InfocommSolutionsProject.Pages.Product
         private bool ProductExists(Guid id)
         {
           return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private string ProcessUploadedFile()
+        {
+            string UniqueFileName = null;
+           
+            if (ImageUpload != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Images/ProductImages");
+                UniqueFileName = Guid.NewGuid().ToString() + "_" + ImageUpload.FileName;
+                string Filepath = Path.Combine(uploadsFolder, UniqueFileName);
+                using (var Filestream = new FileStream(Filepath , FileMode.Create))
+                {
+                    ImageUpload.CopyTo(Filestream);
+                }
+            }
+
+
+            return UniqueFileName;
         }
     }
 }
