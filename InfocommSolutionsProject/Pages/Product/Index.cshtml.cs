@@ -20,13 +20,25 @@ namespace InfocommSolutionsProject.Pages.Product
             _context = context;
         }
 
+        public string CurrentFilter { get; set; }
+
         public IList<ProductModel> Product { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
+            CurrentFilter = searchString;
+
+            IQueryable<ProductModel> ProductQueryable = from P in _context.Products select P;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ProductQueryable = ProductQueryable.Where(s => s.Name.Contains(searchString) || s.Category.Contains(searchString) || s.Description.Contains(searchString));
+            }
+
             if (_context.Products != null)
             {
-                Product = await _context.Products.ToListAsync();
+                //Product = await _context.Products.ToListAsync();
+                Product = await ProductQueryable.AsNoTracking().ToListAsync();
             }
         }
     }
