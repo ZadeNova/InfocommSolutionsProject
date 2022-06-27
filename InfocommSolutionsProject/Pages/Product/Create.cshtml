@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Product.Quantity" class="control-label"></label>
-                <input asp-for="Product.Quantity" class="form-control" />
+                <input asp-for="Product.Quantity" class="form-control" min="0" />
                 <span asp-validation-for="Product.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,14 +40,15 @@
                 <input asp-for="Product.Description" class="form-control" />
                 <span asp-validation-for="Product.Description" class="text-danger"></span>
             </div>
+ 
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Product.DiscountStatus" /> @Html.DisplayNameFor(model => model.Product.DiscountStatus)
+                    <input class="form-check-input" asp-for="Product.DiscountStatus" id="DiscountStatusCheckbox" onchange="HideDiscount()" value="false" /> @Html.DisplayNameFor(model => model.Product.DiscountStatus)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="DiscountAmtDiv">
                 <label asp-for="Product.Discount" class="control-label"></label>
-                <input asp-for="Product.Discount" class="form-control" />
+                <input asp-for="Product.Discount" class="form-control" min="0" max="100" id="DiscountAmount"/>
                 <span asp-validation-for="Product.Discount" class="text-danger"></span>
             </div>
              <div class="form-group">
@@ -61,15 +62,29 @@
                 </div>               
             </div>
              <script type="text/javascript">
- 
+                    var DiscountAmountDiv = document.getElementById("DiscountAmtDiv");
+                    DiscountAmountDiv.hidden = true;
                     ImageNameChanger = () => {
                         var TheImageName = document.getElementById("customFile").value;
                         TheImageName = TheImageName.split("\\").pop();
                         document.querySelector(".custom-file-label").innerHTML = TheImageName;
 
                     };
-                    var Hellothere = document.getElementById("PassingToJavascript");
+                    
 
+                    HideDiscount = () => {
+                        var DiscountcheckBox = document.getElementById("DiscountStatusCheckbox").checked;
+                        
+                        var DiscountAmountBox = document.getElementById("DiscountAmount");
+                        if (DiscountcheckBox === false) {
+                            DiscountAmountDiv.hidden = true;
+                            DiscountAmountBox.value = 0;
+                        }
+                        else {
+                            DiscountAmountDiv.hidden = false;
+                            DiscountAmountBox.value = "";
+                        }
+                    }
                     
                 </script>
 

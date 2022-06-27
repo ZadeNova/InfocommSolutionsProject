@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace InfocommSolutionsProject.Pages.Product
 {
@@ -14,18 +15,32 @@ namespace InfocommSolutionsProject.Pages.Product
     public class IndexModel : PageModel
     {
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
-
-        public IndexModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context)
+        private readonly IConfiguration Configuration;
+        public IndexModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
         public string CurrentFilter { get; set; }
 
-        public IList<ProductModel> Product { get;set; } = default!;
+        //public IList<ProductModel> Product { get;set; } = default!;
 
-        public async Task OnGetAsync(string searchString)
+        public PaginatedList<ProductModel> Product { get; set; }
+
+
+
+        public async Task OnGetAsync(string searchString , int? pageIndex)
         {
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = CurrentFilter;
+            }
+
             CurrentFilter = searchString;
 
             IQueryable<ProductModel> ProductQueryable = from P in _context.Products select P;
@@ -38,8 +53,13 @@ namespace InfocommSolutionsProject.Pages.Product
             if (_context.Products != null)
             {
                 //Product = await _context.Products.ToListAsync();
-                Product = await ProductQueryable.AsNoTracking().ToListAsync();
+                var pageSize = Configuration.GetValue("PageSize", 4);
+                Product = await PaginatedList<ProductModel>.CreateAsync(ProductQueryable.AsNoTracking(), pageIndex ?? 1, pageSize);
+
             }
+
+            
+
         }
     }
 }
