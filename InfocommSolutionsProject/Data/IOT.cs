@@ -49,17 +49,15 @@ namespace InfocommSolutionsProject.Data
                     foreach (var eventData in events)
                     {
                         var data = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(eventData.Body.Array));
-                        
+                   
                         System.Diagnostics.Debug.WriteLine($"data: {data}");
                         var hub = _applicationServices.GetService(typeof(IHubContext<SensorHub>)) as IHubContext<SensorHub>;
                         await hub.Clients.All.SendAsync("Broadcast", "Hugo", JsonConvert.SerializeObject(data));
                         //await hub.Clients.All.SendAsync("Broadcast", data);
-                        
                     }
                 }
             }
         }
-
         private async void Run()
         {
             // Create an EventHubClient instance to connect to the
@@ -77,7 +75,6 @@ namespace InfocommSolutionsProject.Data
                 _tasks.Add(ReceiveMessagesFromDeviceAsync(partition));
             }
         }
-
     }
        
 

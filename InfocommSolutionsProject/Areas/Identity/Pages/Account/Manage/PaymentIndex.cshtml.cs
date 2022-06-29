@@ -31,10 +31,9 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
             {
                 //get current login user id 
                 await GetCurrentUserId();
-             
                 // get the userid from the above function and get the user payment information out only 
                 PaymentModel = await _context.Payment.Where(i => i.Accounts.Id==userid).ToListAsync();
-
+               
                 //PaymentModel = await _context.Payment.ToListAsync();
             }
         }

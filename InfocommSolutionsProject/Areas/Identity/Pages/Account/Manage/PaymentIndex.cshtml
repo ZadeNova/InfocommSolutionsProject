@@ -20,7 +20,8 @@
                 @Html.DisplayNameFor(model => model.PaymentModel[0].DateOfExpiry)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentModel[0].SecurityCode)
+              
+             @Html.DisplayNameFor(model => model.PaymentModel[0].SecurityCode)
             </th>
             <th></th>
         </tr>
@@ -35,7 +36,11 @@
                 @Html.DisplayFor(modelItem => item.DateOfExpiry)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SecurityCode)
+                 @{
+                     string sqcode = item.SecurityCode.ToString("***");
+                            }
+                 @Html.DisplayFor(modelItem => sqcode)
+             
             </td>
             <td>
                 <a asp-page="./PaymentEdit" asp-route-id="@item.Id">Edit</a> |
