@@ -45,8 +45,8 @@
           </div>
         </div>
         <div class="container-fluid d-flex align-items-center justify-content-between py-1">
-          <div class="navbar-header d-flex align-items-center"><a class="navbar-brand text-uppercase text-reset" href="index.html">
-              <div class="brand-text brand-big"><strong class="text-primary">Dark</strong><strong>Admin</strong></div>
+          <div class="navbar-header d-flex align-items-center"><a class="navbar-brand text-uppercase text-reset" asp-page="/Index">
+              <div class="brand-text brand-big"><strong class="text-primary">SGAE</strong><strong>Admin</strong></div>
               <div class="brand-text brand-sm"><strong class="text-primary">D</strong><strong>A</strong></div></a>
             <button class="sidebar-toggle">
                   <svg class="svg-icon svg-icon-sm svg-icon-heavy transform-none">
@@ -220,10 +220,15 @@
                 <li><a class="dropdown-item" rel="nofollow" href="#"> <img class="me-2" src="~/Images/AdminPageImages/FR.png" alt="English"><span>French                   </span></a></li>
               </ul>
             </li>
-            <li class="list-inline-item logout px-lg-2">                 <a class="nav-link text-sm text-reset px-1 px-lg-0" id="logout" href="login.html"> <span class="d-none d-sm-inline-block">Logout </span>
-                    <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+            <li class="list-inline-item logout px-lg-2">     
+            <form id="logoutForm"  class="nav-link text-sm text-reset px-1 px-lg-0" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+				<button id="logout" type="submit" class="d-none d-sm-inline-block">Logout</button>
+                 <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                       <use xlink:href="#disable-1"> </use>
-                    </svg></a></li>
+                    </svg>
+			</form>
+              @*  <a class="nav-link text-sm text-reset px-1 px-lg-0" id="logout" href="login.html"> <span class="d-none d-sm-inline-block">Logout </span>*@
+                   </li>
           </ul>
         </div>
       </nav>
@@ -290,10 +295,6 @@
          <div>
                   <partial name="_LoginPartial" />
               
-                    
-                    
-                    
-                   
          </div>
       </nav>
       <div class="container">
@@ -306,7 +307,7 @@
     <footer class="position-absolute bottom-0 bg-dash-dark-2 text-white text-center py-3 w-100 text-xs" id="footer">
           <div class="container-fluid text-center">
             <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-            <p class="mb-0 text-dash-gray">2021 &copy; Your company. Design by <a href="https://bootstrapious.com">Bootstrapious</a>.</p>
+            <p class="mb-0 text-dash-gray"> &copy; 2022 - InfocommSolutionsProject -<a asp-area="" asp-page="/Privacy">Privacy</a></p>
           </div>
         </footer>
     </div>
