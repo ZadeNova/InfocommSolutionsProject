@@ -1,5 +1,5 @@
 ﻿@page
-@model InfocommSolutionsProject.Pages.TestingAdminPageModel
+@model InfocommSolutionsProject.Pages.AdminPageModel
 @{
     ViewData["Title"] = "The testing page";
   
@@ -48,15 +48,16 @@
                   <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between mb-2">
                       <div class="me-2">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                            @*<svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#user-1"> </use>
-                            </svg>
-                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">New Clients</p>
+                            </svg>*@
+                            <i class="fa-solid fa-truck"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Product Orders</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-1">27</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-1">@Model.NumberOfProductOrders</p>
                     </div>
                     <div class="progress" style="height: 3px">
-                      <div class="progress-bar bg-dash-color-1" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-dash-color-1" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>
@@ -66,15 +67,16 @@
                   <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between mb-2">
                       <div class="me-2">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#stack-1"> </use>
-                            </svg>
-                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">New Projects</p>
+                            </svg>*@
+                            <i class="fa-solid fa-calculator"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Products</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-2">375</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-2">@Model.NumberOfProducts</p>
                     </div>
                     <div class="progress" style="height: 3px">
-                      <div class="progress-bar bg-dash-color-2" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-dash-color-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>
@@ -84,15 +86,16 @@
                   <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between mb-2">
                       <div class="me-2">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#survey-1"> </use>
-                            </svg>
-                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">New Invoices</p>
+                            </svg>*@
+                            <i class="fa-solid fa-calculator"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Suppliers</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-3">140</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-3">@Model.NumberOfSuppliers</p>
                     </div>
                     <div class="progress" style="height: 3px">
-                      <div class="progress-bar bg-dash-color-3" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-dash-color-3" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>
@@ -102,15 +105,16 @@
                   <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between mb-2">
                       <div class="me-2">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#paper-stack-1"> </use>
-                            </svg>
-                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">All Projects</p>
+                            </svg>*@
+                            <i class="fa-solid fa-truck"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Supplier Orders</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-4">41</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-4">@Model.NumberOfSupplierOrders</p>
                     </div>
                     <div class="progress" style="height: 3px">
-                      <div class="progress-bar bg-dash-color-4" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-dash-color-4" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>
@@ -421,7 +425,7 @@
               <div class="col-lg-6">
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="h4 mb-3">To do list</h3>
+                    <h3 class="h4 mb-3">BestSellers</h3>
                     <form id="checkListForm"> 
                       <div class="p-3">
                         <div class="form-check mb-0 py-1">
@@ -472,7 +476,7 @@
               <div class="col-lg-6">                                           
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="h4 mb-3">New messages</h3><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
+                    <h3 class="h4 mb-3">Top Customers</h3><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
                       <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-3.jpg" alt=""><span class="availability-status bg-success"></span></div>
                       <div class="ms-3">
                         <p class="fw-bold mb-0">Nadia Halsey</p>

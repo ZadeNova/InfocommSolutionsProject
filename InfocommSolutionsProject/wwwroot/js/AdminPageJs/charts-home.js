@@ -15,6 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
     var homeLineChart = new Chart(LINECHART, {
         type: "line",
         options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'No Of Customers and No of Product Orders'
+                }
+            },
             scales: {
                 xAxes: [
                     {

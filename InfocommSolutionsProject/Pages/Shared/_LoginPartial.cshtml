@@ -38,9 +38,12 @@
         </div>
         <span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Settings</span>
         <li class="sidebar-item "><a class="sidebar-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Settings"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                      @*<svg class="svg-icon svg-icon-sm svg-icon-heavy">
                         <use xlink:href="#setting-1"> </use>
-                      </svg><span >Settings </span></a>
+                      </svg>*@<i class="fa-solid fa-gear"></i> <span > Settings </span>
+                      
+                  </a>
+                      
         </li>
         <span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Main</span>
         <ul class="list-unstyled">
@@ -125,3 +128,4 @@
 		
 	}
 </ul>
+
