@@ -30,6 +30,8 @@ public class InfocommSolutionsProjectContext : IdentityDbContext<Accounts>
     public DbSet<SupplierModel> Suppliers { get; set; }
     public DbSet<SupplierOrdersModel> SupplierOrders { get; set; }
 
+    public DbSet<Categories> Categories { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

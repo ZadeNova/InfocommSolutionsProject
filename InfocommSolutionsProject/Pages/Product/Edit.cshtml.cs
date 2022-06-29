@@ -47,6 +47,7 @@ namespace InfocommSolutionsProject.Pages.Product
             }
             
             Product = product;
+            System.Diagnostics.Debug.WriteLine($"Discount Status: {product.DiscountStatus}");
             return Page();
         }
 
@@ -61,6 +62,9 @@ namespace InfocommSolutionsProject.Pages.Product
             }
             System.Diagnostics.Debug.WriteLine($"Is it empty? {Product.ImagePath}");
             System.Diagnostics.Debug.WriteLine($"{ImageUpload != null} {Product.ImagePath != null}");
+            // Update date for product
+            Product.UpdatedOn = DateTime.Now;
+
             if (ImageUpload != null)
             {
                 if (Product.ImagePath != null)
