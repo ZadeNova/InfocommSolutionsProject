@@ -3,8 +3,8 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
-   
+    //Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = Layout;
 }
 
 <h1>View Product</h1>
@@ -52,6 +52,9 @@
             <th>
                Image
             </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Product[0].UpdatedOn)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -82,6 +85,9 @@
             <td>
                 @{ var ProductImagePath = "~/Images/ProductImages/" + (item.ImagePath ?? "noimage.jpg");}
                 <img src="@ProductImagePath" asp-append-version="true" class="ProductImageIndexDisplay"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedOn)
             </td>
           @if (User.IsInRole(InfocommSolutionsProject.Models.Roles.Admin))
 {

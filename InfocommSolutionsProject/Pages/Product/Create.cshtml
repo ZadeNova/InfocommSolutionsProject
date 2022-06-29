@@ -63,6 +63,8 @@
             </div>
              <script type="text/javascript">
                     var DiscountAmountDiv = document.getElementById("DiscountAmtDiv");
+                    var DiscountAmountBox = document.getElementById("DiscountAmount");
+                    document.getElementById("DiscountAmount").value = 0;
                     DiscountAmountDiv.hidden = true;
                     ImageNameChanger = () => {
                         var TheImageName = document.getElementById("customFile").value;
@@ -75,14 +77,14 @@
                     HideDiscount = () => {
                         var DiscountcheckBox = document.getElementById("DiscountStatusCheckbox").checked;
                         
-                        var DiscountAmountBox = document.getElementById("DiscountAmount");
+                        
                         if (DiscountcheckBox === false) {
                             DiscountAmountDiv.hidden = true;
                             DiscountAmountBox.value = 0;
                         }
                         else {
                             DiscountAmountDiv.hidden = false;
-                            DiscountAmountBox.value = "";
+                            DiscountAmountBox.value = 0;
                         }
                     }
                     

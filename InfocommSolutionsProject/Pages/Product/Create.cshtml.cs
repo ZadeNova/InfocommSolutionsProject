@@ -42,8 +42,10 @@ namespace InfocommSolutionsProject.Pages.Product
         {
             System.Diagnostics.Debug.WriteLine(Product.Name);
             
-           
+            // Add image path to product
             Product.ImagePath = ProcessUploadedFile();
+            // Add Date to product
+            Product.UpdatedOn = DateTime.Now;
             
             //System.Diagnostics.Debug.WriteLine(Product.ImagePath + " YOLO");
             //System.Diagnostics.Debug.WriteLine("Above is imagepath line");

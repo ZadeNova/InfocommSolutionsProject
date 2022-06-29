@@ -22,5 +22,9 @@ namespace InfocommSolutionsProject.Models
         
         [Display(Name = "Image Path")]
         public string? ImagePath { get; set; }
+
+        public DateTime UpdatedOn { get; set; }
+
+
     }
 }
