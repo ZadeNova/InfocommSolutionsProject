@@ -35,9 +35,9 @@ namespace InfocommSolutionsProject.Pages
             NumberOfSuppliers = _context.Suppliers.Count();
             NumberOfProductOrders = _context.Orders.Count();
             NumberOfSupplierOrders = _context.SupplierOrders.Count();
-            
+
             //System.Diagnostics.Debug.WriteLine($"{NumberOfProducts} HZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-            
+
         }
     }
 }

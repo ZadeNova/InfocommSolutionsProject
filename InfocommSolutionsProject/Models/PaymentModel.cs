@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System;
 
 
 namespace InfocommSolutionsProject.Models
@@ -15,9 +16,11 @@ namespace InfocommSolutionsProject.Models
         public string CardNumber { get; set; }
         [DataType(DataType.Date)]
 
-      
-     
+
+       
         [Required]
+        //[CustomExpireddate(ErrorMessage = "Expired Date must be bigger then today date")]
+
         [Display(Name = "Date of Expiry")]
         public DateTime DateOfExpiry { get; set; }
        
@@ -28,5 +31,6 @@ namespace InfocommSolutionsProject.Models
         [Required]
         public virtual Accounts? Accounts { get; set; }
     }
+
 
 }
