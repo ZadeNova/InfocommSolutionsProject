@@ -37,7 +37,7 @@ services.AddAuthentication()
     .AddGoogle(GoogleOptions => {
         GoogleOptions.ClientId = configuration["Google:ClientId"];
         GoogleOptions.ClientSecret = configuration["Google:ClientSecret"];
-      
+
     });
 services.AddAuthorization(options =>
 {
@@ -48,8 +48,8 @@ services.AddAuthorization(options =>
     options.AddPolicy("RequirStaffRole",
        policy => policy.RequireRole("SGAE_STAFF"));
     options.AddPolicy("RequirbothRole",
-      policy => policy.RequireRole("SGAE_STAFF" , "Admin"));
-  
+      policy => policy.RequireRole("SGAE_STAFF", "Admin"));
+
 
 });
 
@@ -64,7 +64,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 services.AddRazorPages(options =>
 {
-   
+
     options.Conventions.AuthorizeFolder("/Supplier", "RequirbothRole");
     options.Conventions.AuthorizeFolder("/SupplierOrders", "RequirbothRole");
     options.Conventions.AuthorizePage("/Product/Delete", "RequireAdministratorRole");
@@ -72,6 +72,7 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Product/Create", "RequireAdministratorRole");
     options.Conventions.AuthorizeFolder("/Product");
     options.Conventions.AuthorizePage("/Dashboard", "RequirbothRole");
+    options.Conventions.AuthorizePage("/AdminHomePage", "RequirbothRole");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");
     //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");
@@ -105,7 +106,7 @@ IOT _ioTHubEventsReader = new IOT(app.Services);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    
+
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }

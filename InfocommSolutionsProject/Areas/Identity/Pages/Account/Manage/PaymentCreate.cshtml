@@ -15,10 +15,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PaymentModel.CardNumber" class="control-label"></label>
-                <input asp-for="PaymentModel.CardNumber" class="form-control" />
+                <input asp-for="PaymentModel.CardNumber"  class="form-control" />
                 <span asp-validation-for="PaymentModel.CardNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
+               @* @{
+                    DateTime date = DateTime.Now;
+                    string formatted = date.ToString("dd/M/yyyy");
+                }*@
                 <label asp-for="PaymentModel.DateOfExpiry" class="control-label"></label>
                 <input asp-for="PaymentModel.DateOfExpiry" class="form-control" />
                 <span asp-validation-for="PaymentModel.DateOfExpiry" class="text-danger"></span>

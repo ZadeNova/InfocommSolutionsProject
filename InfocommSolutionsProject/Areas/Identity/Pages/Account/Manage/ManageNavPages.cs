@@ -18,8 +18,7 @@ namespace  InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string Index => "Index";
-        public static string PaymentIndex => "PaymentIndex";
-        
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -55,7 +54,7 @@ namespace  InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string PersonalData => "PersonalData";
-
+        public static string Payment => "PaymentIndex";
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -67,7 +66,7 @@ namespace  InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
-        public static string PaymentNavClass(ViewContext viewContext) => PageNavClass(viewContext, PaymentIndex);
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -103,6 +102,8 @@ namespace  InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string PersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, PersonalData);
+
+        public static string PaymentNavClass(ViewContext viewContext) => PageNavClass(viewContext, Payment);
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

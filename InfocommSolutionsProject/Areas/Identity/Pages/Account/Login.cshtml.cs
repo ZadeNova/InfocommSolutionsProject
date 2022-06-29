@@ -120,6 +120,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+           
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -128,10 +129,17 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                   
-
-                    return LocalRedirect(returnUrl);
+                    
+                    if (User.IsInRole(InfocommSolutionsProject.Data.ApplicationRoles.AdminRole))
+                    {
+                        _logger.LogInformation("Admin logged in.");
+                        return LocalRedirect("~/AdminHomePage");
+                    }
+                    else {
+                        _logger.LogInformation("User logged in.");
+                        return LocalRedirect(returnUrl);
+                    }
+                  
                 }
                 if (result.RequiresTwoFactor)
                 {

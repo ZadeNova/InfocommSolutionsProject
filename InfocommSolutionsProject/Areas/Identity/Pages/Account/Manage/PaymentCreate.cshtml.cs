@@ -65,7 +65,6 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
             // var idk = _context.Users.First(i => i.Id == aid);
             await GetCurrentUserId();
             PaymentModel.Accounts = _context.Users.First(i => i.Id == aid);
-
             System.Diagnostics.Debug.WriteLine(PaymentModel.Accounts);
 
             // i remove this cuz the raw value of this paymentmodel.accounts raw value = null due to the virtual clas 
@@ -74,7 +73,8 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
             //{
             //    return Page();
             //}
-
+          
+        
             _context.Payment.Add(PaymentModel);
             await _context.SaveChangesAsync();
 

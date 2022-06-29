@@ -4,6 +4,7 @@ using InfocommSolutionsProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfocommSolutionsProject.Migrations
 {
     [DbContext(typeof(InfocommSolutionsProjectContext))]
-    partial class InfocommSolutionsProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220629163029_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,9 +173,8 @@ namespace InfocommSolutionsProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CardNumber")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfExpiry")
                         .HasColumnType("datetime2");
