@@ -4,9 +4,11 @@
     if (User.IsInRole("Admin"))
     {
         Layout = "_AdminLayout";
+        System.Diagnostics.Debug.WriteLine("Using Adminn layout!!");
     }
     else
     {
         Layout = "_Layout";
+        System.Diagnostics.Debug.WriteLine("Using User layout!!");
     }
 }

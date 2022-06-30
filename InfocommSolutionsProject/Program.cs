@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +31,9 @@ services.AddDbContext<InfocommSolutionsProjectContext>(options =>
 services.AddTransient<IEmailSender, EmailSender>();
 // end 
 services.AddDefaultIdentity<Accounts>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<InfocommSolutionsProjectContext>(); ;
+    .AddEntityFrameworkStores<InfocommSolutionsProjectContext>(); 
+
+services.AddScoped<IUserClaimsPrincipalFactory<Accounts>, UserClaimsPrincipalFactory<Accounts, IdentityRole>>();
 
 services.AddReCaptcha(configuration.GetSection("ReCaptcha"));
 services.AddAuthentication()
@@ -85,7 +88,7 @@ services.AddRazorPages(options =>
 //});
 
 // Add services to the container.
-services.AddRazorPages();
+services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Add SignalR service. IOT related stuff
 services.AddSignalR();

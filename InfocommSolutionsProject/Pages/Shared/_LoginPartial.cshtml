@@ -7,6 +7,8 @@
 <ul class="navbar-nav">
 	@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
 	{
+
+		 System.Diagnostics.Debug.WriteLine($"{User} 13123211321313");
 		@*<li class="nav-item">
 			<a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
 		</li>
@@ -46,22 +48,22 @@
                       
         </li>
         <span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Main</span>
-        <ul class="list-unstyled">
-              <li class="sidebar-item active"><a class="sidebar-link" 
-> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy" asp-page="./AdminHomePage">
+        <ul class="list-unstyled" id="hreflist">
+              <li class="sidebar-item"><a class="sidebar-link" asp-page="/AdminHomePage"> 
+
+                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
                         <use xlink:href="#real-estate-1"> </use>
                       </svg><span >Home </span></a>
               </li>
-              <li class="sidebar-item"><a class="sidebar-link" asp-page=""> 
+              <li class="sidebar-item"><a class="sidebar-link" asp-page="/Table"> 
                       <svg class="svg-icon svg-icon-sm svg-icon-heavy">
                         <use xlink:href="#portfolio-grid-1"> </use>
                       </svg><span>Tables </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link"  asp-page=""> 
+              <li class="sidebar-item"><a class="sidebar-link"  asp-page="/Charts"> 
                       <svg class="svg-icon svg-icon-sm svg-icon-heavy">
                         <use xlink:href="#sales-up-1"> </use>
                       </svg><span>Charts </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link"  asp-page=""> 
+              <li class="sidebar-item"><a class="sidebar-link"  asp-page="/Forms"> 
                       <svg class="svg-icon svg-icon-sm svg-icon-heavy">
                         <use xlink:href="#survey-1"> </use>
                       </svg><span>Forms </span></a></li>
@@ -115,8 +117,37 @@
 			<a class="nav-link text-dark" asp-area="" asp-page="/Dashboard">Dashboard</a>
 		</li>
 		*@
-		
+
+    }
+    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer")) {
+        <li class="nav-item">
+			<a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+		</li>
+		<li class="nav-item">
+			<form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+				<button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+			</form>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/Product/Index">Products</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/Category/Index">Category</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/Shop">Shop</a>
+		</li>
+		System.Diagnostics.Debug.WriteLine("In User Page now!!!!");
 	}
+
+
+
 	else
 	{
 		<li class="nav-item">
@@ -128,3 +159,24 @@
 		
 	}
 </ul>
+<script>
+	var CollectionsNav = document.getElementsByClassName("sidebar-item")
+	for (let item of CollectionsNav) {
+        //var theLink = item.firstChild.getAttribute("href");
+        if (item.firstChild.getAttribute("href") == location.pathname) {
+            item.className = "sidebar-item active";
+        }
+        else {
+            item.className = "sidebar-item";
+		}
+	}
+//document.getElementById("hreflist").addEventListener("click", (e) => { 
+//    if (e.target && e.target.matches("li.sidebar-item")) {
+//        e.target.className = "sidebar-item active";
+//	}
+
+//})
+
+
+
+</script>
