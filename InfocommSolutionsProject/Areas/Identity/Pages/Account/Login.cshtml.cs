@@ -18,27 +18,28 @@ using Microsoft.Extensions.Logging;
 using InfocommSolutionsProject.Models;
 using System.Security.Claims;
 using AspNetCore.ReCaptcha;
-
+using InfocommSolutionsProject.Data;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
 
-   // [ValidateReCaptcha]
+    //[ValidateReCaptcha]
    
     public class LoginModel : PageModel
     {
      
         private readonly SignInManager<Accounts> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-       /* private readonly UserManager<Accounts> _userManager*/
-        public LoginModel(SignInManager<Accounts> signInManager, ILogger<LoginModel> logger)
+        private readonly UserManager<Accounts> _userManager;
+        public LoginModel(SignInManager<Accounts> signInManager, ILogger<LoginModel> logger, UserManager<Accounts> userManager)
         {
             _signInManager = signInManager;
-         //_userManager=userManager;
+            
             _logger = logger;
+            _userManager = userManager;
         }
 
-      
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -129,17 +130,45 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    //System.Diagnostics.Debug.WriteLine($"Is it true:{User.IsInRole("ADMIN")}");
+                    //System.Diagnostics.Debug.WriteLine($"Is it true:{User.IsInRole("Customer")}");
+                    //System.Diagnostics.Debug.WriteLine($"Is it true:{User.IsInRole("SGAE_Staff")}");
+                    //System.Diagnostics.Debug.WriteLine($"Is it true:{User.IsInRole(ApplicationRoles.AdminRole)}");
+                    //System.Diagnostics.Debug.WriteLine($"Is it true:{User.IsInRole("Admin")}");
                     
-                    if (User.IsInRole(InfocommSolutionsProject.Data.ApplicationRoles.AdminRole))
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                   
+                    System.Diagnostics.Debug.WriteLine($"{user.FirstName} {user.Email} {user.LastName}");
+                    var roles = await _userManager.GetRolesAsync(user);
+                    //foreach (var i in roles) System.Diagnostics.Debug.WriteLine(i);
+                    
+                    // check for roles
+                    if (roles.Contains("Admin"))
                     {
+                        System.Diagnostics.Debug.WriteLine("Hi there admin!");
                         _logger.LogInformation("Admin logged in.");
-                        return LocalRedirect("~/AdminHomePage");
+                        return Redirect("~/AdminHomePage");
                     }
-                    else {
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Hello there User");
                         _logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
                     }
-                  
+
+
+                    //if (User.IsInRole("Admin"))
+                    //{
+                    //    System.Diagnostics.Debug.WriteLine("Hi there admin!");
+                    //    _logger.LogInformation("Admin logged in.");
+                    //    return Redirect("~/AdminHomePage");
+                    //}
+                    //else {
+                    //    System.Diagnostics.Debug.WriteLine("Hello there User");
+                    //    _logger.LogInformation("User logged in.");
+                    //    return LocalRedirect(returnUrl);
+                    //}
+
                 }
                 if (result.RequiresTwoFactor)
                 {

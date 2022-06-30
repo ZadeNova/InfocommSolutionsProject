@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: {
                 title: {
                     display: true,
-                    text: 'No Of Customers and No of Product Orders'
+                    text: 'No Of Customers and No of Product Orders',
+                    fontColor: 'white',
                 }
             },
             scales: {
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
             datasets: [
                 {
-                    label: "Page Visitors",
+                    label: "Num of Customers",
                     fill: true,
                     lineTension: 0.2,
                     backgroundColor: "transparent",
@@ -70,11 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 0,
-                    data: [20, 27, 20, 35, 30, 40, 33, 25, 39],
+                    data: [20, 27, 20, 35, 30, 40, 33, 13, 39],
                     spanGaps: false,
                 },
                 {
-                    label: "Page Views",
+                    label: "Num of Product Orders",
                     fill: true,
                     lineTension: 0.2,
                     backgroundColor: "transparent",
@@ -411,16 +412,16 @@ document.addEventListener("DOMContentLoaded", function () {
     var myPieChart = new Chart(PIECHARTHOME1, {
         type: "doughnut",
         options: {
-            cutoutPercentage: 90,
+            cutoutPercentage: 99,
             legend: {
                 display: false,
             },
         },
         data: {
-            labels: ["First", "Second", "Third", "Fourth"],
+            labels: ["First", "Second", "Third", "Fourth2"],
             datasets: [
                 {
-                    data: [300, 50, 100, 60],
+                    data: [300, 50, 100, 30],
                     borderWidth: [0, 0, 0, 0],
                     backgroundColor: ["#6933b9", "#8553d1", "#a372ec", "#be9df1"],
                     hoverBackgroundColor: ["#6933b9", "#8553d1", "#a372ec", "#be9df1"],
