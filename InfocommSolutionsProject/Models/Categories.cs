@@ -9,6 +9,7 @@ namespace InfocommSolutionsProject.Models
 {
     public class Categories
     {
+      
         [Key]
         public Guid CategoryId { get; set; }
         [Required]

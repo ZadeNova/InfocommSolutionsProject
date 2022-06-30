@@ -23,7 +23,7 @@ using AspNetCore.ReCaptcha;
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
 
-    [ValidateReCaptcha]
+   // [ValidateReCaptcha]
    
     public class LoginModel : PageModel
     {

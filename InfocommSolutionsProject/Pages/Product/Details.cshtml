@@ -6,8 +6,8 @@
  
     var ProductImagePath = "~/Images/ProductImages/" + (Model.Product.ImagePath ?? "noimage.jpg");
 }
-
-<h1>Details</h1>
+<div class="container">
+    <h1>Details</h1>
 
 <div>
     <h4>Product</h4>
@@ -59,7 +59,7 @@
             Image
         </dt>
         <dd class="col-sm-10">
-            <img src="@ProductImagePath" asp-append-version="true" class="ImageThumbnail"/>
+            <img src="@ProductImagePath" asp-append-version="true" class="ImageThumbnail" width="150px" height="150px"/>
         </dd>
     </dl>
 </div>
@@ -67,3 +67,5 @@
     <a asp-page="./Edit" asp-route-id="@Model.Product?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+</div>
+

@@ -5,13 +5,13 @@
     ViewData["Title"] = "Create";
   
 }
-
-<h1>Create</h1>
+<div class="container">
+    <h1>Create</h1>
 
 <h4>SupplierModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-10">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -22,11 +22,9 @@
             <div class="form-group">
                 <label asp-for="SupplierModel.SupplierCategory" class="control-label"></label>
                 @*<input asp-for="SupplierModel.SupplierCategory" class="form-control" />*@
-                 <select asp-for="SupplierModel.SupplierCategory"  class="form-control" >
-                 <option value="">Please select</option>
-                  <option value="Cucumbers Seed">Cucumbers Seed</option>
-                   <option value="fertilizer">fertilizer</option>
-            </select>
+                 <select asp-for="SupplierModel.SupplierCategory"  name="SupplierCategory1" class="form-control" asp-items="@Model.SupplierCategorylist" >
+                     <option value="0">Please select</option>
+                </select>
                 <span asp-validation-for="SupplierModel.SupplierCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,6 +37,8 @@
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

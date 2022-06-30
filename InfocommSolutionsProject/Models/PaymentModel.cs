@@ -14,13 +14,10 @@ namespace InfocommSolutionsProject.Models
         [Required]
         [Display(Name = "Card Number")]
         public string CardNumber { get; set; }
+
+        
         [DataType(DataType.Date)]
-
-
-       
         [Required]
-        //[CustomExpireddate(ErrorMessage = "Expired Date must be bigger then today date")]
-
         [Display(Name = "Date of Expiry")]
         public DateTime DateOfExpiry { get; set; }
        

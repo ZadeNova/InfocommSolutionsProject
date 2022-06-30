@@ -21,20 +21,30 @@ namespace InfocommSolutionsProject.Pages.Supplier
 
         public IActionResult OnGet()
         {
+            PopulateSupplierCategoryList(_context);
             return Page();
+        }
+      
+        public SelectList SupplierCategorylist { get; set; }
+        public void PopulateSupplierCategoryList(InfocommSolutionsProjectContext _context, object userobj = null)
+        {
+            var suplierca1 = from Categories in _context.Categories select Categories;
+            SupplierCategorylist = new SelectList(suplierca1, "CategoryId", "CategoryFor", userobj);
         }
 
         [BindProperty]
         public SupplierModel SupplierModel { get; set; } = default!;
-        
+        public string sid { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Suppliers == null || SupplierModel == null)
-            {
-                return Page();
-            }
+            sid = Request.Form["SupplierCategory1"].ToString();
+           // SupplierModel.CategoryId = _context.Categories.First(i => i.CategoryFor.ToString() == sid);
+            //if (!ModelState.IsValid || _context.Suppliers == null || SupplierModel == null)
+            //  {
+            //      return Page();
+            //  }
 
             _context.Suppliers.Add(SupplierModel);
             await _context.SaveChangesAsync();

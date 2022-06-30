@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class PaymentIndexModel : PageModel
     {
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
         private readonly UserManager<Accounts> _userManager;
-        public IndexModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
+        public PaymentIndexModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
         {
             _userManager = userManager;
             _context = context;

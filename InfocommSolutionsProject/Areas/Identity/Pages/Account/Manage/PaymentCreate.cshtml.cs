@@ -74,11 +74,14 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
             //    return Page();
             //}
           
-        
-            _context.Payment.Add(PaymentModel);
-            await _context.SaveChangesAsync();
+                _context.Payment.Add(PaymentModel);
+                await _context.SaveChangesAsync();
 
-            return RedirectToPage("./PaymentIndex");
+                return RedirectToPage("./PaymentIndex");
+           
+          
+        
+         
         }
     }
 }

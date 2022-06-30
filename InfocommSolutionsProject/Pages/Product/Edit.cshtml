@@ -6,13 +6,13 @@
     
     var ProductImagePath = "~/Images/ProductImages/" + (Model.Product.ImagePath ?? "noimage.jpg");
 }
-
-<h1>Edit</h1>
+<div class="container">
+    <h1>Edit</h1>
 
 <h4>Product</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-10">
         <form method="post" enctype="multipart/form-data">
           
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -82,7 +82,7 @@
 
             <h3>Current Image for product: </h3>
            <div class="form-group">
-               <img src="@ProductImagePath" asp-append-version="true" class="ImageThumbnail"/>
+               <img src="@ProductImagePath" asp-append-version="true" class="ImageThumbnail" width="150px" height="150px"/>
            </div>
             
 
@@ -97,6 +97,8 @@
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
