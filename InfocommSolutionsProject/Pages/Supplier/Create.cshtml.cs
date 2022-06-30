@@ -28,8 +28,11 @@ namespace InfocommSolutionsProject.Pages.Supplier
         public SelectList SupplierCategorylist { get; set; }
         public void PopulateSupplierCategoryList(InfocommSolutionsProjectContext _context, object userobj = null)
         {
-            var suplierca1 = from Categories in _context.Categories select Categories;
-            SupplierCategorylist = new SelectList(suplierca1, "CategoryId", "CategoryFor", userobj);
+            
+            var supplierca1 = from Cat in _context.Categories where Cat.CategoryFor == "Supplier" select Cat;
+            SupplierCategorylist = new SelectList(supplierca1, "CategoryName", "CategoryName", userobj);
+            
+            
         }
 
         [BindProperty]
@@ -40,7 +43,10 @@ namespace InfocommSolutionsProject.Pages.Supplier
         public async Task<IActionResult> OnPostAsync()
         {
             sid = Request.Form["SupplierCategory1"].ToString();
-           // SupplierModel.CategoryId = _context.Categories.First(i => i.CategoryFor.ToString() == sid);
+            //System.Diagnostics.Debug.WriteLine($"{sid} adadawdadawdadad");
+            SupplierModel.SupplierCategory = sid;
+
+            //SupplierModel.SupplierCategory = _context.Categories.First(i => i.CategoryFor.ToString() == sid).ToString();
             //if (!ModelState.IsValid || _context.Suppliers == null || SupplierModel == null)
             //  {
             //      return Page();

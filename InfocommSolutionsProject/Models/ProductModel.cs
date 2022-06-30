@@ -9,7 +9,7 @@ namespace InfocommSolutionsProject.Models
         [Required]
         public double Price { get; set; }
         [Required]
-        public string Category { get; set; }
+        public string? Category { get; set; }
         [Required]
         public int Quantity { get; set; }
         [Required]

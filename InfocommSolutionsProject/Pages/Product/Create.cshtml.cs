@@ -26,22 +26,33 @@ namespace InfocommSolutionsProject.Pages.Product
 
         public IActionResult OnGet()
         {
+            PopulateProductCategoryList(_context);
             return Page();
         }
+        
+        public SelectList? ProductCategorylist { get; set; }
 
         [BindProperty]
         public ProductModel Product { get; set; } = default!;
         
         public IFormFile ImageUpload { get; set; }
 
+        public void PopulateProductCategoryList(InfocommSolutionsProjectContext _context, object userobj = null)
+        {
+            bool lol = true;
+            var Productcategoryy = from Cat in _context.Categories where Cat.CategoryFor == "Products" || Cat.CategoryFor == "Product" select Cat;
+            ProductCategorylist = new SelectList(Productcategoryy, "CategoryName", "CategoryName",userobj);
+            foreach (var i in ProductCategorylist) System.Diagnostics.Debug.WriteLine(i.Text.ToString());
 
-        
+        }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             System.Diagnostics.Debug.WriteLine(Product.Name);
-            
+            var pid = Request.Form["Product.Category"].ToString();
+            Product.Category = pid;
             // Add image path to product
             Product.ImagePath = ProcessUploadedFile();
             // Add Date to product
