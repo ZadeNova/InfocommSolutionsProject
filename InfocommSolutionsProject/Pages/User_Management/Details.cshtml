@@ -1,0 +1,152 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.User_Management.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <h1>Details of : @Model.account.Email </h1>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="row">
+        <dt >
+            @Html.DisplayNameFor(model => model.account.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.account.FirstName)
+        </dd>
+         <dt >
+            @Html.DisplayNameFor(model => model.account.LastName)
+        </dt>
+         <dd>
+            @Html.DisplayFor(model => model.account.LastName)
+        </dd>
+         <dt >
+            @Html.DisplayNameFor(model => model.account.Address)
+        </dt>
+         <dd>
+              @{
+                    var address = Model.account.Address;
+                    if (address == null)
+                        address = "No address added";
+                }
+            @Html.DisplayFor(model =>address)
+        </dd>
+         <dt >
+            @Html.DisplayNameFor(model => model.account.PostalCode)
+        </dt>
+        <dd>
+             @{
+                    var postcal = Model.account.PostalCode;
+                    if (postcal == null)
+                        postcal = "No Postcal Code  added";
+                }
+            @Html.DisplayFor(model =>postcal)
+        </dd>
+         <dt >
+            @Html.DisplayNameFor(model => model.account.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.account.Email)
+        </dd>
+         <dt >
+            @Html.DisplayNameFor(model => model.account.EmailConfirmed)
+        </dt>
+         <dd>
+                @{
+                    var emailcfm = Model.account.EmailConfirmed;
+                    var reply = "";
+                    if (emailcfm == false)
+                        reply = "Email yet to be confirm";
+                    else
+                        reply = "Email has been confirmed";
+                }
+            @Html.DisplayFor(model => reply)
+        </dd>
+        
+        <dt >
+            @Html.DisplayNameFor(model => model.account.PhoneNumber)
+        </dt>
+        <dd >
+          @{
+                    var phn = Model.account.PhoneNumber;
+                    var phnreply = "";
+                    if (phn == null)
+                        phnreply = "No Phone Number has been added";
+                }
+            @Html.DisplayFor(model =>phnreply)
+        </dd>
+          <dt >
+            @Html.DisplayNameFor(model => model.account.PhoneNumberConfirmed)
+        </dt>
+        <dd>
+         @{
+                    var phncfm = Model.account.PhoneNumber;
+                    var phncfmreply = "";
+                    if (phncfm == null)
+                        phncfmreply = "Phone Number yet to be comfirm";
+                    else
+                        phncfmreply = "Phone Number has to been comfirmed";
+                }
+            @Html.DisplayFor(model =>phncfmreply)
+        </dd>
+        <dt >
+            @Html.DisplayNameFor(model => model.account.TwoFactorEnabled)
+        </dt>
+         <dd>
+          @{
+                    var twofa = Model.account.TwoFactorEnabled;
+                    var twofareply = "";
+                    if (twofa == false)
+                        twofareply = "2 factor Authentication is Not Enable";
+                    else
+                         twofareply = "2 factor Authentication is Enable";
+                }
+            @Html.DisplayFor(model => twofareply)
+        </dd>
+         <dt >
+            @Html.DisplayNameFor(model => model.account.LockoutEnabled)
+        </dt>
+         <dd>
+                @{
+                    var lckouten = Model.account.LockoutEnabled;
+                    var lckoutenreply = "";
+                    if (lckouten == false)
+                        lckoutenreply = "Lockout is Enable";
+                    else
+                        lckoutenreply = "Lockout is Not Enable";
+                }
+            @Html.DisplayFor(model =>lckoutenreply)
+        </dd>
+          <dt >
+            @Html.DisplayNameFor(model => model.account.LockoutEnd)
+        </dt>
+         <dd>
+          @{
+                    var lckend = Model.account.LockoutEnd;
+                    var lckenrely = "";
+                    if (lckend == null)
+                        lckenrely = "Nill";
+                    else
+                        lckenrely=Model.account.LockoutEnd.ToString();
+                }
+            @Html.DisplayFor(model => lckenrely)
+        </dd>
+       
+        <dt >
+            @Html.DisplayNameFor(model => model.account.AccessFailedCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.account.AccessFailedCount)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.account?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
+</div>
+
+

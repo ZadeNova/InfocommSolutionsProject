@@ -44,7 +44,7 @@ namespace InfocommSolutionsProject.Pages.Category
             }
             if (_context.Categories != null)
             {
-                var pageSize = Configuration.GetValue("PageSize", 10);
+                var pageSize = Configuration.GetValue("PageSize:", 10);
                 categore = await PaginatedList<Categories>.CreateAsync(CateQueryable.AsNoTracking(), pageIndex ?? 1, pageSize);
                 //Categories = await _context.Categories.ToListAsync();
             }

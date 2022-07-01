@@ -45,7 +45,7 @@ namespace InfocommSolutionsProject.Pages.Supplier
             }
             if (_context.Suppliers != null)
             {
-                var pageSize = Configuration.GetValue("PageSize", 10);
+                var pageSize = Configuration.GetValue("PageSize:", 10);
                 suppler = await PaginatedList<SupplierModel>.CreateAsync(SupplierQueryable.AsNoTracking(), pageIndex ?? 1, pageSize);
                 //SupplierModel = await _context.Suppliers.ToListAsync();
             }

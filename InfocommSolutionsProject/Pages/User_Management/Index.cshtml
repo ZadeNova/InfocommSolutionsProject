@@ -1,0 +1,129 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.User_Management.IndexModel
+@{
+    ViewData["Title"] = "Index";
+ 
+}
+
+     <h1>User Management  </h1>
+     
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by  Email :
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.account[0].Email)
+            </th>
+             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TwofaSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                     @Html.DisplayNameFor(model => model.account [0].TwoFactorEnabled)
+                </a>
+              
+            </th>
+             <th>
+                  <a asp-page="./Index" asp-route-sortOrder="@Model.lockouten"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                     @Html.DisplayNameFor(model => model.account [0].LockoutEnabled)
+                </a>
+              
+            </th>
+             <th>
+                   <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                   @Html.DisplayNameFor(model => model.account [0].LockoutEnd)
+                </a>
+               
+            </th>
+             <th>
+                   <a asp-page="./Index" asp-route-sortOrder="@Model.failcount"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                     @Html.DisplayNameFor(model => model.account [0].AccessFailedCount)
+                </a>
+             
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.account) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+             <td>
+                  @{
+                    var twofa =item.TwoFactorEnabled;
+                    var twofareply = "";
+                    if (twofa == false)
+                        twofareply = "No";
+                    else
+                         twofareply = "Yes";
+                }
+                @Html.DisplayFor(modelItem => twofareply)
+            </td>
+             <td>
+               @{
+                    var lcken =item.LockoutEnabled;
+                    var lckenreply = "";
+                    if (lcken == false)
+                        lckenreply = "No";
+                    else
+                         lckenreply = "Yes";
+                }
+                @Html.DisplayFor(modelItem => lckenreply)
+            </td>
+              <td>
+                    @{
+                        var lckenen =item.LockoutEnd;
+                        var lckenenreply = "";
+                        if (lckenen == null)
+                            lckenenreply = "Nill";
+                        else
+                            lckenenreply = item.LockoutEnd.ToString();
+                    }
+                @Html.DisplayFor(modelItem =>lckenenreply)
+            </td>
+              <td>
+
+                @Html.DisplayFor(modelItem => item.AccessFailedCount)
+            </td>
+
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.account.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.account.HasNextPage ? "disabled" : "";
+
+}
+
+<div class="pb-3">
+  <div class="pb-3">
+      <div class="pb-3">
+<a asp-page="./Index" asp-route-pageIndex="@(Model.account.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+Previous    
+</a>
+<a asp-page="./Index" asp-route-pageIndex="@(Model.account.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
+Next    
+</a>
+  </div>
+  </div>
+  </div>

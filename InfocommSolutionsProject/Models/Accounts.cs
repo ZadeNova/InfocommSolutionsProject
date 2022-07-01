@@ -13,18 +13,18 @@ namespace InfocommSolutionsProject.Models
         //public string UserName { get; set; }
 
         [Required]
-        public string FirstName     { get; set; }
+        public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
         //[Required]
         //public string Password { get; set; }
-        
+
         //public string Role { get; set; }
-        //[Required]
-        //public string AccountStatus { get; set; }
+        [Required]
+        public string AccountStatus { get; set; }
 
         public string? Address { get; set; }
-        
+
         public string? PostalCode { get; set; }
         //[Required]
         //public string Email { get; set; }

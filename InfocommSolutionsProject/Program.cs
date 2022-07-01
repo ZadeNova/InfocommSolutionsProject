@@ -69,6 +69,7 @@ services.AddRazorPages(options =>
 {
 
     options.Conventions.AuthorizeFolder("/Supplier", "RequirbothRole");
+    //options.Conventions.AuthorizeFolder("/User_Management", "RequireAdministratorRole");
     options.Conventions.AuthorizeFolder("/SupplierOrders", "RequirbothRole");
     options.Conventions.AuthorizePage("/Product/Delete", "RequireAdministratorRole");
     options.Conventions.AuthorizePage("/Product/Edit", "RequireAdministratorRole");
