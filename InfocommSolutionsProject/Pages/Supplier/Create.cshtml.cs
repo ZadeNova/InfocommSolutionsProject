@@ -42,15 +42,13 @@ namespace InfocommSolutionsProject.Pages.Supplier
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            sid = Request.Form["SupplierCategory1"].ToString();
+            sid = Request.Form["SupplierModel.SupplierCategory"];
             //System.Diagnostics.Debug.WriteLine($"{sid} adadawdadawdadad");
             SupplierModel.SupplierCategory = sid;
-
-            //SupplierModel.SupplierCategory = _context.Categories.First(i => i.CategoryFor.ToString() == sid).ToString();
-            //if (!ModelState.IsValid || _context.Suppliers == null || SupplierModel == null)
-            //  {
-            //      return Page();
-            //  }
+            if (!ModelState.IsValid || _context.Suppliers == null || SupplierModel == null )
+            {
+                return Page();
+            }
 
             _context.Suppliers.Add(SupplierModel);
             await _context.SaveChangesAsync();

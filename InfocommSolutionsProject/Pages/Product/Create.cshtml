@@ -29,7 +29,7 @@
                 <label asp-for="Product.Category" class="control-label"></label>
                 @*<input asp-for="SupplierModel.SupplierCategory" class="form-control" />*@
                  <select asp-for="Product.Category" class="form-control" asp-items="@Model.ProductCategorylist" >
-                     <option value="0">Please select</option>
+                     <option value="">Please select</option>
                 </select>
                 <span asp-validation-for="Product.Category" class="text-danger"></span>
             </div>

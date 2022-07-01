@@ -12,6 +12,8 @@ namespace InfocommSolutionsProject.Models
         [Required]
         [Display(Name = "Supplier Name")]
         public string SupplierName { get; set; }
+
+     
         [Required]
         [Display(Name = "Supplier Category")]
         public string  SupplierCategory { get; set; }

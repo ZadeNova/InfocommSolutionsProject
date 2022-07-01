@@ -109,9 +109,17 @@
     var nextDisabled = !Model.Product.HasNextPage ? "disabled" : "";
 
 }
-<a asp-page="./Index" asp-route-pageIndex="@(Model.Product.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+
+<div class="pb-3">
+  <div class="pb-3">
+      <div class="pb-3">
+              <a asp-page="./Index" asp-route-pageIndex="@(Model.Product.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
 Previous    
 </a>
 <a asp-page="./Index" asp-route-pageIndex="@(Model.Product.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
 Next    
 </a>
+      </div>
+  </div>
+</div>
+
