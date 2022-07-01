@@ -121,7 +121,8 @@
                 }
                 else if (item.AccountStatus == "Activate")
                 {
-                      <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a>
+                       <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a> <a>&#124</a>
+                            <a asp-page="./Ban" asp-route-id="@item.Id">Ban</a>
                 }
                 else if (item.AccountStatus == "Ban")
                 {

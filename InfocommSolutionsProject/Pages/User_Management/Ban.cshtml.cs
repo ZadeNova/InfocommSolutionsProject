@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,12 @@ using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
 namespace InfocommSolutionsProject.Pages.User_Management
 {
-    public class UnBanModel : PageModel
+    public class BanModel : PageModel
     {
+
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
 
-        public UnBanModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context)
+        public BanModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context)
         {
             _context = context;
 
@@ -52,7 +52,7 @@ namespace InfocommSolutionsProject.Pages.User_Management
             if (account1 != null)
             {
                 account = account1;
-                account.AccountStatus = "Activate".ToString();
+                account.AccountStatus = "Ban".ToString();
                 _context.Users.Update(account);
                 await _context.SaveChangesAsync();
             }
