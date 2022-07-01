@@ -5,28 +5,38 @@
     ViewData["Title"] = "Index";
 }
 <div class="container">
-    <h1>Index</h1>
+    <h1>Category</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Category or Description or Category Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Categories[0].CategoryName)
+                @Html.DisplayNameFor(model => model.categore[0].CategoryName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categories[0].Description)
+                @Html.DisplayNameFor(model => model.categore[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categories[0].CategoryFor)
+                @Html.DisplayNameFor(model => model.categore[0].CategoryFor)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Categories) {
+@foreach (var item in Model.categore) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
@@ -46,5 +56,19 @@
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.categore.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.categore.HasNextPage ? "disabled" : "";
+
+}
+
+
+              <a asp-page="./Index" asp-route-pageIndex="@(Model.categore.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+Previous    
+</a>
+<a asp-page="./Index" asp-route-pageIndex="@(Model.categore.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
+Next    
+</a>
+   
 </div>
 

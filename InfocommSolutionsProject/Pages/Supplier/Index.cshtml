@@ -11,20 +11,31 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Supplier Name or Category :
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierModel[0].SupplierName)
+                @Html.DisplayNameFor(model => model.suppler [0].SupplierName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierModel[0].SupplierCategory)
+                @Html.DisplayNameFor(model => model.suppler[0].SupplierCategory)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.SupplierModel) {
+@foreach (var item in Model.suppler) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.SupplierName)
@@ -41,5 +52,19 @@
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.suppler.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.suppler.HasNextPage ? "disabled" : "";
+
+}
+
+
+<a asp-page="./Index" asp-route-pageIndex="@(Model.suppler.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+Previous    
+</a>
+<a asp-page="./Index" asp-route-pageIndex="@(Model.suppler.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
+Next    
+</a>
+  
 
 </div>
