@@ -145,9 +145,6 @@
 		</li>
 		System.Diagnostics.Debug.WriteLine("In User Page now!!!!");
 	}
-
-
-
 	else
 	{
 		<li class="nav-item">
@@ -156,7 +153,6 @@
 		<li class="nav-item">
 			<a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
 		</li>
-		
 	}
 </ul>
 <script>
@@ -165,11 +161,30 @@
         //var theLink = item.firstChild.getAttribute("href");
         if (item.firstChild.getAttribute("href") == location.pathname) {
             item.className = "sidebar-item active";
+			
         }
         else {
             item.className = "sidebar-item";
+			
 		}
 	}
+
+	var dropdown = document.getElementsByClassName("sidebar-link");
+     var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+	
+
 //document.getElementById("hreflist").addEventListener("click", (e) => { 
 //    if (e.target && e.target.matches("li.sidebar-item")) {
 //        e.target.className = "sidebar-item active";
