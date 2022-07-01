@@ -2,7 +2,7 @@
 @model InfocommSolutionsProject.Pages.DashboardModel
 @{
     ViewData["Title"] = "Data Visualisation";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+   
 }
 
 <script type="text/javascript">
@@ -12,15 +12,21 @@
       var speed = 250;
       var values0 = [];
       var values1 = [];
+       var values2 = [];
+         var values3 = [];
       var labels = [];
       var charts = [];
       //var value = 0;
       
       values0.length = samples;
       values1.length = samples;
+       values2.length = samples;
+         values3.length = samples;
       labels.length = samples;
       values0.fill(0);
       values1.fill(0);
+        values2.fill(0);
+          values3.fill(0);
       labels.fill(0);
 
       charts.push(new Chart(document.getElementById("chart0"),
@@ -103,6 +109,88 @@
               ]
             }
           }
+        }),
+        new Chart(document.getElementById("chart2"),
+        {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                data: values2,
+                backgroundColor: 'rgba(71, 148, 254, 0.1)',
+                borderColor: 'rgb(71, 148, 254)',
+                borderWidth: 2,
+                lineTension: 0.25,
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: false,
+            animation: {
+              duration: speed * 1.5,
+              easing: 'linear'
+            },
+            legend: false,
+            scales: {
+              xAxes: [
+                {
+                  display: false
+                  
+                }
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    max: 80,
+                    min: 20
+                  }
+                }
+              ]
+            }
+          }
+        }),
+        new Chart(document.getElementById("chart3"),
+        {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                data: values3,
+                backgroundColor: 'rgba(71, 148, 254, 0.1)',
+                borderColor: 'rgb(71, 148, 254)',
+                borderWidth: 2,
+                lineTension: 0.25,
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: false,
+            animation: {
+              duration: speed * 1.5,
+              easing: 'linear'
+            },
+            legend: false,
+            scales: {
+              xAxes: [
+                {
+                  display: false
+                  
+                }
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    max: 80,
+                    min: 20
+                  }
+                }
+              ]
+            }
+          }
         }));
       
       var connection = new signalR.HubConnectionBuilder().withUrl("/sensor").build();
@@ -121,6 +209,16 @@
           values1.push(TheData["humidity"]);
           values1.shift();
           charts[1].update();
+          
+          //hj added chart 2 , 3 
+
+          values2.push(TheData["lightValue"]);
+          values2.shift();
+          charts[2].update();
+
+          values3.push(TheData["moisture"]);
+          values3.shift();
+          charts[3].update();
         });
        
       connection.start();
@@ -132,3 +230,7 @@
 <canvas id="chart0" style="width:512px;height:320px"></canvas>
 <h2>Humidity</h2>
 <canvas id="chart1" style="width:512px;height:320px"></canvas>
+<h2>lightValue</h2>
+<canvas id="chart2" style="width:512px;height:320px"></canvas>
+<h2>moisture</h2>
+<canvas id="chart3" style="width:512px;height:320px"></canvas>
