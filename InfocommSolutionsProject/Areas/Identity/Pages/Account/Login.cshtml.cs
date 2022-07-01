@@ -137,24 +137,38 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                     //System.Diagnostics.Debug.WriteLine($"Is it true:{User.IsInRole("Admin")}");
                     
                     var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user.AccountStatus == "Activate")
+                    {
+                        System.Diagnostics.Debug.WriteLine($"{user.FirstName} {user.Email} {user.LastName}");
+                        var roles = await _userManager.GetRolesAsync(user);
+                        //foreach (var i in roles) System.Diagnostics.Debug.WriteLine(i);
+
+                        // check for roles
+                        if (roles.Contains("Admin"))
+                        {
+                            System.Diagnostics.Debug.WriteLine("Hi there admin!");
+                            _logger.LogInformation("Admin logged in.");
+                            return Redirect("~/AdminHomePage");
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Hello there User");
+                            _logger.LogInformation("User logged in.");
+                            return LocalRedirect(returnUrl);
+                        }
+                    }
+                    else if (user.AccountStatus == "Deactivated") {
+                        ModelState.AddModelError(String.Empty, "Your Account has been Deactivated , kindly contact the customer support ! thank you ");
+                        await _signInManager.SignOutAsync();
+                        return Page();
+                    }
+                    else {
+                        ModelState.AddModelError(String.Empty, "Your Account has been Ban , kindly contact the customer support ! thank you ");
+                        await _signInManager.SignOutAsync();
+                        return Page();
+                    }
                    
-                    System.Diagnostics.Debug.WriteLine($"{user.FirstName} {user.Email} {user.LastName}");
-                    var roles = await _userManager.GetRolesAsync(user);
-                    //foreach (var i in roles) System.Diagnostics.Debug.WriteLine(i);
                     
-                    // check for roles
-                    if (roles.Contains("Admin"))
-                    {
-                        System.Diagnostics.Debug.WriteLine("Hi there admin!");
-                        _logger.LogInformation("Admin logged in.");
-                        return Redirect("~/AdminHomePage");
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("Hello there User");
-                        _logger.LogInformation("User logged in.");
-                        return LocalRedirect(returnUrl);
-                    }
 
 
                     //if (User.IsInRole("Admin"))
@@ -179,6 +193,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
+
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");

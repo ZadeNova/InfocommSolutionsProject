@@ -32,6 +32,7 @@ namespace InfocommSolutionsProject.Pages.User_Management
         public string TwofaSort { get; set; }
         public string DateSort { get; set; }
         public string failcount { get; set; }
+        public string accstatus { get; set; }
         public string lockouten { get; set; }
 
         public async Task OnGetAsync(string searchString, int? pageIndex, string sortOrder, string currentFilter)
@@ -40,6 +41,7 @@ namespace InfocommSolutionsProject.Pages.User_Management
             TwofaSort = String.IsNullOrEmpty(sortOrder) ? "two_fa" : "";
             failcount = String.IsNullOrEmpty(sortOrder) ? "fail_count" : "";
             lockouten = String.IsNullOrEmpty(sortOrder) ? "lockout_en" : "";
+            accstatus = String.IsNullOrEmpty(sortOrder) ? "acc_status" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
 
             if (searchString != null)
@@ -62,6 +64,9 @@ namespace InfocommSolutionsProject.Pages.User_Management
                     break;
                 case "fail_count":
                     accountQueryable = accountQueryable.OrderByDescending(p => p.AccessFailedCount);
+                    break;
+                case "acc_status":
+                    accountQueryable = accountQueryable.OrderByDescending(p => p.AccountStatus);
                     break;
                 case "lockout_en":
                     accountQueryable = accountQueryable.OrderByDescending(p => p.LockoutEnabled);
@@ -86,6 +91,7 @@ namespace InfocommSolutionsProject.Pages.User_Management
                 var pageSize = Configuration.GetValue("PageSize:", 10);
                 account = await PaginatedList<Accounts>.CreateAsync(accountQueryable.AsNoTracking(), pageIndex ?? 1, pageSize);
                 //SupplierModel = await _context.Suppliers.ToListAsync();
+                
             }
         }
     }

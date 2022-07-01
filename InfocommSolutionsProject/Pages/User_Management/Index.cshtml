@@ -52,6 +52,13 @@
                 </a>
              
             </th>
+              <th>
+                   <a asp-page="./Index" asp-route-sortOrder="@Model.accstatus"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                     @Html.DisplayNameFor(model => model.account [0].AccountStatus)
+                </a>
+             
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -95,15 +102,33 @@
                     }
                 @Html.DisplayFor(modelItem =>lckenenreply)
             </td>
-              <td>
+             <td>
 
                 @Html.DisplayFor(modelItem => item.AccessFailedCount)
+            </td>
+             <td>
+
+                @Html.DisplayFor(modelItem => item.AccountStatus)
             </td>
 
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                @{
+                    if (item.AccountStatus == "Deactivate")
+                {
+                    <a asp-page="./Activate" asp-route-id="@item.Id">Activate</a>
+                }
+                else if (item.AccountStatus == "Activate")
+                {
+                      <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a>
+                }
+                else if (item.AccountStatus == "Ban")
+                {
+                      <a asp-page="./UnBan" asp-route-id="@item.Id">Un Ban</a>
+                }
+                }
+              
             </td>
         </tr>
 }

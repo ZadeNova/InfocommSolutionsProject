@@ -147,7 +147,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 //user.UserName = Input.Username;
                 user.CreatedAt = DateTime.Now;
-                user.AccountStatus = "Active";
+                user.AccountStatus = "Activate";
                 //user.Address = "Singapore";
                 //user.PostalCode = "123456";
                 
