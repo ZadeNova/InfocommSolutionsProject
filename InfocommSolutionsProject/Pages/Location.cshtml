@@ -1,0 +1,25 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.LocationModel
+@{
+    ViewData["Title"] = "Map Location";
+
+}
+<h1>Our Location</h1>
+<br />
+<hr />
+<div class="row">
+    
+        <div id="map" style="height: 800px; width:800px;">
+            <script>
+                var map;
+        function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 1.3800, lng: 103.8489 },
+        zoom: 8
+    });
+}
+            </script>
+              <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+        </div>
+    
+</div>
