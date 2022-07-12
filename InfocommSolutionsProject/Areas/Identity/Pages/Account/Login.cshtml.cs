@@ -114,7 +114,14 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
-        } 
+        }
+        //public IActionResult Externallogin(string provider, string returnUrl) {
+        //    var redirectUrl = Url.Action("ExternalLoginCallback", "Account",
+        //               new { ReturnUrl = returnUrl });
+        //    var properties = _signInManager
+        //        .ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+        //    return new ChallengeResult(provider, properties);
+        //}
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {

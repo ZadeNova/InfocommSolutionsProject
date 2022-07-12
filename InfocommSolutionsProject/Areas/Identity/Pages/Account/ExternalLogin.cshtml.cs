@@ -97,6 +97,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             System.Diagnostics.Debug.WriteLine("provider"+provider);
             System.Diagnostics.Debug.WriteLine("redirectUrl" + redirectUrl);
             return new ChallengeResult(provider, properties);
+
         }
 
         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)

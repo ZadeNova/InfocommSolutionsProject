@@ -4,12 +4,13 @@
 @using AspNetCore.ReCaptcha
 @{
     ViewData["Title"] = "Log in";
+  
 }
-<link rel="stylesheet" href="~/css/AdminCss/glowingbutton.css">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="~/css/glowingbutton.css">
 <h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">
@@ -44,6 +45,7 @@
                     <button id="login-submit" type="submit" class="glow-on-hover">Log in</button>
                 </div>
             </form>
+         
               @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
@@ -56,22 +58,22 @@
                 }
                 else
                 {
-                               <form id="external-account" asp-page="./ExternalLogin"  asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                <div>
-                                    <p>
-                                        @foreach (var provider in Model.ExternalLogins)
-                                {
-                                            <div>
-                                            </div>
-                                            <button type="submit" class="glow-on-hover" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName Login</button>
+                      <form id="external-account" asp-page="./ExternalLogin"  asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                    <div>
+                                        <p>
+                                            @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                                <div>
+                                                </div>
+                                                <button type="submit" class="glow-on-hover" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName Login</button>
                                     }
-                                    </p>
-                                </div>
-                            </form>
+                                        </p>
+                                    </div>
+                      </form>
                 }
                 }
                  
-                    <div>
+                    <div >
                         <p>
                             <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                         </p>
@@ -82,8 +84,9 @@
                             <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                         </p>
                     </div>
-            </section>
-        </div>
+        </section>
+    </div>
+
        @* <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to log in.</h3>
@@ -114,7 +117,7 @@
             }
         </section>
     </div>*@
-    </div>
+ </div>
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />

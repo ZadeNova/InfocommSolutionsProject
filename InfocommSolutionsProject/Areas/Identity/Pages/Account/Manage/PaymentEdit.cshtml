@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PaymentModel.DateOfExpiry" class="control-label"></label>
-                <input asp-for="PaymentModel.DateOfExpiry" class="form-control" />
+                <input asp-for="PaymentModel.DateOfExpiry" class="form-control" id="startDate"/>
                 <span asp-validation-for="PaymentModel.DateOfExpiry" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -42,4 +42,19 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+        //js below disable pass date
+        function addZero(n) {
+            return parseInt(n) >= 10 ? n.toString() : '0' + n;
+        }
+        let dateNow = new Date(),
+            yearNow = dateNow.getFullYear(),
+            monthNow = dateNow.getMonth()+1,
+            dayNow = dateNow.getDate(),
+            maxDate = addZero(yearNow) + '-' + addZero(monthNow) + '-' + addZero(dayNow);
+        let inp = document.querySelector('#startDate');
+      
+        inp.setAttribute('min', maxDate);
+       
+    </script>
 }

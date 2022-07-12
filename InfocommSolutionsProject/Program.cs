@@ -40,6 +40,8 @@ services.AddAuthentication()
     .AddGoogle(GoogleOptions => {
         GoogleOptions.ClientId = configuration["Google:ClientId"];
         GoogleOptions.ClientSecret = configuration["Google:ClientSecret"];
+       GoogleOptions.CallbackPath = new PathString("/signin-google");
+        //GoogleOptions.SignInScheme = IdentityConstants.ExternalScheme;
 
     });
 services.AddAuthorization(options =>
