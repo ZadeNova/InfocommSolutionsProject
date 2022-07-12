@@ -55,6 +55,10 @@
                         <use xlink:href="#real-estate-1"> </use>
                       </svg><span >Home </span></a>
               </li>
+              <li class="sidebar-item">
+                  <a class="sidebar-link" asp-page="/IOTDashboard"> 
+                  <i class="fa-solid fa-microchip"></i><span>&nbsp; &nbsp; &nbsp;IOT Dashboard</span></a>
+              </li>
               <li class="sidebar-item"><a class="sidebar-link" asp-page="/Table"> 
                       <svg class="svg-icon svg-icon-sm svg-icon-heavy">
                         <use xlink:href="#portfolio-grid-1"> </use>
@@ -165,6 +169,7 @@
 	var CollectionsNav = document.getElementsByClassName("sidebar-item")
 	for (let item of CollectionsNav) {
         //var theLink = item.firstChild.getAttribute("href");
+        
         if (item.firstChild.getAttribute("href") == location.pathname) {
             item.className = "sidebar-item active";
 			
@@ -173,6 +178,7 @@
             item.className = "sidebar-item";
 			
 		}
+        
 	}
 
 	var dropdown = document.getElementsByClassName("sidebar-link");
