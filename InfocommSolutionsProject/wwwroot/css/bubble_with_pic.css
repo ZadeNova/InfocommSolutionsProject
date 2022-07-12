@@ -1,0 +1,75 @@
+﻿
+h3 {
+    text-align: center;
+    font-family: "Tillana", sans-serif;
+    // yes, comic sans font-weight: 700;
+    font-size: 30pt;
+    color: black;
+}
+
+.bubble-wrap {
+    position: fixed;
+    bottom: -13em;
+    padding: 3em;
+}
+
+.bubble {
+    border-radius: 5em;
+    box-shadow: 1px 1px 7px hsla(0, 0, 80%, 0.7);
+    height: 8em;
+    width: 8em;
+    cursor: pointer;
+}
+
+    .bubble.hidden {
+        visibility: 0;
+    }
+
+.explosion {
+    color: white;
+    position: fixed;
+    transform-origin: center;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 20pt;
+}
+
+.bubble-modal-bg {
+    background-color: #000;
+    opacity: .65;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+.split {
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+
+.right {
+    right: 100px;
+}
+.bubble-modal {
+    visibility: hidden;
+    z-index: 2;
+    position: relative;
+    width: 90vw;
+    margin: 0 auto;
+}
+
+    .bubble-modal.active {
+        visibility: visible;
+    }
+
+
+

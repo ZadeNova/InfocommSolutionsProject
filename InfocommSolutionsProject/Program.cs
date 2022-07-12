@@ -31,23 +31,19 @@ services.AddDbContext<InfocommSolutionsProjectContext>(options =>
 services.AddTransient<IEmailSender, EmailSender>();
 // end 
 services.AddDefaultIdentity<Accounts>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<InfocommSolutionsProjectContext>(); 
+    .AddEntityFrameworkStores<InfocommSolutionsProjectContext>();
 
 services.AddScoped<IUserClaimsPrincipalFactory<Accounts>, UserClaimsPrincipalFactory<Accounts, IdentityRole>>();
 
 services.AddReCaptcha(configuration.GetSection("ReCaptcha"));
 services.AddAuthentication()
     .AddGoogle(GoogleOptions => {
-        IConfigurationSection googleAuthNSection =
-          configuration.GetSection
-          ("Authentication:Google");
         GoogleOptions.ClientId = configuration["Google:ClientId"];
         GoogleOptions.ClientSecret = configuration["Google:ClientSecret"];
-       GoogleOptions.CallbackPath = new PathString("/signin-google");
+        GoogleOptions.CallbackPath = new PathString("/signin-google");
         //GoogleOptions.SignInScheme = IdentityConstants.ExternalScheme;
 
     });
-
 services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdministratorRole",

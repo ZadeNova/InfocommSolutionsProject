@@ -19,6 +19,7 @@ using InfocommSolutionsProject.Models;
 using System.Security.Claims;
 using AspNetCore.ReCaptcha;
 using InfocommSolutionsProject.Data;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
@@ -107,10 +108,11 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             }
 
             returnUrl ??= Url.Content("~/");
-
+              
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
+            var accessToken = await HttpContext.GetTokenAsync(
+            GoogleDefaults.AuthenticationScheme, "access_token");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
