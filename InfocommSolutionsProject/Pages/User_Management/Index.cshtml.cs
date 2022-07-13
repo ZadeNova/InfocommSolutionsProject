@@ -38,14 +38,15 @@ namespace InfocommSolutionsProject.Pages.User_Management
         public string failcount { get; set; }
         public string accstatus { get; set; }
         public string lockouten { get; set; }
+
+        //user decide how many item to show //
         public string  currentPagesort { get; set; }
-        //public string Userpageint { get; set; }
         public string five { get; set; }
         public string ten { get; set; }
         public string fivete { get; set; }
         public string hun { get; set; }
 
-        // public List<SelectListItem> UserSetItemPerPage { get; set; }
+     
         public async Task OnGetAsync(string searchString, int? pageIndex, string sortOrder, string currentFilter ,string sortOrder1, int currentFilter1)
         {
             
@@ -127,7 +128,7 @@ namespace InfocommSolutionsProject.Pages.User_Management
             }
             if (_userManager.Users != null)
             {
-                System.Diagnostics.Debug.WriteLine(currentPagesort, "dadad");
+              
                 if (Convert.ToInt32(currentPagesort) == 0)
                 {
                     // the line below is to check for value inside SessionKeyName which my keyname is on this page line 17 //
