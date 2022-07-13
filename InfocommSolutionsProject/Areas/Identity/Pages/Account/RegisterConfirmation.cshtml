@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Register confirmation";
 }
-
+<link rel="stylesheet" href="~/css/SendingEmailAnim.css" />
 <h1>@ViewData["Title"]</h1>
 @{
     if (@Model.DisplayConfirmAccountLink)
@@ -15,9 +15,24 @@
     }
     else
     {
-<p>
-        Please check your email to confirm your account.
-</p>
+      
+  <div class="animation">
+    <div class="i-mail">
+      <div class="mail-anim"></div>
+    </div>
+    <div class="line"></div>
+    <div class="i-success">
+      <div class="success-anim"></div>
+    </div>
+  </div>
+  <div class="message">
+    Your message has been sent successfully
+  </div>
+
+
+//<p> 
+//        Please check your email to confirm your account.
+//</p>
     }
 }
 
