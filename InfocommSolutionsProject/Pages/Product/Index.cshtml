@@ -94,9 +94,11 @@
 {
             <td>
               
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Edit Item"><i class="fa-solid fa-pen-clip"></i></button></a> |
+                <a asp-page="./Details" asp-route-id="@item.Id"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Information about Product"><i class="fa-solid fa-circle-info"></i></button></a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete Product"><i class="fa-solid fa-trash"></i></button></a>
+                
+                @*<a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>*@
             </td>
 }
         </tr>

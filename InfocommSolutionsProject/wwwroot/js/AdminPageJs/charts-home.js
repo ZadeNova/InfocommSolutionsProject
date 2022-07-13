@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
         legendState = false;
     }
 
+    
+
     const LINECHART = document.getElementById("lineChart");
     var homeLineChart = new Chart(LINECHART, {
         type: "line",
