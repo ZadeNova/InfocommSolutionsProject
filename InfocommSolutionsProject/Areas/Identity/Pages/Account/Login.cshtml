@@ -18,6 +18,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -30,13 +31,18 @@
 <link rel="stylesheet" href="~/css/AdminCss/custom.css">
 <!-- Favicon-->
 <link rel="shortcut icon" href="img/favicon.ico">
-    
+
 <link rel="stylesheet" href="~/css/glowingbutton.css">
 
 
   </head>
+
 @*<h1>@ViewData["Title"]</h1>*@
- <body>
+@*background="~/Images/wallpaperflare.com_wallpaper.jpg"*@
+ <body background="https://images.unsplash.com/photo-1470087167738-6aa485ff65dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80" >
+
+
+
     <div class="login-page">
       <div class="container d-flex align-items-center position-relative py-5">
         <div class="card shadow-sm w-100 rounded overflow-hidden bg-none">
@@ -52,7 +58,7 @@
                 </div>
               </div>
                             <!-- Form Panel    -->
-              <div class="col-lg-6 bg-white">
+              <div class="col-lg-6">
                <div class="d-flex align-items-center px-4 px-lg-5 h-100 bg-dash-dark-2">
                <section>
             <form id="account" method="post"  class="login-form py-5 w-100" >
@@ -94,18 +100,18 @@
                 }
                 else
                 {
-                          <form id="external-account" asp-page="./ExternalLogin"  asp-route-returnUrl="@Model.ReturnUrl" method="post" >
-                                   
-                                            <p>
-                                                @foreach (var provider in Model.ExternalLogins)
+                              <form id="external-account" asp-page="./ExternalLogin"  asp-route-returnUrl="@Model.ReturnUrl" method="post" >
+                                       
+                                                <p>
+                                                    @foreach (var provider in Model.ExternalLogins)
                                     {
-                                                    <div>
-                                                    </div>
-                                                    <button type="submit" class="glow-on-hover" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName Login</button>
+                                                        <div>
+                                                        </div>
+                                                        <button type="submit" class="glow-on-hover" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName Login</button>
                                     }
-                                            </p>
-                                     
-                          </form>
+                                                </p>
+                                         
+                              </form>
                 }
                 }
                     <div>
