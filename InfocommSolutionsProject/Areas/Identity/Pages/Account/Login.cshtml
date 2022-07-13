@@ -9,17 +9,128 @@
     System.Diagnostics.Debug.WriteLine($"{Layout} this is the layout");
 }
 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dark Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="~/css/AdminCss/choices.min.css" >
+<!-- Google fonts - Muli-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+<!-- theme stylesheet-->
+<link rel="stylesheet" href="~/css/AdminCss/style.default.css" id="theme-stylesheet">
+<!-- Custom stylesheet - for your changes-->
+<link rel="stylesheet" href="~/css/AdminCss/custom.css">
+<!-- Favicon-->
+<link rel="shortcut icon" href="img/favicon.ico">
+    
 <link rel="stylesheet" href="~/css/glowingbutton.css">
 
 
-
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
+  </head>
+@*<h1>@ViewData["Title"]</h1>*@
+ <body>
+    <div class="login-page">
+      <div class="container d-flex align-items-center position-relative py-5">
+        <div class="card shadow-sm w-100 rounded overflow-hidden bg-none">
+          <div class="card-body p-0">
+            <div class="row gx-0 align-items-stretch">
+              <!-- Logo & Information Panel-->
+              <div class="col-lg-6">
+                <div class="info d-flex justify-content-center flex-column p-4 h-100">
+                  <div class="py-5">
+                    <h1 class="display-6 fw-bold">@ViewData["Title"]</h1>
+                    <p class="fw-light mb-0">Use a local account to log in.</p>
+                  </div>
+                </div>
+              </div>
+                            <!-- Form Panel    -->
+              <div class="col-lg-6 bg-white">
+               <div class="d-flex align-items-center px-4 px-lg-5 h-100 bg-dash-dark-2">
+               <section>
+            <form id="account" method="post"  class="login-form py-5 w-100" >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="input-material-group mb-3">
+                    <input asp-for="Input.Email" class="input-material" id="login-username"autocomplete="username" aria-required="true"/>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <label asp-for="Input.Email" class="label-material"></label>
+                </div>
+                <div class="input-material-group mb-4">
+                    <input asp-for="Input.Password"  id="txtPassword" class="input-material"  n autocomplete="current-password" aria-required="true"/> <span id="showPass" style="color:white;" class="fa fa-fw fa-eye field_icon"></span>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <label asp-for="Input.Password" class="label-material"></label>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label" style="color:white;">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                    
+                    @Html.ReCaptcha()
+            <recaptcha />
+                </div>
+             
+                    <button id="login-submit" type="submit" class="glow-on-hover">Log in</button>
+              
+            </form>
+              @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    //<div>
+                    //    <p>
+                    //        There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                    //        about setting up this ASP.NET application to support logging in via external services</a>.
+                    //    </p>
+                    //</div>
+                }
+                else
+                {
+                          <form id="external-account" asp-page="./ExternalLogin"  asp-route-returnUrl="@Model.ReturnUrl" method="post" >
+                                   
+                                            <p>
+                                                @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                                    <div>
+                                                    </div>
+                                                    <button type="submit" class="glow-on-hover" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName Login</button>
+                                    }
+                                            </p>
+                                     
+                          </form>
+                }
+                }
+                    <div>
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                        <p>
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        </p>
+                    </div>
+        </section>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+@*<div class="row">
+    <div class="col-md-4">*@
+       @* <section>
             <form id="account" method="post">
                 <h2>Use a local account to log in.</h2>
                 <hr />
@@ -90,9 +201,9 @@
                             <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                         </p>
                     </div>
-        </section>
-    </div>
-
+        </section>*@
+@*    </div>
+*@
     
 
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
@@ -146,12 +257,24 @@
                 }
             }
         </section>
-    </div>*@
- </div>
+    </div>
+</div>*@
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
     }
+     <script src="~/js/AdminPageJs/choices.min.js"></script>
+    <script src="~/js/AdminPageJs/charts-home.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+ 
+   <script src="~/lib/just-validate.min.js"></script>
+
+
+
+    <!-- Main File-->
+
+    <script src="~/js/AdminPageJs/front.js"></script>
     <script type="text/javascript">  
         $(document).ready(function () {  
             $('#showPass').hover(function show() {  
@@ -169,4 +292,34 @@
             //    $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');  
             //});  
         });  
+      
     </script>  
+    <script>
+      // ------------------------------------------------------- //
+      //   Inject SVG Sprite - 
+      //   see more here 
+      //   https://css-tricks.com/ajaxing-svg-sprite/
+      // ------------------------------------------------------ //
+      function injectSvgSprite(path) {
+      
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", path, true);
+          ajax.send();
+          ajax.onload = function(e) {
+          var div = document.createElement("div");
+          div.className = 'd-none';
+          div.innerHTML = ajax.responseText;
+          document.body.insertBefore(div, document.body.childNodes[0]);
+          }
+      }
+      // this is set to BootstrapTemple website as you cannot 
+      // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+      // while using file:// protocol
+      // pls don't forget to change to your domain :)
+      injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+      
+      
+    </script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</body>
+</html>

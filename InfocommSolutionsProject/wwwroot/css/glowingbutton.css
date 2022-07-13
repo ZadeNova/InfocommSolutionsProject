@@ -1,5 +1,5 @@
 ﻿.glow-on-hover {
-    width: 300px;
+    width: 120px;
     height: 50px;
     border: none;
     outline: none;
@@ -29,7 +29,7 @@
     }
 
     .glow-on-hover:active {
-        color: #000
+        color: #FFC0CB
     }
 
         .glow-on-hover:active:after {

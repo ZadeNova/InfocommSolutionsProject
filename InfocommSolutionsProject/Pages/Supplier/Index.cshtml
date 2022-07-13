@@ -1,6 +1,6 @@
 ﻿@page
 @model InfocommSolutionsProject.Pages.Supplier.IndexModel
-
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Index";
  
@@ -57,7 +57,55 @@
     var nextDisabled = !Model.suppler.HasNextPage ? "disabled" : "";
 
 }
+ @*this one is the droplist when user choose any option it will redict to that pages base on the option value  *@
+<form method="get" >
+            <div class="col-3 pr-0">
+               <label >Items per page</label> 
+               <select onchange="location=this.value">
+            @{
 
+              
+                if (Convert.ToInt32(@HttpContext.Session.GetString("_usersetsupplier")) == 5)
+                {
+                    <option value="http://localhost:5141/Supplier?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/Supplier?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_usersetsupplier")) == 10)
+                {
+                    <option >10</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/Supplier?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_usersetsupplier")) == 50)
+                {
+                    <option value="http://localhost:5141/Supplier?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/Supplier?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_usersetsupplier")) == 100)
+                {
+                    <option value="http://localhost:5141/Supplier?sortOrder1=hun">100</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/Supplier?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=fivete">50</option>
+                }
+                else
+                {
+                    //@HttpContext.Session.GetString("_Name")
+                    <option >Default : 10</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/Supplier?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/Supplier?sortOrder1=hun">100</option>
+                }
+            }
+               </select>
+            </div> 
+</form>
 
 <a asp-page="./Index" asp-route-pageIndex="@(Model.suppler.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
 Previous    

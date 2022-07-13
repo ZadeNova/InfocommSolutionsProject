@@ -1,5 +1,6 @@
 ﻿@page
 @model InfocommSolutionsProject.Pages.User_Management.IndexModel
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Index";
  
@@ -117,16 +118,16 @@
                 @{
                     if (item.AccountStatus == "Deactivate")
                 {
-                                        <a asp-page="./Activate" asp-route-id="@item.Id">Activate</a>
+                                            <a asp-page="./Activate" asp-route-id="@item.Id">Activate</a>
                 }
                 else if (item.AccountStatus == "Activate")
                 {
-                                           <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a> <a>&#124</a>
-                                                <a asp-page="./Ban" asp-route-id="@item.Id">Ban</a>
+                                               <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a> <a>&#124</a>
+                                                    <a asp-page="./Ban" asp-route-id="@item.Id">Ban</a>
                 }
                 else if (item.AccountStatus == "Ban")
                 {
-                                          <a asp-page="./UnBan" asp-route-id="@item.Id">Un Ban</a>
+                                              <a asp-page="./UnBan" asp-route-id="@item.Id">Un Ban</a>
                 }
                 }
               
@@ -145,11 +146,47 @@
             <div class="col-3 pr-0">
                <label >Items per page</label> 
                <select onchange="location=this.value">
-                       <option >Select to decide number of item per page</option>
-                       <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
-                       <option value="http://localhost:5141/User_Management?sortOrder1=ten">10</option>
-                       <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
-                       <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+            @{
+
+              
+                if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 5)
+                {
+                    <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/User_Management?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 10)
+                {
+                    <option >10</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 50)
+                {
+                    <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/User_Management?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 100)
+                {
+                    <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/User_Management?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
+                }
+                else
+                {
+                    //@HttpContext.Session.GetString("_Name")
+                    <option >Default : 10</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
+                    <option value="http://localhost:5141/User_Management?sortOrder1=ten">10</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
+                    <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+                }
+            }
                </select>
             </div> 
 </form>
