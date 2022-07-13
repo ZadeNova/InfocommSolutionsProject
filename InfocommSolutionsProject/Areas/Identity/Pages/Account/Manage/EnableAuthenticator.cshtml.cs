@@ -146,6 +146,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
         private async Task LoadSharedKeyAndQrCodeUriAsync(Accounts user)
         {
             // Load the authenticator key & QR code URI to display on the form
+
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
             if (string.IsNullOrEmpty(unformattedKey))
             {
@@ -178,12 +179,14 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
 
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
-            return string.Format(
-                CultureInfo.InvariantCulture,
-                AuthenticatorUriFormat,
-                _urlEncoder.Encode("Microsoft.AspNetCore.Identity.UI"),
-                _urlEncoder.Encode(email),
-                unformattedKey);
+            return string.Format(AuthenticatorUriFormat, _urlEncoder.Encode("YR3 Project on Razor Pages"),
+       _urlEncoder.Encode(email), unformattedKey);
+            //return string.Format(
+            //    CultureInfo.InvariantCulture,
+            //    AuthenticatorUriFormat,
+            //    _urlEncoder.Encode("Microsoft.AspNetCore.Identity.UI"),
+            //    _urlEncoder.Encode(email),
+            //    unformattedKey);
         }
     }
 }

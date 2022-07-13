@@ -23,8 +23,8 @@
         <li>
             <p>Scan the QR Code or enter this key <kbd>@Model.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
            
-            <div id="qrCode"></div>
-            <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>
+           <div id="qrCode"></div>
+          @*  <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>*@
         </li>
         <li>
             <p>
@@ -47,13 +47,28 @@
         </li>
     </ol>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    asp-fallback-src="~/lib/qrcode/qrcode.min.js"
+    asp-fallback-test="window.QRCode"
+    integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+    crossorigin="anonymous">
+</script>
+<script>
+    new QRCode(document.getElementById("qrCode"),
+        {
+            text: "@Html.Raw(Model.AuthenticatorUri)",
+            width: 200,
+            height: 200
+        });
+</script>
 @*@section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }*@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script>
+     <script type="text/javascript" src="~/lib/qrcode.js"></script>
+    <script type="text/javascript" src="~/js/qr.js"></script>
+    @*<script>
     $(()=>{
         var qrcode = new QRCode(document.getElementById("qrCode"), {
             text: "@Html.Raw(Model.AuthenticatorUri)",
@@ -64,6 +79,6 @@
             correctLevel : QRCode.CorrectLevel.H
         });
     })
-    </script>
+    </script>*@
   
 }

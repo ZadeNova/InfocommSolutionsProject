@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [],
+
+  "destination": "wwwroot/lib/qrcode/",
+  "files": [
+    "qrcode.js",
+    "qrcode.min.js"
+  ],
+  "library": "qrcodejs@1.0.0"
+}

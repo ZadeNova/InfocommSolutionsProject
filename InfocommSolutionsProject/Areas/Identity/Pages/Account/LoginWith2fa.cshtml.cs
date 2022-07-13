@@ -112,11 +112,20 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, Input.RememberMachine);
 
             var userId = await _userManager.GetUserIdAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
-                return LocalRedirect(returnUrl);
+                if (roles.Contains("Admin"))
+                {
+                    _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                    return Redirect("~/AdminHomePage");
+                }
+                else { 
+                    _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                    return LocalRedirect(returnUrl);
+                }
+              
             }
             else if (result.IsLockedOut)
             {
