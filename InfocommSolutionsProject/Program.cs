@@ -58,6 +58,15 @@ services.AddAuthorization(options =>
 
 });
 
+builder.Services.AddDistributedMemoryCache();
+
+//allow session with soem options //
+builder.Services.AddSession(options =>
+{
+    //options.IdleTimeout = TimeSpan.FromSeconds(10);
+    //options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Lockout settings.
@@ -126,6 +135,8 @@ app.UseRouting();
 app.UseCors("Everything");
 app.UseAuthentication();
 app.UseAuthorization();
+//ofc usesession means use session //
+app.UseSession();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<IotSensorWeb.Hubs.SensorHub>("/sensor");

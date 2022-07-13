@@ -117,16 +117,16 @@
                 @{
                     if (item.AccountStatus == "Deactivate")
                 {
-                    <a asp-page="./Activate" asp-route-id="@item.Id">Activate</a>
+                                        <a asp-page="./Activate" asp-route-id="@item.Id">Activate</a>
                 }
                 else if (item.AccountStatus == "Activate")
                 {
-                       <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a> <a>&#124</a>
-                            <a asp-page="./Ban" asp-route-id="@item.Id">Ban</a>
+                                           <a asp-page="./Deactivate" asp-route-id="@item.Id">Deactivate</a> <a>&#124</a>
+                                                <a asp-page="./Ban" asp-route-id="@item.Id">Ban</a>
                 }
                 else if (item.AccountStatus == "Ban")
                 {
-                      <a asp-page="./UnBan" asp-route-id="@item.Id">Un Ban</a>
+                                          <a asp-page="./UnBan" asp-route-id="@item.Id">Un Ban</a>
                 }
                 }
               
@@ -140,6 +140,19 @@
     var nextDisabled = !Model.account.HasNextPage ? "disabled" : "";
 
 }
+ @*this one is the droplist when user choose any option it will redict to that pages base on the option value  *@
+<form method="get" >
+            <div class="col-3 pr-0">
+               <label >Items per page</label> 
+               <select onchange="location=this.value">
+                       <option >Select to decide number of item per page</option>
+                       <option value="http://localhost:5141/User_Management?sortOrder1=five">5</option >
+                       <option value="http://localhost:5141/User_Management?sortOrder1=ten">10</option>
+                       <option value="http://localhost:5141/User_Management?sortOrder1=fivete">50</option>
+                       <option value="http://localhost:5141/User_Management?sortOrder1=hun">100</option>
+               </select>
+            </div> 
+</form>
 
 <div class="pb-3">
   <div class="pb-3">
@@ -153,3 +166,4 @@ Next
   </div>
   </div>
   </div>
+
