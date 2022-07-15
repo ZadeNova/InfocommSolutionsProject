@@ -87,7 +87,8 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Product/Create", "RequireAdministratorRole");
     options.Conventions.AuthorizeFolder("/Product");
     options.Conventions.AuthorizePage("/Dashboard", "RequirbothRole");
-    options.Conventions.AuthorizePage("/AdminHomePage", "RequirbothRole");
+    options.Conventions.AuthorizePage("/AdminHomePage", "RequireAdministratorRole");
+    options.Conventions.AuthorizeFolder("/Category", "RequirbothRole");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");
     //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");
