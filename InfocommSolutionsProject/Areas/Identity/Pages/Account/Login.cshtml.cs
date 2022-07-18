@@ -24,7 +24,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
 {
 
-    //[ValidateReCaptcha]
+    [ValidateReCaptcha]
    
     public class LoginModel : PageModel
     {
