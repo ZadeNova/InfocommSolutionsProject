@@ -23,14 +23,14 @@ else if  (User.IsInRole(InfocommSolutionsProject.Data.ApplicationRoles.CustomerR
       <div class="text-center">
         <h1 class="display-4">Welcome</h1>
         <p>This is Customer Page </p>
-        <button  onclick="openForm()" class="main" id="mydiv" > chatbot
-            <div class="circle"></div>
-        </button>  
-        <div class="chat-popup" id="myForm">
-		<button type="button"  onclick="closeForm()">Close</button>
-	<iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/88017ec0-b306-4d92-88d3-bf715430a431"></iframe>
-	
-	</div>
+        
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="JAMIE"
+  agent-id="88017ec0-b306-4d92-88d3-bf715430a431"
+  language-code="en"
+></df-messenger>
     </div>
 }
 else{
