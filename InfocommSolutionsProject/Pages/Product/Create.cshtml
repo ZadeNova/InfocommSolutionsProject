@@ -84,10 +84,14 @@
                         if (DiscountcheckBox === false) {
                             DiscountAmountDiv.hidden = true;
                             DiscountAmountBox.value = 0;
+                            console.log("Discount is false.No discount")
+                            document.getElementById("DiscountStatusCheckbox").value = false;
                         }
                         else {
                             DiscountAmountDiv.hidden = false;
+                            document.getElementById("DiscountStatusCheckbox").value = true;
                             DiscountAmountBox.value = 0;
+                            console.log("Discount is true")
                         }
                     }
                     
