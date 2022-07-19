@@ -118,9 +118,35 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                              <use xlink:href="#paper-stack-1"> </use>
+                            </svg>*@
+                            <i class="fa-solid fa-user"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Users</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:aqua">@Model.NumberOfUsersInWebApplication</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:aqua" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
           </div>
+          
         </section>
+     
+            
+         
         <section class="pt-0">
           <div class="container-fluid">
             <div class="row gy-4">
@@ -139,7 +165,15 @@
               <div class="col-lg-8">
                 <div class="card">
                   <div class="card-body">
-                    <canvas id="lineChart"></canvas>
+                    <canvas id="ProdUserChart"></canvas>
+                    <br />
+                   <div class="btn-group" role="group" aria-label="Basic example">
+                      <button id="tdybtn" type="button" class="btn btn-secondary" value="Today" onclick="FilterDate(this)">Today</button>
+                      <button type="button" class="btn btn-secondary" value="Yesterday" onclick="FilterDate(this)">Yesterday</button>
+                      <button type="button" class="btn btn-secondary" value="Last 7 Days" onclick="FilterDate(this)">Last 7 Days</button>
+                      <button type="button" class="btn btn-secondary" value="Last 28 Days" onclick="FilterDate(this)">Last 28 Days</button>
+                      <button type="button" class="btn btn-secondary" value="This Year" onclick="FilterDate(this)">This Year</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -558,14 +592,418 @@
         
       </div>
     
-   @* <!-- JavaScript files-->
+    <!-- JavaScript files-->
 
-    <script src="~/js/AdminPageJs/bootstrap.min.js"></script>
+    @*<script src="~/js/AdminPageJs/bootstrap.min.js"></script>
     <script src="vendor/just-validate/js/just-validate.min.js"></script>
     <script src="~/js/AdminPageJs/Chart.min.js"></script>
     <script src="~/js/AdminPageJs/choices.min.js"></script>
     <script src="~/js/AdminPageJs/charts-home.js"></script>
     <!-- Main File-->
     <script src="~/js/AdminPageJs/front.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js" integrity="sha512-ZV3aKX6eFgm3To1hmxEyuh4dLtR1ovVeiz0auNstFXOcuwIcC6rBHGUP2lAmdUZb66yBj/mVborw4HhDkbvrhw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js" integrity="sha512-F+u8eWHrfY8Xw9BLzZ8rG/0wIvs0y+JyRJrXjp3VjtFPylAEEGwKbua5Ip/oiVhaTDaDs4eU2Xtsxjs/9ag2bQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   @* <script src="~/js/AdminPageJs/AdminPageCharts/AdminHomePageCharts.js"></script>*@
+    <script>
+    //var ProdUserDateChart = new Date()      // Get the time now in miliseconds
+    //var ListDateSpec = []
+    var ListDateSpec = [
+                    "12:00AM",
+                    "01:00AM",
+                    "02:00AM",
+                    "03:00AM",
+                    "04:00AM",
+                    "05:00AM",
+                    "06:00AM",
+                    "07:00AM",
+                    "08:00AM",
+                    "09:00AM",
+                    "10:00AM",
+                    "11:00AM",
+                    "12:00PM",
+                    "01:00PM",
+                    "02:00PM",
+                    "03:00PM",
+                    "04:00PM",
+                    "05:00PM",
+                    "06:00PM",
+                    "07:00PM",
+                    "08:00PM",
+                    "09:00PM",
+                    "10:00PM",
+                    "11:00PM",
+                ]
+
+    var ListOfDates = @Html.Raw(Json.Serialize(Model.UserDateList))
+    //var ListOfDatesNoTime = ListOfDates.map(x => new Date(Date.parse(x)).toDateString())
+        
+    //    ListOfDates.map(x => x.toDateString())
+    //    ListOfDates.forEach((val) => console.log(typeof(val)))
+
+     //var myDate = new Date(parseInt(datetimechart[index].replace(/[^0-9 +]/g, '')));
+
+     //           datetimechart[index] = myDate.getFullYear() + '-' + ('0' + (myDate.getMonth() + 1)).slice(-2) + '-' + ('0' + myDate.getDate()).slice(-2);
+     //           datetimechart[index] = datetimechart[index];
+
     
 
+    const TheProdUserChart = document.getElementById("ProdUserChart");
+    var TheLineChart = new Chart(document.getElementById("ProdUserChart"), {
+        type: "line",
+        options: {
+
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Number of Users Registered',
+                    fontColor: 'white',
+                }
+            },
+            scales: {
+                xAxes: [
+                    {
+                        display: true,
+                        gridLines: {
+                            display: false,
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        ticks: {
+                            
+                            min: 0,
+                            stepSize: 5,
+                        },
+                        display: true,
+                        gridLines: {
+                            display: false,
+                        },
+                    },
+                ],
+            },
+            legend: {
+                display: true,
+            },
+            responsive: true,
+            animation: {
+                //duration: speed * 1.5,
+                easing: 'linear'
+            },
+        },
+        data: {
+            labels: ListDateSpec,
+            datasets: [
+                {
+                    label: "Number Of Users Registered",
+                    fill: true,
+                    lineTension: 0.2,
+                    backgroundColor: "transparent",
+                    borderColor: "#57DECE",
+                    pointBorderColor: "#57DECE",
+                    pointHoverBackgroundColor: "#57DECE",
+                    borderCapStyle: "butt",
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: "miter",
+                    borderWidth: 2,
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 0,
+                    data: [10,11,100,69],
+                    spanGaps: false,
+                }
+            ]
+        }
+    })
+    
+    FilterDate = (btn) => {
+        ListDateSpec = [] // Clear Array
+        var ProdUserDateChart = new Date() // Reset to current date
+        switch (btn.value) {
+            case "Today":
+                console.log("hi today")
+                
+                ListDateSpec = [
+                    "00:00",
+                    "01:00",
+                    "02:00",
+                    "03:00",
+                    "04:00",
+                    "05:00",
+                    "06:00",
+                    "07:00",
+                    "08:00",
+                    "09:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                    "20:00",
+                    "21:00",
+                    "22:00",
+                    "23:00",
+                ]
+                var IndexArray = []
+                var DateComparison = []
+                var TodaysDate = new Date()
+                var CompareDatesToday = ListOfDates.map(x => new Date(x).toDateString())
+                for (let i = 0; i < CompareDatesToday.length; i++) {
+                    if (CompareDatesToday[i] === TodaysDate) {
+                        IndexArray.push(i)
+                    }
+                    
+                    
+                }
+                console.log(CompareDatesToday)
+                console.log(TodaysDate)
+                console.log(IndexArray)
+                
+                for (let i in IndexArray) {
+                    
+                    DateComparison.push(ListOfDates[IndexArray[i]])
+                }
+
+                let ToTime = DateComparison.map(x => new Date(x).toTimeString().slice(0,8))
+
+                console.log(DateComparison)
+                console.log(ToTime)
+                //var TestingArray = ['20:00:00' , '21:00:00' , '20:00:00']
+                
+
+                var ArrayObj = []
+                
+                var CleanedArry = ToTime.map(l => l.slice(0,2))
+
+                for (let i = 0; i < ListDateSpec.length; i++){
+                    ArrayObj.push({Time:ListDateSpec[i].slice(0,2) , Number:0})
+                }
+                console.log(ArrayObj)
+
+                for (var key in ArrayObj){
+                    if (CleanedArry.includes( ArrayObj[key].Time)) 
+                    {
+                        var Lol = CleanedArry.filter((element) => { return element ===  ArrayObj[key].Time })
+                         ArrayObj[key].Number = Lol.length
+                        
+                        
+                    }
+                    else {
+                         ArrayObj[key].Number = 0;
+                        
+                    }
+                    
+                }
+                
+                
+
+                // Update Chart!
+                TheLineChart.data.datasets[0].data = ArrayObj.map(x => x.Number)
+                TheLineChart.data.labels = ListDateSpec
+                TheLineChart.update()
+                break;
+            case "Yesterday":
+                ListDateSpec = [
+                    "00:00",
+                    "01:00",
+                    "02:00",
+                    "03:00",
+                    "04:00",
+                    "05:00",
+                    "06:00",
+                    "07:00",
+                    "08:00",
+                    "09:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                    "20:00",
+                    "21:00",
+                    "22:00",
+                    "23:00",
+                ]
+                var IndexArray = []
+                var DateComparison = []
+                var TodaysDate = new Date()
+                var YesterdayDate = new Date(TodaysDate.setDate(TodaysDate.getDate() - 1)).toDateString()
+
+                
+                var CompareDatesToday = ListOfDates.map(x => new Date(x).toDateString())
+                for (let i = 0; i < CompareDatesToday.length; i++){
+                    
+                    if (CompareDatesToday[i] === YesterdayDate){
+                        IndexArray.push(i)
+                    }
+
+                }
+                
+                for (let i in IndexArray) {
+                    
+                    DateComparison.push(ListOfDates[IndexArray[i]])
+                }
+                
+                let To_Time = DateComparison.map(x => new Date(x).toTimeString().slice(0,8))
+                var ArrayObj = []
+                
+                var CleanedArry = To_Time.map(l => l.slice(0,2))
+
+                for (let i = 0; i < ListDateSpec.length; i++){
+                    ArrayObj.push({Time:ListDateSpec[i].slice(0,2) , Number:0})
+                }
+
+                for (var key in ArrayObj){
+                    if (CleanedArry.includes( ArrayObj[key].Time)) 
+                    {
+                        var Lol = CleanedArry.filter((element) => { return element ===  ArrayObj[key].Time })
+                        ArrayObj[key].Number = Lol.length
+                        
+                        
+                    }
+                    else {
+                         ArrayObj[key].Number = 0;
+                        
+                    }
+                    
+                }
+
+                console.log(ArrayObj)
+                console.log(IndexArray)
+                    
+               
+
+                // Update chart!
+                TheLineChart.data.datasets[0].data = ArrayObj.map(x => x.Number)
+                TheLineChart.data.labels = ListDateSpec
+                TheLineChart.update()
+
+                console.log("yesttt")
+                break;
+
+            case "Last 7 Days":
+                var TheNewList = []
+                for (let i = 0; i < 7; i++){
+                    
+                    TheNewList.push({Date: new Date(ProdUserDateChart.setDate(ProdUserDateChart.getDate() - 1)).toDateString(), Number:0})
+                    
+                }
+                
+                console.log(TheNewList);
+                
+                var TheNewListDate = ListOfDates
+                TheNewListDate = TheNewListDate.map(x => new Date(x).toDateString())
+
+                for (var key in TheNewList){
+                    if (TheNewListDate.includes(TheNewList[key].Date)) 
+                    {
+                        var Lol = TheNewListDate.filter((element) => { return element === TheNewList[key].Date })
+                        TheNewList[key].Number = Lol.length
+                        
+                        
+                    }
+                    else {
+                        TheNewList[key].Number = 0;
+                        
+                    }
+                    
+                }
+
+               
+                // Update chart!
+                TheLineChart.data.datasets[0].data = TheNewList.map(x => x.Number)
+                TheLineChart.data.labels = TheNewList.map(a => a.Date)
+                TheLineChart.update()
+                console.log("Chart Updated!")
+                break;
+
+
+
+            case "Last 28 Days":
+                let TheMainList = []
+                let DatesRegistered = []
+                for (let i = 0; i < 28; i++){
+                    TheMainList.push({Date: new Date(ProdUserDateChart.setDate(ProdUserDateChart.getDate() - 1)).toDateString(), Number:0})
+                    
+                }
+                DatesRegistered = ListOfDates
+                DatesRegistered = DatesRegistered.map(x => new Date(x).toDateString())
+                
+                for (var key in TheMainList){
+                    if (DatesRegistered.includes(TheMainList[key].Date)){
+                        var num = DatesRegistered.filter((element) => {return element === TheMainList[key].Date })
+                        TheMainList[key].Number = num.length
+                    }
+                    else{
+                        TheMainList[key].Number = 0
+                    }
+                }
+
+                // Update chart!
+                TheLineChart.data.datasets[0].data = TheMainList.map(x => x.Number)
+                TheLineChart.data.labels = TheMainList.map(a => a.Date)
+                TheLineChart.update()
+                
+                break;
+            case "This Year":
+                console.log("tis year xd")
+                ListDateSpec = 
+                [
+                    "January","February","March","April","May","June","July","August","September","October","November","December"
+                ]
+                YearObjsArray = []
+                console.log(ListOfDates)
+                let TheMonthsArrayUser = ListOfDates.map(x => ListDateSpec[new Date(x).getMonth()])
+                for (let i = 0; i < ListDateSpec.length; i++) {
+                    YearObjsArray.push({Month:ListDateSpec[i] , Number: 0})
+
+                }
+                console.log(YearObjsArray)
+                console.log(TheMonthsArrayUser)
+                for (var key in YearObjsArray){
+                    if (TheMonthsArrayUser.includes(YearObjsArray[key].Month)) {
+                        let temp = TheMonthsArrayUser.filter((element) => {return element === YearObjsArray[key].Month })
+                        YearObjsArray[key].Number = temp.length;
+                    }
+                    else{
+
+                        YearObjsArray[key].Number = 0;
+                    }
+                }
+
+
+
+
+
+
+                // Update Chart!
+                TheLineChart.data.datasets[0].data = YearObjsArray.map(x => x.Number)
+                TheLineChart.data.labels = ListDateSpec
+                TheLineChart.update()
+
+
+                break;
+             default:
+                console.log("the default value")
+        }
+    }
+
+    
+    </script>
+    
