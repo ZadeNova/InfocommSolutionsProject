@@ -150,8 +150,11 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.account?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+ <form method="post">
+        <a asp-page="./Edit" asp-route-id="@Model.account?.Id">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+  
 </div>
 </div>
 
