@@ -120,8 +120,34 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
-                return LocalRedirect(returnUrl);
+                //var Email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var user = await _userManager.FindByEmailAsync(info.Principal.FindFirstValue(ClaimTypes.Email));
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Admin"))
+                {
+                    _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                    System.Diagnostics.Debug.WriteLine("Hi there admin!");
+                    _logger.LogInformation("Admin logged in.");
+                    return Redirect("~/AdminHomePage");
+                }
+                else
+                {
+                    _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                    System.Diagnostics.Debug.WriteLine("Hello there User");
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(returnUrl);
+                }
+
+                //if (User.IsInRole("Admin"))
+                //{
+                //    _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                //    return LocalRedirect("~/AdminHomePage"); ;
+                //}
+                //else {
+                //    _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                //    return LocalRedirect(returnUrl);
+                //}
+             
             }
             if (result.IsLockedOut)
             {

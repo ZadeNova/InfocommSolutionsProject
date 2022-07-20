@@ -58,6 +58,56 @@
 }
     </tbody>
 </table>
+ @*this one is the droplist when user choose any option it will redict to that pages base on the option value  *@
+<form method="get" >
+            <div class="col-3 pr-0">
+               <label >Items per page</label> 
+               <select onchange="location=this.value">
+            @{
+
+              
+                if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 5)
+                {
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 10)
+                {
+                    <option >10</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 50)
+                {
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 100)
+                {
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
+                }
+                else
+                {
+                    //@HttpContext.Session.GetString("_Name")
+                    <option >Default : 10</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
+                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                }
+            }
+               </select>
+            </div> 
+</form>
+
 @{
     var prevDisabled = !Model.categore.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.categore.HasNextPage ? "disabled" : "";
