@@ -2,7 +2,10 @@
 @model InfocommSolutionsProject.Pages.User_Management.DeactivateModel
 @{
     ViewData["Title"] = "Deactivate";
-}
+}<style>
+    dt{
+    color:pink}
+</style>
 <div class="container">
 <h1>Deactivating Account </h1>
 
@@ -17,10 +20,11 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.account.Email)
         </dd>
+        <hr>
       <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.account.AccountStatus)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10" style="margin-left: 200px;">
             @Html.DisplayFor(model => model.account.AccountStatus)
         </dd>
     </dl>
