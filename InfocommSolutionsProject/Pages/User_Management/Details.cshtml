@@ -10,23 +10,25 @@
 <div>
     <h4>Account</h4>
     <hr />
-    <dl class="row">
-        <dt >
+    <dl class="row" >
+        <dt class="col-sm-2" style="color:pink" >
             @Html.DisplayNameFor(model => model.account.FirstName)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.account.FirstName)
         </dd>
-         <dt >
+        <hr>
+         <dt class="col-sm-2" style="color:pink;">
             @Html.DisplayNameFor(model => model.account.LastName)
         </dt>
-         <dd>
+         <dd class="col-sm-10" >
             @Html.DisplayFor(model => model.account.LastName)
         </dd>
-         <dt >
+        <hr>
+         <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.Address)
         </dt>
-         <dd>
+         <dd class="col-sm-10">
               @{
                     var address = Model.account.Address;
                     if (address == null)
@@ -34,10 +36,11 @@
                 }
             @Html.DisplayFor(model =>address)
         </dd>
-         <dt >
+        <hr>
+         <dt  class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.PostalCode)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
              @{
                     var postcal = Model.account.PostalCode;
                     if (postcal == null)
@@ -45,16 +48,18 @@
                 }
             @Html.DisplayFor(model =>postcal)
         </dd>
-         <dt >
+        <hr>
+         <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.Email)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.account.Email)
         </dd>
-         <dt >
+        <hr>
+         <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.EmailConfirmed)
         </dt>
-         <dd>
+         <dd class="col-sm-10">
                 @{
                     var emailcfm = Model.account.EmailConfirmed;
                     var reply = "";
@@ -65,11 +70,13 @@
                 }
             @Html.DisplayFor(model => reply)
         </dd>
+        <hr>
         
-        <dt >
+        <dt class="col-sm-2"  style="color:pink">
             @Html.DisplayNameFor(model => model.account.PhoneNumber)
         </dt>
-        <dd >
+
+        <dd class="col-sm-10">
           @{
                     var phn = Model.account.PhoneNumber;
                     var phnreply = "";
@@ -78,10 +85,12 @@
                 }
             @Html.DisplayFor(model =>phnreply)
         </dd>
-          <dt >
+        <hr>
+
+          <dt  class="col-sm-2" style="color:pink" >
             @Html.DisplayNameFor(model => model.account.PhoneNumberConfirmed)
         </dt>
-        <dd>
+        <dd class="col-sm-10" style="margin-left: 200px;">
          @{
                     var phncfm = Model.account.PhoneNumber;
                     var phncfmreply = "";
@@ -92,10 +101,12 @@
                 }
             @Html.DisplayFor(model =>phncfmreply)
         </dd>
-        <dt >
+        <hr>
+
+        <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.TwoFactorEnabled)
         </dt>
-         <dd>
+         <dd class="col-sm-10">
           @{
                     var twofa = Model.account.TwoFactorEnabled;
                     var twofareply = "";
@@ -106,10 +117,12 @@
                 }
             @Html.DisplayFor(model => twofareply)
         </dd>
-         <dt >
+        <hr>
+
+         <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.LockoutEnabled)
         </dt>
-         <dd>
+         <dd class="col-sm-10">
                 @{
                     var lckouten = Model.account.LockoutEnabled;
                     var lckoutenreply = "";
@@ -120,10 +133,12 @@
                 }
             @Html.DisplayFor(model =>lckoutenreply)
         </dd>
-          <dt >
+        <hr>
+
+          <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.LockoutEnd)
         </dt>
-         <dd>
+         <dd class="col-sm-10">
           @{
                     var lckend = Model.account.LockoutEnd;
                     var lckenrely = "";
@@ -134,25 +149,35 @@
                 }
             @Html.DisplayFor(model => lckenrely)
         </dd>
+        <hr>
        
-        <dt >
+        <dt class="col-sm-2"  style="color:pink">
             @Html.DisplayNameFor(model => model.account.AccessFailedCount)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.account.AccessFailedCount)
         </dd>
-         <dt >
+        <hr>
+         <dt class="col-sm-2" style="color:pink">
             @Html.DisplayNameFor(model => model.account.AccountStatus)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.account.AccountStatus)
         </dd>
+
+       <dt>
+         <form method="post">
+        <a asp-page="./Edit" asp-route-id="@Model.account?.Id">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+       </dt>
     </dl>
+   
+   
+
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.account?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+
+
 </div>
 
 

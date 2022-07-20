@@ -5,6 +5,11 @@
     ViewData["Title"] = "Details";
   
     }
+    <style>
+        dt{
+        color:pink
+        }
+    </style>
     <div class="container">
         <h1>Details</h1>
 
@@ -12,13 +17,14 @@
     <h4>SupplierModel</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-8">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SupplierModel.SupplierName)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SupplierModel.SupplierName)
         </dd>
-        <dt class="col-sm-8">
+        <hr>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SupplierModel.SupplierCategory)
         </dt>
         <dd class="col-sm-10">

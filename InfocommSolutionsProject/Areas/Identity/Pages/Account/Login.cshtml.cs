@@ -28,7 +28,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
    
     public class LoginModel : PageModel
     {
-     
+       
         private readonly SignInManager<Accounts> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly UserManager<Accounts> _userManager;
@@ -148,11 +148,13 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByEmailAsync(Input.Email);
                     if (user.AccountStatus == "Activate")
                     {
+                     
                         System.Diagnostics.Debug.WriteLine($"{user.FirstName} {user.Email} {user.LastName}");
                         var roles = await _userManager.GetRolesAsync(user);
                         //foreach (var i in roles) System.Diagnostics.Debug.WriteLine(i);
 
                         // check for roles
+
                         if (roles.Contains("Admin"))
                         {
                             System.Diagnostics.Debug.WriteLine("Hi there admin!");
