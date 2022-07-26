@@ -1,13 +1,19 @@
 ﻿@{
     //Layout = "_Layout";
- /*   Layout = null*/;
+    /*   Layout = null*/;
     if (User.IsInRole("Admin"))
     {
         Layout = "_AdminLayout";
         System.Diagnostics.Debug.WriteLine("Using Adminn layout!!");
     }
+    else if (User.IsInRole("Customer"))
+    {
+        Layout = "_CustomerLayout";
+        System.Diagnostics.Debug.WriteLine("Using Customer Layout!");
+    }
     else
     {
+        //Layout = "_Layout";
         Layout = "_Layout";
         System.Diagnostics.Debug.WriteLine("Using User layout!!");
     }
