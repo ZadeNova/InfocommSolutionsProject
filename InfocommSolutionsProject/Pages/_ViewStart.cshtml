@@ -4,17 +4,17 @@
     if (User.IsInRole("Admin"))
     {
         Layout = "_AdminLayout";
-        System.Diagnostics.Debug.WriteLine("Using Adminn layout!!");
+        System.Diagnostics.Debug.WriteLine("Using Admin layout!!");
     }
     else if (User.IsInRole("Customer"))
     {
-        Layout = "_CustomerLayout";
+        Layout = "_AfterCustomerLoginPage";
         System.Diagnostics.Debug.WriteLine("Using Customer Layout!");
     }
     else
     {
         //Layout = "_Layout";
-        Layout = "_Layout";
-        System.Diagnostics.Debug.WriteLine("Using User layout!!");
+        Layout = "_CustomerLayout";
+        System.Diagnostics.Debug.WriteLine("Using before login layout!!");
     }
 }

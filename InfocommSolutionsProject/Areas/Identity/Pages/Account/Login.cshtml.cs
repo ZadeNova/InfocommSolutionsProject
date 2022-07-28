@@ -161,6 +161,13 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                             _logger.LogInformation("Admin logged in.");
                             return Redirect("~/AdminHomePage");
                         }
+                        if (roles.Contains("Customer"))
+                        {
+                            System.Diagnostics.Debug.WriteLine("Hi there admin!");
+                            _logger.LogInformation("Admin logged in.");
+                            return Redirect("~/CustomerPages/home");
+                        }
+                       
                         else
                         {
                             System.Diagnostics.Debug.WriteLine("Hello there User");
