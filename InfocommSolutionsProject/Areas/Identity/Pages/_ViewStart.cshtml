@@ -5,6 +5,10 @@
     {
         Layout = "_AdminLayout";
     }
+     else if (User.IsInRole("Customer"))
+    {
+        Layout = "_AfterCustomerLoginPage";
+    }
     else
     {
         Layout = "~/Pages/Shared/_Layout.cshtml";
