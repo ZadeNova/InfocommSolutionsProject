@@ -22,13 +22,16 @@ else if (User.IsInRole(InfocommSolutionsProject.Data.ApplicationRoles.SGAEstaff)
 else if  (User.IsInRole(InfocommSolutionsProject.Data.ApplicationRoles.CustomerRole)) {
       <div class="text-center">
         <h1 class="display-4">Welcome</h1>
-        <p>This is Customer Page </p>
+        <p>This is Customer Page</p>
         
  
     </div>
 }
 else{
-    
+	
+	
+    Layout = "_CustomerLayout";
+	
 	<link rel="stylesheet" href="~/css/moving_part.css" />
 	<div class="particle"></div>
 	<div class="particle"></div>
@@ -61,13 +64,13 @@ else{
 	<div class="particle"></div>
 	<div class="particle"></div>
 
-    <div class="text-center" >
+    @*<div class="text-center" >
     <h1 class="display-4" >Welcome</h1>
 	
 
     <p >Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 	
-</div>
+</div>*@
 }
 
 	
