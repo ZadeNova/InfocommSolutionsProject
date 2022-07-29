@@ -114,11 +114,12 @@ body {top:0 !important;}
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                
+                                <a class="navbar-brand" asp-area="" asp-page="/Index">SGAE</a>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
                     </div>
+                
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
@@ -194,10 +195,12 @@ body {top:0 !important;}
                     <div class="featured__controls">
                         <ul>
                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".oranges">Oranges</li>
-                            <li data-filter=".fresh-meat">Fresh Meat</li>
-                            <li data-filter=".vegetables">Vegetables</li>
-                            <li data-filter=".fastfood">Fastfood</li>
+                            @foreach(var items_Category in Model.Products_Category)
+                            {
+
+                                <li data-filter=".@items_Category.CategoryName">@items_Category.CategoryName</li>
+                            }
+                         
                         </ul>
                     </div>
                 </div>
@@ -205,12 +208,10 @@ body {top:0 !important;}
             <div class="row featured__filter">
             @foreach(var item in Model.Products)
             {
-                
-
                 string ImgPath = "~/Images/ProductImages/" + item.ImagePath;
-               
-              
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                    
+
+                <div class="col-lg-3 col-md-4 col-sm-6 mix @item.Category">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="@Url.Content(ImgPath)">
                             <ul class="featured__item__pic__hover">
@@ -492,6 +493,13 @@ body {top:0 !important;}
                     </div>
                 </div>
             </div>
+               <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="JAMIE"
+  agent-id="88017ec0-b306-4d92-88d3-bf715430a431"
+  language-code="en"
+></df-messenger>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
