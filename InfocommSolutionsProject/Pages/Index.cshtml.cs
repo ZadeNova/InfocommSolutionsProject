@@ -24,8 +24,8 @@ namespace InfocommSolutionsProject.Pages
         {
             Products = _context.Products.ToList();
             //Products_Category = _context.Categories.Where(x=>x.CategoryName );
-            Products_Category = _context.Categories.ToList();
-            //Products_Category = (from cat in _context.Categories  select cat.CategoryName).ToList();
+            //Products_Category = _context.Categories.ToList();
+            Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();
             foreach (var itesm in Products_Category) System.Diagnostics.Debug.WriteLine(itesm.CategoryName);
             foreach (var item in Products) System.Diagnostics.Debug.WriteLine(item.Name);
         }
