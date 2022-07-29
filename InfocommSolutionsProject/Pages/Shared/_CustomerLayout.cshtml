@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -151,7 +150,8 @@ body {top:0 !important;}
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
+                       
+                            <li class="active">  <a asp-area="" asp-page="/Index">Home</a></li>
                             <li><a href="./shop-grid.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
@@ -162,7 +162,8 @@ body {top:0 !important;}
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a  asp-area="" asp-page="/Location">Contact</a></li>
+                        
                         </ul>
                     </nav>
                 </div>
@@ -185,7 +186,13 @@ body {top:0 !important;}
     
     <!-- Hero Section Begin -->
 
-      <section class="featured spad">
+    
+    <!-- Hero Section End -->
+ 
+    @try
+    {
+        
+        <section class="featured spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -431,8 +438,12 @@ body {top:0 !important;}
             </div>
         </div>
     </section>
-    <!-- Hero Section End -->
-    
+    }
+    catch
+    {
+        
+    }
+
 
     <main role="main" class="pb-3">
             @RenderBody()
@@ -449,8 +460,8 @@ body {top:0 !important;}
                             <a href="./index.html"><img src="img/logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
+                            <li>Address: 180 Ang Mo Kio Ave 8, Singapore 569830</li>
+                            <li>Phone: +65 6451 5115</li>
                             <li>Email: hello@colorlib.com</li>
                         </ul>
                     </div>
