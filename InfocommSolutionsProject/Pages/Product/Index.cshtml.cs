@@ -40,6 +40,8 @@ namespace InfocommSolutionsProject.Pages.Product
 
         public string DateUpdatedSort { get; set; }
 
+        public string DateCreatedSort { get; set; }
+
         // Used to show how many items are on the page
 
         public string Current_NumProdPerPage { get; set; }
@@ -73,6 +75,7 @@ namespace InfocommSolutionsProject.Pages.Product
             QuantitySort = String.IsNullOrEmpty(sortOrder) ? "QuantitySort" : "";
             DiscountNumSort = String.IsNullOrEmpty(sortOrder) ? "DiscNumSortDesc" : "DiscNumAscend";
             DateUpdatedSort = sortOrder == "Date" ? "date_desc" : "Date";
+            DateCreatedSort = sortOrder == "datecreate" ? "Date_DescCreated" : "datecreate";
 
             // For Page sort
             Current_NumProdPerPage = NumPage;
@@ -151,6 +154,12 @@ namespace InfocommSolutionsProject.Pages.Product
                     break;
                 case "date_desc":
                     ProductQueryable = ProductQueryable.OrderByDescending(x => x.UpdatedOn);
+                    break;
+                case "datecreate":
+                    ProductQueryable = ProductQueryable.OrderBy(x => x.CreatedOn);
+                    break;
+                case "Date_DescCreated":
+                    ProductQueryable = ProductQueryable.OrderByDescending(x => x.CreatedOn);
                     break;
                 default:
                     ProductQueryable = ProductQueryable.OrderBy(x => x.Name);

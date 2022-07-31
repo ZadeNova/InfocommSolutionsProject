@@ -23,6 +23,7 @@ namespace InfocommSolutionsProject.Pages
         public void OnGet()
         {
             Products = _context.Products.ToList();
+
             //Products_Category = _context.Categories.Where(x=>x.CategoryName );
             //Products_Category = _context.Categories.ToList();
             Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();

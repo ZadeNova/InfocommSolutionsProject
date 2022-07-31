@@ -150,6 +150,7 @@ body {top:0 !important;}
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
+                            <a class="navbar-brand" asp-area="" asp-page="/Index">SGAE</a>
                                 <li><i class="fa fa-envelope"></i>@UserManager.GetUserName(User)</li>
                                 <li class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2"></li>
                              <li class="sidebar-item "><a class="sidebar-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Settings"> 
@@ -159,6 +160,7 @@ body {top:0 !important;}
                               <i class="fa-solid fa-gear"></i> <span > Settings </span>
                              </a>
                             </li>
+                                
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
@@ -198,18 +200,18 @@ body {top:0 !important;}
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="">Home</a></li>
-                            <li><a href="">Shop</a></li>
+                            <li class="active"><a href="/CustomerPages/Home">Home</a></li>
+                            <li><a href="/CustomerPages/Shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
                                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            
+                            <li><a href="/CustomerPages/Contacts">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
