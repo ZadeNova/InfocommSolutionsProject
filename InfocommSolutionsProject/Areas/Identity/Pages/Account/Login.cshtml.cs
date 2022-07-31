@@ -165,7 +165,7 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                         {
                             System.Diagnostics.Debug.WriteLine("Hi there admin!");
                             _logger.LogInformation("Admin logged in.");
-                            return Redirect("~/CustomerPages/home");
+                            return Redirect("~/CustomerPages/Home");
                         }
                        
                         else

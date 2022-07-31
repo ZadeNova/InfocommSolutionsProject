@@ -22,7 +22,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public IList<ProductModel> TopReviewsProduct { get; set; }
 
-
+        public string path1 { get; set; }
         public HomeModel(InfocommSolutionsProjectContext context)
         {
             _context = context;
@@ -33,10 +33,13 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             Products = _context.Products.ToList();
 
             // Get Latest Products
-            
 
-            
+
+
             //
+            //get current path to use for _Aftercustomerloginlayout
+            path1 = HttpContext.Request.Path;
+            System.Diagnostics.Debug.WriteLine(path1);
             var TheLatestProductList = Products.OrderByDescending(x => x.CreatedOn).Take(6).ToList();
             LatestProducts = TheLatestProductList.Take(3).ToList();
             LatestProducts2 = TheLatestProductList.TakeLast(3).ToList();

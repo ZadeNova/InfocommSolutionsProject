@@ -185,7 +185,10 @@ body {top:0 !important;}
             </div>
         </div>
     </header>
-       <section class="hero">
+    @try { 
+    if (Model.path=="/")
+    {
+          <section class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -195,19 +198,16 @@ body {top:0 !important;}
                             <span>All departments</span>
                         </div>
                         <ul>
-                            @try
-                            {
+                            
+                         
                                   @foreach(var items_Category in Model.Products_Category)
                             {
 
                                 <li>  <a asp-page="#" >@items_Category.CategoryName</a></li>
                             }
                          
-                            }
-                            catch
-                            {
-                                
-                            }
+                            
+                           
                            
                         </ul>
                     </div>
@@ -246,6 +246,12 @@ body {top:0 !important;}
             </div>
         </div>
     </section>
+    }
+}
+    catch { }
+
+    
+  
     <!-- Header Section End -->
     
     <!-- Hero Section Begin -->
@@ -253,9 +259,11 @@ body {top:0 !important;}
     
     <!-- Hero Section End -->
  
+    <!--the try and if was to check for current path ==/ is it then show else it wont show the things below -->
     @try
-    {
-        <section class="featured spad">
+    { if (Model.path == "/")
+        {
+             <section class="featured spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -501,6 +509,9 @@ body {top:0 !important;}
             </div>
         </div>
     </section>
+        }
+
+       
     }
     catch
     {
