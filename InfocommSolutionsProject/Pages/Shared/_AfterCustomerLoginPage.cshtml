@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>SGAE </title>
     <title>@ViewData["Title"] - InfocommSolutionsProject</title>
 
 
@@ -104,7 +104,12 @@
     <!-- Header Section End -->
     
     <!-- Hero Section Begin -->
-    <section class="hero">
+    <!--the if below is to check for current path which /CustomerPages/Home if is it wil show the mini nav bar else wont -->
+    @try
+    {
+        
+        if (Model.path1 == "/CustomerPages/Home") { 
+        <section class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -161,7 +166,12 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> }
+
+    }
+    catch { }
+
+   
     <div class="container">
 
 

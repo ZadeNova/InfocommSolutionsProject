@@ -33,13 +33,15 @@ namespace InfocommSolutionsProject.Pages.Product
 
         public IFormFile? ImageUpload { get; set; }
 
+        public Guid? ProductID { get; set; }
+
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
-
+            
             var product =  await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -60,11 +62,17 @@ namespace InfocommSolutionsProject.Pages.Product
                 System.Diagnostics.Debug.WriteLine("execute model state ss");
                 return Page();
             }
-            System.Diagnostics.Debug.WriteLine($"Is it empty? {Product.ImagePath}");
-            System.Diagnostics.Debug.WriteLine($"{ImageUpload != null} {Product.ImagePath != null}");
+            //System.Diagnostics.Debug.WriteLine($"Is it empty? {Product.ImagePath}");
+            //System.Diagnostics.Debug.WriteLine($"{ImageUpload != null} {Product.ImagePath != null}");
+
+
+
             // Update date for product
             Product.UpdatedOn = DateTime.Now;
 
+            //var TheProduct = _context.Products.FirstOrDefault(x => x.Id == ProductID);
+            
+            //Product.CreatedOn = Product.CreatedOn;
             if (ImageUpload != null)
             {
                 if (Product.ImagePath != null)

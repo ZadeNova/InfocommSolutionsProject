@@ -13,6 +13,7 @@ namespace InfocommSolutionsProject.Pages
         private readonly ILogger<IndexModel> _logger;
         public IList<ProductModel> Products { get; set; }
         public IList<Categories> Products_Category { get; set; }
+        public string path { get; set; }
         public IndexModel(ILogger<IndexModel> logger, InfocommSolutionsProjectContext context)
         {
             _logger = logger;
@@ -22,6 +23,9 @@ namespace InfocommSolutionsProject.Pages
        
         public void OnGet()
         {
+            //get current path to use for _customerlayout
+            path = HttpContext.Request.Path;
+            System.Diagnostics.Debug.WriteLine(path);
             Products = _context.Products.ToList();
             //Products_Category = _context.Categories.Where(x=>x.CategoryName );
             //Products_Category = _context.Categories.ToList();

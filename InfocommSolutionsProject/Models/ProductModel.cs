@@ -25,6 +25,8 @@ namespace InfocommSolutionsProject.Models
 
         public DateTime UpdatedOn { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
 
     }
 }
