@@ -10,7 +10,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
     public class HomeModel : PageModel
     {
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
-
+        public IList<Categories> Products_Category { get; set; }
 
         public IList<ProductModel> Products { get; set; } 
 
@@ -23,7 +23,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public void OnGet()
         {
             Products = _context.Products.ToList();
-            foreach(var item in Products) System.Diagnostics.Debug.WriteLine(item.Name);
+            Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();
+            foreach (var item in Products) System.Diagnostics.Debug.WriteLine(item.Name);
 
         }
     }
