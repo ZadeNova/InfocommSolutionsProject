@@ -263,7 +263,7 @@ body {top:0 !important;}
     @try
     { if (Model.path == "/")
         {
-             <section class="featured spad">
+        <section class="featured spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -299,11 +299,16 @@ body {top:0 !important;}
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">@item.Name</a></h6>
-                            <h5>$@item.Price</h5>
+                         
+                           <h6><a  asp-page="/ProductDetails" asp-route-id="@item.Id">@item.Name</a></h6>
+                            @{ var FinalPrice = item.Price - (item.Price * item.Discount/100);}
+                             <div class="product__discount__item__text">
+                                <div class="product__item__price">$@FinalPrice<span>$@item.Price</span></div>
+                             </div>
                         </div>
                     </div>
-                </div> }
+                </div> 
+            }
             </div>
         </div>
     </section>
