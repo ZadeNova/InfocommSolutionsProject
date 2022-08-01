@@ -81,7 +81,7 @@
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">@item.Name</a></h6>
+                            <h6><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h6>
                             <h5>$@item.Price</h5>
                         </div>
                     </div>
@@ -261,9 +261,9 @@
 
                                  string ImgPath = "~/Images/ProductImages/" + theitem.ImagePath;
 
-                                 <a href="#" class="latest-product__item">
+                                 <a asp-page="./ProductDetails" asp-route-id="@theitem.Id" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="@Url.Content(ImgPath)" alt="">
+                                        <img style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>@theitem.Name</h6>
@@ -281,9 +281,9 @@
                             {
                                 string ImgPath = "~/Images/ProductImages/" + theitem2.ImagePath;
 
-                                <a href="#" class="latest-product__item">
+                                <a asp-page="./ProductDetails" asp-route-id="@theitem2.Id" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="@Url.Content(ImgPath)" alt="">
+                                        <img style="width:100px;height:100px;"  src="@Url.Content(ImgPath)" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>@theitem2.Name</h6>

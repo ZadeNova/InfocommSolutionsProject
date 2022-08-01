@@ -134,9 +134,9 @@
 
                                              string ImgPath = "~/Images/ProductImages/" + theitem.ImagePath;
 
-                                             <a href="#" class="latest-product__item">
+                                             <a asp-page="./ProductDetails" asp-route-id="@theitem.Id" class="latest-product__item">
                                                 <div class="latest-product__item__pic">
-                                                    <img src="@Url.Content(ImgPath)" alt="" width="100" height="100">
+                                                    <img style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="" width="100" height="100">
                                                 </div>
                                                 <div class="latest-product__item__text">
                                                     <h6>@theitem.Name</h6>
@@ -154,9 +154,9 @@
                                     {
                                         string ImgPath = "~/Images/ProductImages/" + theitem2.ImagePath;
 
-                                        <a href="#" class="latest-product__item">
+                                        <a asp-page="./ProductDetails" asp-route-id="@theitem2.Id" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="@Url.Content(ImgPath)" alt="" width="100" height="100">
+                                                <img  style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="" width="100" height="100">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>@theitem2.Name</h6>
@@ -203,7 +203,7 @@
                                         </div>
                                         <div class="product__discount__item__text">
                                             <span>@item.Category</span>
-                                            <h5><a href="#">@item.Name</a></h5>
+                                            <h5><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h5>
 
                                        
 
@@ -283,7 +283,7 @@
                                         </div>
                                         <div class="product__discount__item__text">
                                             <span>@item.Category</span>
-                                            <h5><a href="#">@item.Name</a></h5>
+                                            <h5><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h5>
 
                                        
 
@@ -308,7 +308,7 @@
                                 </div>
                                 <div class="product__discount__item__text">
                                             <span>@item.Category</span>
-                                            <h5><a href="#">@item.Name</a></h5>
+                                            <h5><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h5>
                                             <div class="product__item__price">$@item.Price</div>
                                             
                                            

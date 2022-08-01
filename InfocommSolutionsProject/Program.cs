@@ -54,6 +54,8 @@ services.AddAuthorization(options =>
        policy => policy.RequireRole("SGAE_STAFF"));
     options.AddPolicy("RequirbothRole",
       policy => policy.RequireRole("SGAE_STAFF", "Admin"));
+    options.AddPolicy("ALL",
+     policy => policy.RequireRole("SGAE_STAFF", "Admin", "Customer"));
 
 
 });
@@ -89,6 +91,8 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/Dashboard", "RequirbothRole");
     options.Conventions.AuthorizePage("/AdminHomePage", "RequireAdministratorRole");
     options.Conventions.AuthorizeFolder("/Category", "RequirbothRole");
+    options.Conventions.AuthorizePage("/CustomerPages/Home", "ALL");
+    //options.Conventions.AuthorizePage("/CustomerPages/Shop", "ALL");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");
     //options.Conventions.AllowAnonymousToPage("/Private/PublicPage");
