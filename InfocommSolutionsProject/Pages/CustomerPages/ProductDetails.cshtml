@@ -20,6 +20,7 @@
                              @{string ImgPath = "~/Images/ProductImages/" + @Model.Product.ImagePath;}
                             <img style="width:300px; height:500px;" class="product__details__pic__item--large"
                                 src="@Url.Content(ImgPath)" alt="">
+                        
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="img/product/details/product-details-2.jpg"
@@ -45,8 +46,11 @@
                             <span>(18 reviews)</span>
                         </div>
                         @{ var FinalPrice = Model.Product.Price - (Model.Product.Price * Model.Product.Discount/100);}
-                        <div>Discounted Price :</div>
-                        <div class="product__details__price">$@FinalPrice</div>
+                         <div class="product__discount__item__text" >
+                               <div class="product__item__price" style="color:red; font-size:40px;text-align: left;">$@FinalPrice<span>@Model.Product.Price</span></div>
+                             </div>
+                       @* <div>Discounted Price :</div>
+                        <div class="product__details__price">$@FinalPrice</div>*@
                         <p>@Model.Product.Description</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
