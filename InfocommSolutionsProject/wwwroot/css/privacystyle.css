@@ -1,0 +1,1979 @@
+﻿/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+@import url(/web_static/fonts/AvenirRoman/stylesheet.css);
+
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block
+}
+
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline
+}
+
+    audio:not([controls]) {
+        display: none;
+        height: 0
+    }
+
+[hidden], template {
+    display: none
+}
+
+a {
+    background-color: transparent
+}
+
+    a:active, a:hover {
+        outline: 0
+    }
+
+abbr[title] {
+    border-bottom: 1px dotted
+}
+
+b, strong {
+    font-weight: bold
+}
+
+dfn {
+    font-style: italic
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0
+}
+
+mark {
+    background: #ff0;
+    color: #000
+}
+
+small {
+    font-size: 80%
+}
+
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+
+sup {
+    top: -0.5em
+}
+
+sub {
+    bottom: -0.25em
+}
+
+img {
+    border: 0
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+figure {
+    margin: 1em 40px
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0
+}
+
+pre {
+    overflow: auto
+}
+
+code, kbd, pre, samp {
+    font-family: monospace, monospace;
+    font-size: 1em
+}
+
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0
+}
+
+button {
+    overflow: visible
+}
+
+button, select {
+    text-transform: none
+}
+
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer
+}
+
+    button[disabled], html input[disabled] {
+        cursor: default
+    }
+
+    button::-moz-focus-inner, input::-moz-focus-inner {
+        border: 0;
+        padding: 0
+    }
+
+input {
+    line-height: normal
+}
+
+    input[type="checkbox"], input[type="radio"] {
+        box-sizing: border-box;
+        padding: 0
+    }
+
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+        height: auto
+    }
+
+    input[type="search"] {
+        -webkit-appearance: textfield;
+        box-sizing: content-box
+    }
+
+        input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+            -webkit-appearance: none
+        }
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em
+}
+
+legend {
+    border: 0;
+    padding: 0
+}
+
+textarea {
+    overflow: auto
+}
+
+optgroup {
+    font-weight: bold
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+td, th {
+    padding: 0
+}
+
+body {
+    color: #535258;
+    overflow-x: hidden;
+    font-family: "Helvetica Neue","liberation_sansregular","Open Sans",sans-serif
+}
+
+    body > .module {
+        display: block;
+        overflow: hidden
+    }
+
+        body > .module:nth-child(odd) {
+            background-color: #f4f4f4 !important
+        }
+
+        body > .module > .container {
+            position: relative
+        }
+
+.qrCode {
+    width: 130px;
+    height: 130px;
+    display: inline-block;
+    margin-right: 15px;
+    background: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/qrCode.png") no-repeat #fff center;
+    background-size: contain;
+    border: 5px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #999
+}
+
+#backToBack {
+    padding: 10px;
+    position: fixed;
+    right: 40px;
+    background: #CCC;
+    border-radius: 5px;
+    bottom: 90px;
+    color: #fff;
+    cursor: pointer
+}
+
+    #backToBack:hover {
+        color: #000
+    }
+
+.downloadLinks {
+    display: inline-block
+}
+
+    .downloadLinks .download {
+        background: no-repeat;
+        background-size: 100%;
+        border-radius: 5px;
+        display: inline-block;
+        width: 215px;
+        height: 60px;
+        background-position: center
+    }
+
+        .downloadLinks .download:active, .downloadLinks .download:visited, .downloadLinks .download:hover {
+            text-decoration: none !important;
+            color: #fff !important
+        }
+
+        .downloadLinks .download.appleStore {
+            background-image: url("../../shared/images/appleStore.png")
+        }
+
+        .downloadLinks .download.googlePlay {
+            background-image: url("../../shared/images/googlePlay.png")
+        }
+
+#goAppMessageContainer {
+    text-align: center;
+    min-height: 400px;
+    position: relative
+}
+
+    #goAppMessageContainer #links {
+        margin-top: 20px
+    }
+
+        #goAppMessageContainer #links a {
+            line-height: 40px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            display: inline-block;
+            background-color: #ff5722;
+            color: #fff
+        }
+
+    #goAppMessageContainer #message {
+        margin: 0 auto;
+        width: 80%;
+        font-size: 28px
+    }
+
+    #goAppMessageContainer #goAppImage {
+        background-image: url("../../shared/images/goApp.png");
+        width: 500px;
+        height: 500px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin: 30px auto
+    }
+
+@media (min-width: 961px) {
+    .mobileOnly {
+        display: none
+    }
+
+    .downloadLinks {
+        height: 130px !important;
+        width: 215px;
+        overflow: hidden
+    }
+}
+
+@media (max-width: 960px) {
+    .pcOnly, #backToBack, .qrCode {
+        display: none !important
+    }
+
+    body {
+        margin: 80px 0 40px 0
+    }
+
+    .downloadLinks {
+        height: auto
+    }
+
+        .downloadLinks .download {
+            background: no-repeat;
+            background-size: 100%;
+            border-radius: 5px;
+            display: inline-block;
+            width: 130px;
+            height: 40px;
+            background-position: center
+        }
+
+            .downloadLinks .download:active, .downloadLinks .download:visited, .downloadLinks .download:hover {
+                text-decoration: none !important;
+                color: #fff !important
+            }
+
+            .downloadLinks .download.appleStore {
+                background-image: url("../../shared/images/appleStore.png")
+            }
+
+            .downloadLinks .download.googlePlay {
+                background-image: url("../../shared/images/googlePlay.png")
+            }
+}
+
+@media (min-width: 961px) {
+    .module {
+        height: 717px
+    }
+
+        .module > .container {
+            position: relative;
+            height: 100%
+        }
+
+        .module .moduleHead {
+            width: 100%;
+            margin-top: 90px
+        }
+
+        .module .moduleContent {
+            font-size: 24px
+        }
+
+        .module .moduleIcon {
+            width: 90px;
+            height: 90px;
+            vertical-align: middle;
+            background-repeat: no-repeat;
+            background-position: center
+        }
+
+        .module .moduleTitle {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 50px;
+            margin-left: 20px;
+            color: #494751
+        }
+
+        .module .moduleSubTitle {
+            margin: 20px auto 30px auto;
+            font-size: 24px;
+            color: #494751
+        }
+
+        .module .imgDecorations {
+            position: absolute;
+            background-repeat: no-repeat;
+            z-index: 0;
+            height: 100%;
+            bottom: 0;
+            width: 50%;
+            background-size: auto 90%;
+            background-position-y: bottom
+        }
+
+        .module .popupImg {
+            position: absolute;
+            width: 0;
+            height: 0;
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: 1;
+            background-size: contain;
+            transition-delay: .3s;
+            transition: all 0.6s cubic-bezier(0.9, 0.01, 0.02, 1.57)
+        }
+
+        .module:nth-child(odd) .moduleHead {
+            padding-left: 50%
+        }
+
+        .module:nth-child(odd) .imgDecorations {
+            left: 0;
+            right: inherit;
+            background-position-x: left
+        }
+
+        .module:nth-child(even) .moduleHead {
+            padding-right: 50%
+        }
+
+        .module:nth-child(even) .imgDecorations {
+            right: 0;
+            left: inherit;
+            background-position-x: right
+        }
+}
+
+@media (max-width: 960px) {
+    .module {
+        padding: 0;
+        height: auto
+    }
+
+        .module > .container {
+            height: 100%
+        }
+
+        .module .moduleHead {
+            margin-top: 20px;
+            padding: 0 !important
+        }
+
+    .moduleIcon {
+        width: 40px;
+        height: 40px;
+        float: none;
+        display: block;
+        margin: 0 auto 20px auto;
+        background-size: 70%;
+        background-repeat: no-repeat;
+        background-position: center center
+    }
+
+    .moduleTitle {
+        display: block;
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        margin: 0
+    }
+
+    .moduleSubTitle {
+        display: none
+    }
+
+    .moduleContent {
+        clear: both;
+        position: relative;
+        padding: 10px 10px;
+        z-index: 1;
+        font-size: 16px;
+        text-align: center;
+        margin: 0 -10px;
+        font-family: "Helvetica Neue","liberation_sansregular","Open Sans",sans-serif
+    }
+
+    .imgDecorations {
+        z-index: 0;
+        width: 100%;
+        height: 0;
+        padding-bottom: 68.75%;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        background-position: center bottom
+    }
+
+    .popupImg {
+        z-index: 1;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin: 0;
+        transition-delay: 0.3s;
+        position: absolute;
+        width: 40.625%;
+        height: 0;
+        padding: 0 0 40.625% 0
+    }
+}
+
+#nav {
+    position: fixed;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    z-index: 120;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff
+}
+
+    #nav > .container {
+        background-color: transparent;
+        text-align: right;
+        height: 100%;
+        font-size: 0
+    }
+
+        #nav > .container::before {
+            vertical-align: bottom;
+            content: ' ';
+            height: 100%;
+            width: 0;
+            display: inline-block
+        }
+
+        #nav > .container > * {
+            display: inline-block;
+            vertical-align: bottom
+        }
+
+    #nav .topMenu.home {
+        background: url("../../shared/images/logo_gray.png") no-repeat center;
+        background-size: contain;
+        display: inline-block;
+        width: 150px;
+        padding: 0;
+        cursor: pointer;
+        height: 70px
+    }
+
+    #nav .icon {
+        display: inline-block;
+        margin: 0 8px;
+        background: top center no-repeat;
+        vertical-align: bottom;
+        margin-bottom: 18px;
+        padding: 0
+    }
+
+        #nav .icon:hover {
+            background-position: bottom center
+        }
+
+        #nav .icon.icon_facebook {
+            background-image: url(../../shared/images/icons.png);
+            background-position: -222px 0px;
+            width: 23px;
+            height: 23px
+        }
+
+            #nav .icon.icon_facebook:hover {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -86px -188px;
+                width: 23px;
+                height: 23px
+            }
+
+        #nav .icon.icon_inst {
+            background-image: url(../../shared/images/icons.png);
+            background-position: -58px -188px;
+            width: 23px;
+            height: 23px
+        }
+
+            #nav .icon.icon_inst:hover {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -222px -56px;
+                width: 23px;
+                height: 23px
+            }
+
+        #nav .icon.icon_twitter {
+            background-image: url(../../shared/images/icons.png);
+            background-position: -222px -28px;
+            width: 23px;
+            height: 23px
+        }
+
+            #nav .icon.icon_twitter:hover {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -170px -188px;
+                width: 23px;
+                height: 23px
+            }
+
+        #nav .icon.icon_tele {
+            display: none;
+            background-image: url(../../shared/images/icons.png);
+            background-position: -114px -188px;
+            width: 23px;
+            height: 23px
+        }
+
+            #nav .icon.icon_tele:hover {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -142px -188px;
+                width: 23px;
+                height: 23px
+            }
+
+        #nav .icon.icon_pinst {
+            background-image: url(../../shared/images/icons.png);
+            background-position: 0px -188px;
+            width: 24px;
+            height: 24px
+        }
+
+            #nav .icon.icon_pinst:hover {
+                background-image: url(../../shared/images/icons.png);
+                background-position: 0px -188px;
+                width: 24px;
+                height: 24px
+            }
+
+        #nav .icon.icon_twitter, #nav .icon.icon_pinst {
+            display: none
+        }
+
+    #nav a {
+        display: inline-block;
+        text-align: center;
+        font-size: 18px
+    }
+
+    #nav #shopee-navigator {
+        height: 70px;
+        display: inline-block;
+        font-size: 0;
+        float: left;
+        background-color: #fff
+    }
+
+        #nav #shopee-navigator::before {
+            vertical-align: bottom;
+            content: ' ';
+            height: 100%;
+            width: 0;
+            display: inline-block
+        }
+
+        #nav #shopee-navigator > * {
+            display: inline-block;
+            vertical-align: bottom
+        }
+
+        #nav #shopee-navigator .nav-module {
+            height: auto;
+            font-size: 0;
+            display: inline-block;
+            position: relative;
+            text-align: center;
+            padding: 0 20px;
+            padding-bottom: 15px
+        }
+
+            #nav #shopee-navigator .nav-module a {
+                font-size: 15px;
+                cursor: pointer;
+                text-decoration: none;
+                color: #595959;
+                transition: all 0.2s ease-in-out
+            }
+
+            #nav #shopee-navigator .nav-module::after {
+                content: ' ';
+                width: 100%;
+                height: 3px;
+                background-color: #ff5722;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+                transition: all 0.2s ease-in-out
+            }
+
+            #nav #shopee-navigator .nav-module:hover {
+                color: #ff5722
+            }
+
+                #nav #shopee-navigator .nav-module:hover::after {
+                    opacity: 1
+                }
+
+@media (max-width: 960px) {
+    #nav {
+        height: 80px;
+        line-height: 40px;
+        top: 0;
+        box-shadow: 0 3px 3px #ebebeb;
+        border-bottom: none
+    }
+
+        #nav .topMenu {
+            margin-top: 40px
+        }
+
+            #nav .topMenu.home {
+                height: 40px;
+                width: 100px !important
+            }
+
+            #nav .topMenu.icon {
+                padding: 0;
+                border: none
+            }
+
+        #nav .container {
+            padding-right: 0 !important
+        }
+
+            #nav .container:lang(fa-IR) {
+                padding-left: 0 !important
+            }
+
+        #nav .icon {
+            margin: 0 10px 0 0;
+            vertical-align: middle
+        }
+
+            #nav .icon.icon_facebook {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -74px 0px;
+                width: 69px;
+                height: 69px;
+                width: 24px !important;
+                height: 24px !important;
+                background-size: 355.07246% !important;
+                background-position: 42.04545% 0% !important
+            }
+
+            #nav .icon.icon_inst {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -148px -74px;
+                width: 69px;
+                height: 69px;
+                width: 24px !important;
+                height: 24px !important;
+                background-size: 355.07246% !important;
+                background-position: 84.09091% 51.74825% !important
+            }
+
+            #nav .icon.icon_twitter {
+                background-image: url(../../shared/images/icons.png);
+                background-position: 0px 0px;
+                width: 69px;
+                height: 69px;
+                width: 24px !important;
+                height: 24px !important;
+                background-size: 355.07246% !important;
+                background-position: 0% 0% !important
+            }
+
+        #nav a {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 20px;
+            font-weight: 200;
+            color: #fff;
+            display: inline-block;
+            text-align: center;
+            font-size: 18px
+        }
+
+        #nav #shopee-navigator {
+            height: 40px !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            border-bottom: 1px solid #ccc;
+            text-align: left
+        }
+
+            #nav #shopee-navigator .nav-module {
+                height: 40px !important;
+                float: none;
+                padding: 0 5px
+            }
+
+                #nav #shopee-navigator .nav-module a {
+                    padding: 0
+                }
+}
+
+#footer {
+    height: 70px;
+    background-color: #a6a6a6
+}
+
+    #footer #footerLinks {
+        display: inline-flex;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center
+    }
+
+        #footer #footerLinks a {
+            color: #fff;
+            font-size: 16px;
+            margin: 0 10px;
+            padding: 0 5px;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            align-items: center;
+            line-height: 70px
+        }
+
+            #footer #footerLinks a::after {
+                position: absolute;
+                bottom: 30%;
+                left: 0;
+                content: ' ';
+                width: 100%;
+                height: 1px;
+                border-bottom: 1px dotted #FFF !important;
+                transition: all 0.2s ease-in-out
+            }
+
+            #footer #footerLinks a:hover {
+                color: #444;
+                text-decoration: none
+            }
+
+                #footer #footerLinks a:hover::after {
+                    width: 0;
+                    left: 50%;
+                    border-bottom: 1px dotted #666 !important
+                }
+
+#addressAtFooter {
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+    display: none
+}
+
+@media (max-width: 960px) {
+    #footer {
+        text-align: center;
+        height: auto
+    }
+
+        #footer #footerLinks {
+            display: block;
+            height: auto
+        }
+
+            #footer #footerLinks a {
+                font-size: 12px;
+                line-height: 40px;
+                height: 40px;
+                padding: 0 5px;
+                font-weight: 200;
+                display: inline-block;
+                margin: 0 5px 0 0
+            }
+
+    #addressAtFooter {
+        padding: 10px 0;
+        background-color: #a6a6a6;
+        text-align: center;
+        line-height: 1.5;
+        position: static;
+        transform: none
+    }
+}
+
+#contacts {
+    position: fixed;
+    right: 0;
+    top: 300px;
+    width: 49px;
+    z-index: 1000
+}
+
+    #contacts:before {
+        display: block;
+        width: 100%;
+        height: 36px;
+        background: no-repeat url("../../shared/images/contactsBefore.png");
+        content: '  '
+    }
+
+    #contacts:after {
+        display: block;
+        width: 100%;
+        height: 37px;
+        background: no-repeat url("../../shared/images/contactsAfter.png");
+        content: '  '
+    }
+
+    #contacts a, #contacts a:hover, #contacts a:visited, #contacts span {
+        color: #fff;
+        text-decoration: none;
+        text-align: right;
+        white-space: nowrap
+    }
+
+    #contacts .contact {
+        display: block;
+        position: relative;
+        width: 100%;
+        background-color: #FF9A7A;
+        padding: 2px 0;
+        text-align: center
+    }
+
+        #contacts .contact .helper {
+            height: 100%;
+            width: 50%;
+            display: block;
+            position: absolute;
+            right: 0;
+            z-index: 2;
+            background-color: #FF9A7A;
+            top: 0
+        }
+
+        #contacts .contact .icon {
+            width: 100%;
+            height: 42px;
+            background: no-repeat center;
+            display: inline-block;
+            cursor: pointer;
+            z-index: 3;
+            position: relative;
+            vertical-align: middle;
+            margin: 3px 0
+        }
+
+            #contacts .contact .icon.icon_home {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -40px -148px;
+                width: 35px;
+                height: 35px
+            }
+
+            #contacts .contact .icon.icon_phone {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -120px -148px;
+                width: 35px;
+                height: 35px
+            }
+
+            #contacts .contact .icon.icon_email {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -160px -148px;
+                width: 35px;
+                height: 35px
+            }
+
+            #contacts .contact .icon.icon_download {
+                background-image: url(../../shared/images/icons.png);
+                background-position: -80px -148px;
+                width: 35px;
+                height: 35px
+            }
+
+            #contacts .contact .icon.icon_faq {
+                background-image: url(../../shared/images/icons.png);
+                background-position: 0px -148px;
+                width: 35px;
+                height: 35px
+            }
+
+        #contacts .contact .contactDetail {
+            position: absolute;
+            height: 37px;
+            top: 5px;
+            right: 0;
+            display: block;
+            line-height: 37px;
+            padding: 0 20px 0 20px;
+            background-color: #FF5722;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            z-index: 1;
+            transition: all 0.2s ease-in;
+            opacity: 0;
+            font-weight: bold;
+            color: #fff
+        }
+
+        #contacts .contact:hover .contactDetail {
+            right: 50%;
+            opacity: 1
+        }
+
+@media (max-width: 960px) {
+    #contacts {
+        box-shadow: 0 -3px 3px #ebebeb;
+        bottom: 0;
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        background-color: #f4f4f4;
+        top: auto;
+        font-size: 0
+    }
+
+        #contacts:before, #contacts:after {
+            display: none
+        }
+
+        #contacts a, #contacts a:hover, #contacts a:visited, #contacts span {
+            text-align: center
+        }
+
+        #contacts .contact {
+            height: 100%;
+            display: inline-block;
+            width: 20%;
+            background-color: #f4f4f4;
+            position: static
+        }
+
+            #contacts .contact i, #contacts .contact a {
+                height: 30px !important;
+                background-size: contain;
+                margin: 6px 0;
+                line-height: 30px;
+                text-align: center
+            }
+
+            #contacts .contact .contactDetail {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: auto !important;
+                width: 100%;
+                overflow: visible;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 0;
+                z-index: -1;
+                transition: all 0.1s ease-in-out;
+                padding: 0 2px;
+                text-align: center;
+                font-size: 12px;
+                background-color: transparent
+            }
+
+            #contacts .contact:nth-child(2) {
+                left: -100%
+            }
+
+            #contacts .contact:nth-child(3) {
+                left: -200%
+            }
+
+            #contacts .contact:nth-child(4) {
+                left: -300%
+            }
+
+            #contacts .contact:nth-child(5) {
+                left: -400%
+            }
+
+            #contacts .contact.active .contactDetail {
+                bottom: 42px;
+                opacity: 1;
+                background-color: #FF5722
+            }
+
+        #contacts .helper {
+            background-color: #f4f4f4 !important
+        }
+}
+
+#module_dailyDiscover .dailyDiscoverIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/dailyDiscoverIcon.png")
+}
+
+#module_dailyDiscover .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/dailyDiscover_decoration.png")
+}
+
+#module_dailyDiscover .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/dailyDiscover_popup.png")
+}
+
+@media (min-width: 961px) {
+    #module_dailyDiscover.module:nth-child(odd) .moduleHead {
+        padding-left: 45%
+    }
+
+    #module_dailyDiscover .imgDecorations {
+        width: 460px
+    }
+
+        #module_dailyDiscover .imgDecorations .popupImg {
+            bottom: 0;
+            right: 0
+        }
+
+    #module_dailyDiscover.active .popupImg {
+        right: -50px;
+        bottom: 110px;
+        width: 370px;
+        height: 330px;
+        display: block
+    }
+}
+
+@media (max-width: 960px) {
+    #module_dailyDiscover .popupImg {
+        bottom: 15.625%;
+        left: 50%
+    }
+}
+
+#module_doubleJoy .doubleJoyIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/doubleJoyIcon.png")
+}
+
+#module_doubleJoy .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/doubleJoy_decoration.png")
+}
+
+#module_doubleJoy .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/doubleJoy_popup.png")
+}
+
+@media (min-width: 961px) {
+    #module_doubleJoy .imgDecorations {
+        width: 550px;
+        background-size: auto 90%;
+        background-position-x: right
+    }
+
+        #module_doubleJoy .imgDecorations .popupImg {
+            left: 0;
+            bottom: 0
+        }
+
+    #module_doubleJoy.active .popupImg {
+        left: -50px;
+        bottom: 180px;
+        width: 406px;
+        height: 340px
+    }
+}
+
+@media (max-width: 960px) {
+    #module_doubleJoy .popupImg {
+        bottom: 26.5625%;
+        left: 9.375%
+    }
+}
+
+@media (min-width: 961px) {
+    #module_download {
+        height: inherit;
+        text-align: center;
+        padding-bottom: 10px
+    }
+
+        #module_download .appLogo {
+            margin: 100px auto 20px auto;
+            background: url("../../shared/images/appLogo.png") no-repeat center center;
+            height: 190px
+        }
+
+        #module_download .qrCode {
+            width: 128px;
+            height: 128px;
+            display: inline-block;
+            margin-right: 15px;
+            background-size: contain;
+            border: 5px solid #fff;
+            border-radius: 5px;
+            background-repeat: no-repeat;
+            background-color: #fff;
+            background-position: center center
+        }
+
+        #module_download .universalLink {
+            display: none
+        }
+}
+
+@media (max-width: 960px) {
+    #module_download {
+        background-color: #fff;
+        text-align: center;
+        padding: 20px 0
+    }
+
+        #module_download .appLogo {
+            margin: 20px auto;
+            background: url("../../shared/images/appLogo.png") no-repeat center center;
+            background-size: contain;
+            width: 100px
+        }
+
+        #module_download .moduleSubTitle {
+            font-size: 16px;
+            padding: 20px;
+            display: block
+        }
+}
+
+#module_guarantee .guaranteeIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/guaranteeIcon.png")
+}
+
+#module_guarantee .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/guarantee_decoration.png")
+}
+
+#module_guarantee .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/guarantee_popup.png")
+}
+
+#guarantee_faq {
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ff5722;
+    background-color: #ff5722;
+    color: #fff;
+    font-size: 15px;
+    margin-top: 20px;
+    text-decoration: none;
+    position: relative;
+    display: inline-block
+}
+
+    #guarantee_faq:hover {
+        color: #ff5722;
+        background-color: #fff;
+        border: 1px solid #ff5722
+    }
+
+        #guarantee_faq:hover::after {
+            border-left-color: #ff5722
+        }
+
+    #guarantee_faq::after {
+        content: ' ';
+        display: inline-block;
+        margin-left: 10px;
+        width: 0;
+        height: 0;
+        border-right: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid #fff;
+        vertical-align: baseline;
+        margin-bottom: -1px
+    }
+
+@media (min-width: 961px) {
+    #module_guarantee .moduleIcon {
+        width: 80px;
+        height: 90px;
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    #module_guarantee .imgDecorations {
+        width: 647px
+    }
+
+        #module_guarantee .imgDecorations .popupImg {
+            bottom: 0;
+            left: 300px;
+            position: absolute;
+            background-size: contain
+        }
+
+    #module_guarantee.active .popupImg {
+        left: 0;
+        bottom: 0;
+        width: 370px;
+        height: 390px
+    }
+}
+
+@media (max-width: 960px) {
+    #module_guarantee .popupImg {
+        bottom: 9.375%
+    }
+
+    #guarantee_faq_wrap {
+        text-align: center
+    }
+
+    #guarantee_faq {
+        font-size: 12px;
+        margin: 10px auto 10px auto;
+        display: inline-block;
+        text-align: center;
+        padding: 5px 10px
+    }
+
+        #guarantee_faq::after {
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid #fff;
+            margin-bottom: 0
+        }
+}
+
+#module_hashTagTrending .hashTagTrendingIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/hashTagTrendingIcon.png")
+}
+
+#module_hashTagTrending .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/hashTagTrending_decoration.png")
+}
+
+#module_hashTagTrending .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/hashTagTrending_popup.png")
+}
+
+@media (min-width: 961px) {
+    #module_hashTagTrending .moduleIcon {
+        width: 80px;
+        height: 90px;
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    #module_hashTagTrending .moduleContent {
+        padding-right: 50px
+    }
+
+    #module_hashTagTrending .imgDecorations {
+        width: 647px
+    }
+
+        #module_hashTagTrending .imgDecorations .popupImg {
+            bottom: 250px;
+            left: 300px;
+            position: absolute;
+            background-size: contain
+        }
+
+    #module_hashTagTrending.active .popupImg {
+        left: 10%;
+        bottom: 200px;
+        width: 370px;
+        height: 390px
+    }
+}
+
+@media (max-width: 960px) {
+    #module_hashTagTrending .popupImg {
+        left: 12.5%;
+        bottom: 25%
+    }
+}
+
+#module_sellInDash .sellInDashIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/sellInDashIcon.png")
+}
+
+#module_sellInDash .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/sellInDash_decoration.png")
+}
+
+#module_sellInDash .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/sellInDash_popup.png")
+}
+
+@media (min-width: 961px) {
+    #module_sellInDash .imgDecorations {
+        width: 460px
+    }
+
+        #module_sellInDash .imgDecorations .popupImg {
+            bottom: 0;
+            left: 0
+        }
+
+    #module_sellInDash.active .popupImg {
+        left: 45%;
+        bottom: 30px;
+        width: 370px;
+        height: 330px
+    }
+}
+
+@media (max-width: 960px) {
+    #module_sellInDash .popupImg {
+        left: 48%;
+        bottom: -3.125%
+    }
+}
+
+#module_sellLikePro .sellLikeProIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/freeForAllIcon.png")
+}
+
+#module_sellLikePro .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/freeForAll_decoration.png")
+}
+
+@media (min-width: 961px) {
+    #module_sellLikePro .imgDecorations {
+        background-size: auto 90%;
+        background-position-x: center
+    }
+
+        #module_sellLikePro .imgDecorations .popupImg {
+            display: none !important
+        }
+}
+
+@media (max-width: 960px) {
+    #module_sellLikePro .sellLikeProIcon {
+        width: 50px;
+        height: 50px
+    }
+
+    #module_sellLikePro .popupImg {
+        display: none
+    }
+}
+
+#module_shopWithChat .shopWithChatIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/shopWithChatIcon.png")
+}
+
+#module_shopWithChat .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/showWithChat_decoration.png")
+}
+
+#module_shopWithChat .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/showWithChat_popup.png")
+}
+
+@media (min-width: 961px) {
+    #module_shopWithChat .moduleHead .moduleContent {
+        padding-right: 30%
+    }
+
+    #module_shopWithChat .imgDecorations {
+        width: 830px;
+        background-position: center bottom;
+        background-size: 100% auto
+    }
+
+        #module_shopWithChat .imgDecorations .popupImg {
+            bottom: 0;
+            left: 165px
+        }
+
+    #module_shopWithChat.active .popupImg {
+        bottom: 70px;
+        left: 165px;
+        height: 400px;
+        width: 380px
+    }
+}
+
+@media (max-width: 960px) {
+    #module_shopWithChat .imgDecorations {
+        background-size: 100% auto
+    }
+
+    #module_shopWithChat .popupImg {
+        width: 40.625%;
+        padding-bottom: 40.625%;
+        left: 15%;
+        bottom: 15.625%
+    }
+}
+
+#module_timeline .timelineIcon {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/timelineIcon.png")
+}
+
+#module_timeline .imgDecorations {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/timeline_decoration.png")
+}
+
+#module_timeline .popupImg {
+    background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/timeline_popup.png")
+}
+
+@media (min-width: 961px) {
+    #module_timeline .imgDecorations {
+        width: 460px
+    }
+
+        #module_timeline .imgDecorations .popupImg {
+            bottom: 0;
+            left: 0
+        }
+
+    #module_timeline.active .popupImg {
+        left: 45%;
+        bottom: 30px;
+        width: 370px;
+        height: 330px
+    }
+}
+
+@media (max-width: 960px) {
+    #module_timeline .popupImg {
+        left: 48%;
+        bottom: -3.125%
+    }
+}
+
+#slogan {
+    color: #000;
+    font-family: "Roboto","Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Calibri,Helvetica,Arial !important;
+    font-weight: 100 !important
+}
+
+#sloganDesc {
+    font-family: "Roboto","Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Calibri,Helvetica,Arial !important;
+    font-weight: 300 !important
+}
+
+#getAppNow {
+    font-family: "Kalam","Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Calibri,Helvetica,Arial !important;
+    font-weight: 400
+}
+
+#module_topBanner {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-shadow: 0 0 1px #999
+}
+
+@media (min-width: 961px) {
+    #module_topBanner {
+        min-height: 717px;
+        width: 100%;
+        background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/topBannerBg.png");
+        margin-top: 70px;
+        padding-bottom: 20px;
+        color: #fff !important;
+        padding-top: 170px
+    }
+
+    #slogan {
+        font-size: 75px;
+        line-height: 1.2;
+        margin: 0 0 35px 0
+    }
+
+    #sloganDesc {
+        font-size: 30px;
+        width: 500px;
+        font-weight: 300 !important;
+        margin-bottom: 80px
+    }
+
+    #getAppNow {
+        font-size: 26px;
+        margin-bottom: 20px
+    }
+
+    #slogan, #sloganDesc, #getAppNow {
+        color: #000
+    }
+}
+
+@media (max-width: 960px) {
+    #module_topBanner {
+        background-image: url("https://cdngarenanow-a.akamaihd.net/gmc/official_web_site/web_static/categorized/en/images/pc/topBannerBg.png");
+        margin-top: 40px;
+        background-position-x: 63%
+    }
+
+    #slogan {
+        font-size: 24px;
+        text-align: left;
+        display: block;
+        margin: 30px 0 10px 0;
+        line-height: 1.0
+    }
+
+    #sloganDesc {
+        width: 200px;
+        margin-bottom: 20px
+    }
+}
+
+#module_welcome .shield {
+    background-image: url("../../shared/images/shield.png")
+}
+
+#module_welcome .clock {
+    background-image: url("../../shared/images/clock.png")
+}
+
+#module_welcome .free {
+    background-image: url("../../shared/images/free.png")
+}
+
+@media (min-width: 961px) {
+    #module_welcome {
+        height: 600px
+    }
+
+        #module_welcome .container {
+            margin-bottom: 30px;
+            vertical-align: top
+        }
+
+        #module_welcome .briefingHead {
+            font-size: 40px;
+            color: #ff5722;
+            margin: 105px 30px 80px 30px;
+            width: 100%;
+            padding: 0 80px;
+            font-weight: bold;
+            text-align: center
+        }
+
+        #module_welcome .briefingDesc {
+            width: 70%;
+            margin: 0 auto 103px auto;
+            font-size: 18px;
+            text-align: center;
+            display: none
+        }
+
+        #module_welcome .midIcon {
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            height: 100px
+        }
+
+        #module_welcome .col-lg-4 {
+            text-align: center
+        }
+
+        #module_welcome .iconRow {
+            text-align: center;
+            padding-left: 150px
+        }
+
+        #module_welcome .iconContainer {
+            display: inline-block;
+            height: 210px;
+            width: 240px;
+            text-align: left;
+            vertical-align: top
+        }
+
+        #module_welcome .briefIcon {
+            width: 180px;
+            height: 150px;
+            display: block
+        }
+
+        #module_welcome .iconSeparator {
+            display: inline-block;
+            width: 1px;
+            height: 100px;
+            background-color: #ccc;
+            margin-top: 20px;
+            vertical-align: top
+        }
+
+            #module_welcome .iconSeparator:nth-child(2) {
+                margin-right: 80px
+            }
+
+            #module_welcome .iconSeparator:nth-child(4) {
+                margin-right: 80px
+            }
+
+        #module_welcome .iconDesc {
+            font-size: 24px;
+            display: inline-block;
+            transform: translateX(-50%);
+            margin-left: 50px
+        }
+}
+
+@media (max-width: 960px) {
+    #module_welcome .briefingHead {
+        font-size: 14px;
+        color: #ff5722;
+        margin: 20px 10px;
+        font-weight: bold;
+        text-align: center;
+        padding: 15px 0
+    }
+
+    #module_welcome .briefingDesc {
+        display: none
+    }
+
+    #module_welcome .briefIcon {
+        width: 90px;
+        height: 75px;
+        vertical-align: middle;
+        z-index: 0
+    }
+
+    #module_welcome .iconRow {
+        padding-left: 30px;
+        text-align: center
+    }
+
+    #module_welcome .iconContainer {
+        display: inline-block;
+        width: 90px;
+        vertical-align: top;
+        min-height: 127px
+    }
+
+    #module_welcome .briefIcon {
+        width: 90px;
+        height: 90px;
+        display: inline-block;
+        background-size: contain
+    }
+
+    #module_welcome .iconSeparator {
+        display: none
+    }
+
+    #module_welcome .iconDesc {
+        left: 0;
+        top: 0;
+        display: block;
+        font-weight: bold;
+        text-align: center;
+        transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        font-size: 12px;
+        margin-left: 24px;
+        margin-bottom: 20px
+    }
+}
+
+#supportContainer {
+    padding-top: 100px
+}
+
+.sectionTitle {
+    padding: 10px 5px;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+    margin: 26px 0
+}
+
+    .sectionTitle:first-child {
+        margin-top: 0
+    }
+
+.sectionTitleName {
+    display: inline-block;
+    font-size: 24px;
+    z-index: 100;
+    background-color: #f3f3f5;
+    margin: 0 auto;
+    position: relative;
+    padding: 0 20px;
+    color: #9a9a9a
+}
+
+.sectionTitleDecoration {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    border-bottom: 1px solid #e3e3e3;
+    top: 0;
+    z-index: 0
+}
+
+.questionGroup {
+    margin-bottom: 2px;
+    overflow: hidden;
+    cursor: pointer
+}
+
+.groupName {
+    font-size: 24px;
+    color: #424763;
+    margin-bottom: 24px
+}
+
+.questionItem {
+    margin-bottom: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.4s ease-in;
+    background-color: #fff;
+    border-bottom: 1px solid #f4f4f4
+}
+
+.question, .subgroupName {
+    font-size: 28px;
+    color: #00bfa5;
+    padding: 10px 32px 10px 32px;
+    height: 80px;
+    line-height: 60px;
+    border-bottom: 1px solid #d8d8d8;
+    font-weight: 200;
+    background-color: #fff
+}
+
+.subgroup {
+    background-color: #fff;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #d8d8d8
+}
+
+.faq_highlight {
+    font-weight: bold
+}
+
+.answer {
+    overflow: hidden;
+    font-size: 20px;
+    padding: 20px 30px;
+    display: none;
+    color: #404040
+}
+
+.faq .questionGroup {
+    margin-bottom: 20px
+}
+
+.imgInAnswer {
+    margin: 5px 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center
+}
+
+.faq ul {
+    padding: 0 32px 32px 32px;
+    margin: 20px 0 20px 32px;
+    display: none
+}
+
+.faq .question {
+    font-size: 24px;
+    color: #424763;
+    line-height: 40px;
+    padding: inherit;
+    height: auto;
+    border-bottom: none;
+    vertical-align: middle
+}
+
+    .faq .question:after {
+        content: ' ';
+        width: 0;
+        height: 0;
+        line-height: 0;
+        font-size: 0;
+        border-style: solid;
+        border-color: #ccc transparent transparent transparent;
+        border-width: 9px 9px 0 9px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px
+    }
+
+    .faq .question:hover:after {
+        border-top-color: #999
+    }
+
+    .faq .question.active:after {
+        content: ' ';
+        border-color: transparent transparent #999 transparent;
+        border-width: 0 9px 9px 9px
+    }
+
+.blockquote {
+    padding: 10px 50px
+}
+
+@media (max-width: 960px) {
+    #supportContainer {
+        padding-top: 45px !important
+    }
+
+    .sectionTitle {
+        margin-bottom: 0px
+    }
+
+    .groupName {
+        font-size: 16px;
+        margin-bottom: 5px
+    }
+
+    .question, .subgroupName, .faq .question {
+        font-size: 16px;
+        line-height: 20px;
+        height: auto
+    }
+
+    .getStarted .answer {
+        font-size: 14px;
+        padding: 15px 32px;
+        color: #424763
+    }
+
+    .imgInAnswer {
+        max-width: 90% !important;
+        min-height: inherit;
+        margin-bottom: 20px;
+        height: auto !important;
+        background-position: center;
+        background-size: 100% auto
+    }
+
+    .faq .question {
+        font-weight: bold;
+        vertical-align: middle
+    }
+
+    .faq .answer {
+        padding: 15px 0px;
+        font-size: 14px
+    }
+
+    .faq ul {
+        margin: 20px 0 0 0 !important
+    }
+
+    .faq li {
+        margin-bottom: 10px
+    }
+
+    .blockquote {
+        padding-left: 20px
+    }
+
+    .faq .question:after {
+        height: 6px;
+        margin-left: 10px;
+        background-size: auto 100%;
+        background-position-x: 0%;
+        vertical-align: middle
+    }
+}
+
+@media (min-width: 961px) {
+    #module_topBanner #slogan {
+        margin-bottom: 53px !important
+    }
+
+    #module_topBanner #sloganDesc {
+        margin-bottom: 60px !important
+    }
+}
+
+#module_topBanner #slogan, #module_topBanner #sloganDesc, #module_topBanner #getAppNow {
+    font-family: 'avenirregular' !important
+}
+
+/*# sourceMappingURL=shopee_97422.css.map */
