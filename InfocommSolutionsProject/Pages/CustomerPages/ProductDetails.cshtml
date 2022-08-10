@@ -63,8 +63,13 @@
                             <a class="primary-btn">Out Of Stock</a>
                     }
                     else
-                    {
-                           <a href="#" class="primary-btn">ADD TO CARD</a>
+                    {   <form asp-page-handler="AddToShoppingCart" asp-route-id="@Model.Product.Id" method="post">
+                            <button class="primary-btn">Testtingg</button>
+                         </form>
+                        
+                        <a asp-page="ShoppingCart" asp-page-handler="buynow" asp-route-id="@Model.Product.Id" class="primary-btn">Add to Shopping Cart</a>
+                           <a asp-page="ShoppingCart" asp-page-handler="buynow" asp-route-id="@Model.Product.Id" class="primary-btn">Buy Now</a>
+
                     }
                  
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
