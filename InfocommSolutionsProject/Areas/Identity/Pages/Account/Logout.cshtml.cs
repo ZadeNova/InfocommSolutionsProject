@@ -28,7 +28,8 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             // session.clear is to call all session //
-            HttpContext.Session.Clear();
+            //HttpContext.Session.Clear();
+            HttpContext.Session.Remove("_userset");
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

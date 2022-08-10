@@ -183,7 +183,8 @@ body {top:0 !important;}
                                 <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
 				                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
 			                    </form>
-
+                                
+                                    
                             </div>
                         </div>
                     </div>
@@ -202,10 +203,10 @@ body {top:0 !important;}
                         <ul>
                             <li class="active"><a href="/CustomerPages/Home">Home</a></li>
                             <li><a href="/CustomerPages/Shop">Shop</a></li>
+                            <li><a href="/CustomerPages/ShoppingCart">Shopping Cart</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="/CustomerPages/ShoppingCart">Shoping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
                                     
                                 </ul>
@@ -215,11 +216,18 @@ body {top:0 !important;}
                         </ul>
                     </nav>
                 </div>
+
+                @{
+                                        var Cart = new InfocommSolutionsProject.Data.ShoppingCartItem();
+                                        int Num = Cart.Quantity;
+                                       
+                                }
+
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>@Num</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$0</span></div>
                     </div>
