@@ -49,11 +49,11 @@
 							<p>Postcode / ZIP<span>*</span></p>
 							@if (Model.AccountModel.PostalCode == null)
 							{
-								<input asp-for="AccountModel.PostalCode" placeholder="PostCode/Zip" class="form-control"  required/>
+								<input asp-for="AccountModel.PostalCode" placeholder="PostCode/Zip" class="form-control"  />
 							}
 							else
 							{
-								<input asp-for="AccountModel.PostalCode" class="form-control" required />
+								<input asp-for="AccountModel.PostalCode" class="form-control"  />
 							}
 
 						</div>
@@ -63,11 +63,11 @@
 									<p>Phone<span>*</span></p>
 									@if (Model.AccountModel.PhoneNumber == null)
 									{
-										<input asp-for="AccountModel.PhoneNumber" placeholder="Phone Number" class="form-control" required />
+										<input asp-for="AccountModel.PhoneNumber" placeholder="Phone Number" class="form-control"  />
 									}
 									else
 									{
-										<input asp-for="AccountModel.PhoneNumber" class="form-control" required/>
+										<input asp-for="AccountModel.PhoneNumber" class="form-control" />
 									}
 								</div>
 							</div>

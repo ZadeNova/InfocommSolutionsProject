@@ -5,12 +5,12 @@ namespace InfocommSolutionsProject.Models
     public class OrdersModel
     {
         [Key]
-        public int OrderId { get; set; }
-        
+        public Guid Id { get; set; }
+
         [Required]
         [Display(Name = "Price of Order")]
         public double PriceOfOrder { get; set; }
-        
+
         [DataType(DataType.DateTime)]
         [Required]
         [Display(Name = "Date of Order")]
@@ -36,8 +36,6 @@ namespace InfocommSolutionsProject.Models
         public virtual ProductModel Product { get; set; }
 
         public virtual PaymentModel Payment { get; set; }
-
-       
     }
 }
 

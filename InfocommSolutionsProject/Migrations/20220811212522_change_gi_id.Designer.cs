@@ -4,6 +4,7 @@ using InfocommSolutionsProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfocommSolutionsProject.Migrations
 {
     [DbContext(typeof(InfocommSolutionsProjectContext))]
-    partial class InfocommSolutionsProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220811212522_change_gi_id")]
+    partial class change_gi_id
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,9 +134,11 @@ namespace InfocommSolutionsProject.Migrations
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.OrdersModel", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
                     b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
@@ -145,6 +149,9 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.Property<DateTime>("DateOfOrder")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("OrderStatus")
                         .IsRequired()
@@ -165,7 +172,7 @@ namespace InfocommSolutionsProject.Migrations
                     b.Property<int>("quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("AccountsId");
 
