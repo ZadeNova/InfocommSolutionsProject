@@ -114,12 +114,19 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public IActionResult OnPostUpdate(int[] quantities)
         {
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
-            for (var i = 0; i < TheShoppingCart.Count; i++)
+            if (TheShoppingCart is null)
             {
-                TheShoppingCart[i].Quantity = quantities[i];
+                return RedirectToPage("Shop");
             }
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
-            return RedirectToPage("ShoppingCart");
+            else {
+                for (var i = 0; i < TheShoppingCart.Count; i++)
+                {
+                    TheShoppingCart[i].Quantity = quantities[i];
+                }
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
+                return RedirectToPage("ShoppingCart");
+            }
+            
         }
 
 

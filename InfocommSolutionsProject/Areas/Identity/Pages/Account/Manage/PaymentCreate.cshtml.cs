@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
 {
@@ -76,8 +77,15 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage
           
                 _context.Payment.Add(PaymentModel);
                 await _context.SaveChangesAsync();
-
+            if (@HttpContext.Session.GetString("_PaymentInvalid") == "Yes")
+            {
+                HttpContext.Session.Remove("_PaymentInvalid");
+                return RedirectToPage("/CustomerPages/CheckOut");
+            }
+            else {
                 return RedirectToPage("./PaymentIndex");
+            }
+             
            
           
         

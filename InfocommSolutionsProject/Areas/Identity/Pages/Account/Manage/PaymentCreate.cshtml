@@ -1,20 +1,56 @@
 ﻿@page
 @model InfocommSolutionsProject.Areas.Identity.Pages.Account.Manage.CreateModel
-
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Create";
 }
+<style>
+.warning {
+  padding: 15px;
+  background-color: yellow;
+  color: black ;
+}
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
 
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
 <h1>Create</h1>
 <div class="container">
    
     
 </div>
-<h4>PaymentModel</h4>
+<h4>Payment</h4>
 <hr />
 
 <div class="row">
     <div class="col-md-8">
+        @{
+            if (@HttpContext.Session.GetString("_PaymentInvalid") == "Yes")
+            {
+                 <div class="warning">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Kindly</strong> Add at least 1 Credit Card.
+                 </div>
+            }
+        }
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">

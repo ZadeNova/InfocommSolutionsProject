@@ -4,6 +4,7 @@ using InfocommSolutionsProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfocommSolutionsProject.Migrations
 {
     [DbContext(typeof(InfocommSolutionsProjectContext))]
-    partial class InfocommSolutionsProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220811190937_add_ordermode")]
+    partial class add_ordermode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,7 +129,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.OrdersModel", b =>
@@ -175,7 +177,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.PaymentModel", b =>
@@ -204,7 +206,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasIndex("AccountsId");
 
-                    b.ToTable("Payment", (string)null);
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.ProductModel", b =>
@@ -248,7 +250,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.SupplierModel", b =>
@@ -267,7 +269,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.SupplierOrdersModel", b =>
@@ -299,7 +301,7 @@ namespace InfocommSolutionsProject.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("SupplierOrders", (string)null);
+                    b.ToTable("SupplierOrders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

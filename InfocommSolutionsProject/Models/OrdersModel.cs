@@ -7,9 +7,6 @@ namespace InfocommSolutionsProject.Models
         [Key]
         public int OrderId { get; set; }
         
-        public virtual Accounts Accounts { get; set; }
-        
-        public virtual ProductModel Product { get; set; }
         [Required]
         [Display(Name = "Price of Order")]
         public double PriceOfOrder { get; set; }
@@ -21,5 +18,26 @@ namespace InfocommSolutionsProject.Models
         [Required]
         [Display(Name = "Order Status")]
         public string OrderStatus { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+        [RegularExpression(@"(^[0-9])", ErrorMessage = "Digit only")]
+        [Required]
+        [Display(Name = "Postal Code")]
+        public int PostalCode { get; set; }
+
+        [Required]
+        [Display(Name = "Quantity")]
+        public int quantity { get; set; }
+
+        public virtual Accounts Accounts { get; set; }
+
+        public virtual ProductModel Product { get; set; }
+
+        public virtual PaymentModel Payment { get; set; }
+
+       
     }
 }
+
