@@ -24,7 +24,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public SelectList PaymentList { get; set; }
         public PaymentModel PaymentModel1 { get; set; } = default!;
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
-
+      
         public CheckOutModel(InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
         {
             _context = context;
@@ -44,6 +44,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         }
         [BindProperty]
         public OrdersModel ordersmodel { get; set; } = default!;
+        [BindProperty]
+        public Accounts Accounts { get; set; } = default!;
         private Task<Accounts> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         public async Task OnGet(string returnUrl = null)
         {
@@ -96,7 +98,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
 
-
+          
             var datenow = DateTime.Now;
             returnUrl ??= Url.Content("~/");
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
@@ -107,13 +109,12 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 var item = TheShoppingCart[i];
                 var product = TheShoppingCart[i].Product;
                 var quantity = TheShoppingCart[i].Quantity;
-             
 
+              
                 if (item.Product.DiscountStatus == true)
                 {
-                   
                     TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
-                  
+                    ordersmodel.Id= Guid.NewGuid();
                     ordersmodel.OrderStatus = "Packing";
                     ordersmodel.Address = Request.Form["AccountModel.Address"].ToString();
                     ordersmodel.PostalCode = Convert.ToInt32(Request.Form["AccountModel.PostalCode"].ToString());
@@ -130,7 +131,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 else
                 {
                     TotalCost += item.Product.Price * item.Quantity;
-
+                    ordersmodel.Id = Guid.NewGuid();
                     ordersmodel.OrderStatus = "Packing";
                     ordersmodel.Address = Request.Form["AccountModel.Address"];
                     ordersmodel.PostalCode = Convert.ToInt32(Request.Form["AccountModel.PostalCode"]);
