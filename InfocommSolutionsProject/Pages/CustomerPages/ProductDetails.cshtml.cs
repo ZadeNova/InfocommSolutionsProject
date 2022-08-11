@@ -41,9 +41,9 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             
         }
 
-        public IActionResult OnPostAddToShoppingCart(string id)
+        public IActionResult OnPostAddToShoppingCart(string id , int ItemQuantity)
         {
-            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine($"This is the Item Quantity {ItemQuantity} SUSSSS");
 
             System.Diagnostics.Debug.WriteLine("Activating from ProductDetails Shopping Cart Side");
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
@@ -54,7 +54,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     new ShoppingCartItem
                     {
                         Product = _context.Products.Find(Guid.Parse(id)),
-                        Quantity = 1
+                        Quantity = ItemQuantity
                     });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
 
@@ -67,13 +67,13 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     TheShoppingCart.Add(new ShoppingCartItem
                     {
                         Product = _context.Products.Find(Guid.Parse(id)),
-                        Quantity = 1
+                        Quantity = ItemQuantity
 
                     });
                 }
                 else
                 {
-                    TheShoppingCart[index].Quantity++;
+                    TheShoppingCart[index].Quantity += ItemQuantity;
 
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);

@@ -29,7 +29,14 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
             await _signInManager.SignOutAsync();
             // session.clear is to call all session //
             //HttpContext.Session.Clear();
+            
+            //_userset is clear pagination
             HttpContext.Session.Remove("_userset");
+            //_PaymentInvalid clear no payment but user wanted to checkout
+            HttpContext.Session.Remove("_PaymentInvalid");
+            //_null_cart user did not add any item into cart but wanted ot check out
+            HttpContext.Session.Remove("_null_cart");
+
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

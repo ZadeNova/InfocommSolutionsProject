@@ -217,17 +217,18 @@ body {top:0 !important;}
                     </nav>
                 </div>
 
-                @{
-                                        var Cart = new InfocommSolutionsProject.Data.ShoppingCartItem();
-                                        int Num = Cart.Quantity;
-                                       
-                                }
+                    @{
+                        var Cart = new InfocommSolutionsProject.Data.ShoppingCartItem();
+                        int Num = Cart.Quantity;
+
+                       
+                      }
 
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>@Num</span></a></li>
+                            <li><a  asp-area="" asp-page="./CustomerPages/ShoppingCart"><i class="fa fa-shopping-bag"></i> <span>@Num</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$0</span></div>
                     </div>

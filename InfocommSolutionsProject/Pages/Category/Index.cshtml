@@ -1,5 +1,6 @@
 ﻿@page
 @model InfocommSolutionsProject.Pages.Category.IndexModel
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Index";
@@ -64,44 +65,52 @@
                <label >Items per page</label> 
                <select onchange="location=this.value">
             @{
-
-              
+                
+                           
+                            string returnUrl = null;
+                            returnUrl ??= Url.Content("~/");
+                            var v1 = @returnUrl + "Category?sortOrder1=five";
+                            var v2 = @returnUrl + "Category?sortOrder1=ten";
+                            var v3 = @returnUrl + "Category?sortOrder1=fivete";
+                            var v4 = @returnUrl + "Category?sortOrder1=hun";
+               
                 if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 5)
                 {
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                       
+                        <option value=@v1>5</option >
+                        <option value=@v2>10</option>
+                        <option value=@v3>50</option>
+                        <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 10)
                 {
-                    <option >10</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                        <option >10</option>
+                        <option value=@v1>5</option >
+                        <option value=@v3>50</option>
+                        <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 50)
                 {
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                        <option value=@v3>50</option>
+                        <option value=@v1>5</option >
+                        <option value=@v2>10</option>
+                        <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 100)
                 {
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
+                        <option value=@v4>100</option>
+                        <option value=@v1>5</option >
+                        <option value=@v2>10</option>
+                        <option value=@v3>50</option>
                 }
                 else
                 {
                     //@HttpContext.Session.GetString("_Name")
-                    <option >Default : 10</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=five">5</option >
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=ten">10</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=fivete">50</option>
-                    <option value="https://infocommsolutionsprojectsgae.azurewebsites.net/Category?sortOrder1=hun">100</option>
+                        <option >Default : 10</option>
+                        <option value=@v1>5</option >
+                        <option value=@v2>10</option>
+                        <option value=@v3>50</option>
+                        <option value=@v4>100</option>
                 }
             }
                </select>

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
-
+using Microsoft.AspNetCore.Http;
 namespace InfocommSolutionsProject.Pages.Category
 {
     public class IndexModel : PageModel
@@ -31,7 +31,7 @@ namespace InfocommSolutionsProject.Pages.Category
         public string ten { get; set; }
         public string fivete { get; set; }
         public string hun { get; set; }
-        public async Task OnGetAsync(string searchString, int? pageIndex, string sortOrder1, int currentFilter1)
+        public async Task OnGetAsync(string searchString, int? pageIndex, string sortOrder1)
         {
             currentPagesort = sortOrder1;
             five = String.IsNullOrEmpty(sortOrder1) ? "five" : "";

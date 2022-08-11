@@ -23,6 +23,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public void OnGet()
         {
+            // Check if shopping cart have items.
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             if (TheShoppingCart == null)
             {
@@ -30,11 +31,12 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             }
             else
             {
+                // If cart has items calculate the total 
                 foreach (var item in TheShoppingCart)
                 {
                     if (item.Product.DiscountStatus == true)
                     {
-                        TotalCost += item.Product.Price - (item.Product.Price * item.Product.Discount / 100);
+                        TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100))  * item.Quantity;
                     }
                     else
                     {
@@ -101,6 +103,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public IActionResult OnGetDelete(string id)
         {
+            System.Diagnostics.Debug.WriteLine("The delete button lol");
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             int index = Exists(TheShoppingCart, id);
             TheShoppingCart.RemoveAt(index);
@@ -111,12 +114,19 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public IActionResult OnPostUpdate(int[] quantities)
         {
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
-            for (var i = 0; i < TheShoppingCart.Count; i++)
+            if (TheShoppingCart is null)
             {
-                TheShoppingCart[i].Quantity = quantities[i];
+                return RedirectToPage("Shop");
             }
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
-            return RedirectToPage("ShoppingCart");
+            else {
+                for (var i = 0; i < TheShoppingCart.Count; i++)
+                {
+                    TheShoppingCart[i].Quantity = quantities[i];
+                }
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
+                return RedirectToPage("ShoppingCart");
+            }
+            
         }
 
 
