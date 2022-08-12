@@ -31,6 +31,10 @@ namespace InfocommSolutionsProject.Models
         [Display(Name = "Quantity")]
         public int quantity { get; set; }
 
+        [RegularExpression(@"^(?:\b\w +\b[\s\r\n] *){1,500}$)",ErrorMessage ="Max 500 words only")]
+        [Display(Name = "Notes")]
+        public string? Notes { get; set; }
+
         public virtual Accounts Accounts { get; set; }
 
         public virtual ProductModel Product { get; set; }
