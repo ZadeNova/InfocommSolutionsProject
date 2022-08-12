@@ -225,7 +225,8 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                @foreach (var item in Model.ProductsDiscount){
+                                @foreach (var item in Model.ProductsDiscount)
+                                {
 
                                 string ImgPath = "~/Images/ProductImages/" + item.ImagePath;
                                 var FinalPrice = item.Price - (item.Price * item.Discount/100);
@@ -234,7 +235,15 @@
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
                                             data-setbg="@Url.Content(ImgPath)">
-                                            <div class="product__discount__percent">-@item.Discount%</div>
+                                            @if (@item.Quantity==0)
+                                            {
+                                                 <div class="product__discount__percent">Out Of Stock</div>
+                                            }
+                                            else
+                                            {
+                                                 <div class="product__discount__percent">-@item.Discount%</div>
+                                            }
+                                           
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
