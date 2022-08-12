@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Linq;
-using System.Collections.Generic;
 using InfocommSolutionsProject.Models;
 using InfocommSolutionsProject.Data;
+using Microsoft.EntityFrameworkCore;
+
 
 
 namespace InfocommSolutionsProject.Pages.CustomerPages
@@ -15,7 +15,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public double TotalCost { get; set; }
 
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
-
+    
         public ShoppingCartModel(InfocommSolutionsProjectContext context)
         {
             _context = context;
@@ -25,12 +25,17 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         {
             // Check if shopping cart have items.
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
+
+
+         
+
             if (TheShoppingCart == null)
             {
 
             }
             else
             {
+
                 // If cart has items calculate the total 
                 foreach (var item in TheShoppingCart)
                 {
@@ -57,6 +62,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public IActionResult OnGetBuyNow(string id)
         {
+         
             System.Diagnostics.Debug.WriteLine("The Shopping Carttrtt");
             System.Diagnostics.Debug.WriteLine(id);
             var ProductModel = new ProductModel();
@@ -113,6 +119,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public IActionResult OnPostUpdate(int[] quantities)
         {
+
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             if (TheShoppingCart is null)
             {

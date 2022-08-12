@@ -31,7 +31,7 @@ namespace InfocommSolutionsProject.Models
         [Display(Name = "Quantity")]
         public int quantity { get; set; }
 
-        [RegularExpression(@"^(?:\b\w +\b[\s\r\n] *){1,500}$)",ErrorMessage ="Max 500 words only")]
+      
         [Display(Name = "Notes")]
         public string? Notes { get; set; }
 
