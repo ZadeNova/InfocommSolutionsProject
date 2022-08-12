@@ -139,6 +139,46 @@
                 </div>
               </div>
 
+               <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                              <use xlink:href="#paper-stack-1"> </use>
+                            </svg>*@
+                            <i class="fa-solid fa-user"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Avg Sales per Order</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:steelblue">$@Model.AveragePricePerOrder</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:steelblue" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+               <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                              <use xlink:href="#paper-stack-1"> </use>
+                            </svg>*@
+                            <i class="fa-solid fa-user"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Total Sales per Order</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:goldenrod">$@Model.TotalSales</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:goldenrod" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -153,12 +193,15 @@
               <div class="col-lg-4">
                 <div class="card">
                   <div class="card-body">
-                    <canvas id="barChartExample1"></canvas>
+                      <div class="postion-relative text-center">
+                          <canvas id="CategorySalesPieChart"></canvas>
+                          <div class="position-absolute top-50 start-50 translate-middle"><strong class="text-lg d-block">$@Model.TotalSales</strong><span class="d-block">Sales</span></div>
+                      </div>
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <canvas id="CategoryBarChart"></canvas>
+                     <canvas id="CategoryPieChart"></canvas>
                   </div>
                 </div>
               </div>
@@ -166,6 +209,41 @@
                 <div class="card">
                   <div class="card-body">
                     <canvas id="ProdUserChart"></canvas>
+                    <br />
+                   <div class="btn-group" role="group" aria-label="Basic example">
+                      <button id="tdybtn" type="button" class="btn btn-secondary" value="Today" onclick="FilterDate(this)">Today</button>
+                      <button type="button" class="btn btn-secondary" value="Yesterday" onclick="FilterDate(this)">Yesterday</button>
+                      <button type="button" class="btn btn-secondary" value="Last 7 Days" onclick="FilterDate(this)">Last 7 Days</button>
+                      <button type="button" class="btn btn-secondary" value="Last 28 Days" onclick="FilterDate(this)">Last 28 Days</button>
+                      <button type="button" class="btn btn-secondary" value="This Year" onclick="FilterDate(this)">This Year</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="pt-0">
+          <div class="container-fluid">
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                      <canvas id="LineChartSales"></canvas>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                      <canvas id="CategoryBarChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                    <canvas id=""></canvas>
                     <br />
                    <div class="btn-group" role="group" aria-label="Basic example">
                       <button id="tdybtn" type="button" class="btn btn-secondary" value="Today" onclick="FilterDate(this)">Today</button>
@@ -1084,15 +1162,18 @@
     <script>
         
 
-    const CategoryBarChart = document.getElementById("CategoryBarChart");
-    var barChartExample = new Chart(CategoryBarChart, {
-        type: "bar",
+    const CategoryPieChart = document.getElementById("CategoryPieChart");
+    var PieChart_prodCategory = new Chart(CategoryPieChart, {
+        type: "doughnut",
         options: {
+            maintainAspectRatio: false,
+            cutout:80,
             plugins: {
                 title: {
                     display: true,
-                    text: 'Number of Products sold Per Category',
                     fontColor: 'white',
+                    fontSize:20,
+                    text: 'Number of Products sold Per Category',
                 }
             },
             scales: {
@@ -1120,31 +1201,34 @@
                 {
                     label: "Data Set 1",
                     backgroundColor: [
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(210, 224, 80, 0.8)",
+                        "rgba(224, 153, 80, 0.8)",
+                        "rgba(155, 223, 167, 0.8)",
+                        "rgba(117, 89, 89, 0.8)",
+                        "rgba(101, 67, 99, 0.8)",
+                        "rgba(227, 53, 143, 0.8)",
+                        "rgba(55, 230, 224, 0.8)",
                     ],
                     hoverBackgroundColor: [
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
-                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(210, 224, 80, 0.8)",
+                        "rgba(224, 153, 80, 0.8)",
+                        "rgba(155, 223, 167, 0.8)",
+                        "rgba(117, 89, 89, 0.8)",
+                        "rgba(101, 67, 99, 0.8)",
+                        "rgba(227, 53, 143, 0.8)",
+                        "rgba(55, 230, 224, 0.8)",
                     ],
                     borderColor: [
-                        "rgba(134, 77, 217, 1)",
-                        "rgba(134, 77, 217, 1)",
-                        "rgba(134, 77, 217, 1)",
-                        "rgba(134, 77, 217, 1)",
-                        "rgba(134, 77, 217, 1)",
-                        "rgba(134, 77, 217, 1)",
-                        "rgba(134, 77, 217, 1)",
+
+                        
+                        "rgba(210, 224, 80, 0.8)",
+                        "rgba(224, 153, 80, 0.8)",
+                        "rgba(155, 223, 167, 0.8)",
+                        "rgba(117, 89, 89, 0.8)",
+                        "rgba(101, 67, 99, 0.8)",
+                        "rgba(227, 53, 143, 0.8)",
+                        "rgba(55, 230, 224, 0.8)",
+                        
                     ],
                     borderWidth: 1,
                     data: @Html.Raw(Json.Serialize(Model.TopCategories.Select(item => item.Value).ToList())),
@@ -1155,10 +1239,146 @@
     });
 
 
+    const CategorySales = document.getElementById("CategorySalesPieChart");
+    var CategorySalesPieChart = new Chart(CategorySales, {
+        type: "doughnut",
+        options: {
+            maintainAspectRatio: false,
+            cutout:80,
+            plugins: {
+                title: {
+                    display: true,
+                    fontColor: 'white',
+                    fontSize:20,
+                    text: 'Sales Per Category',
+                }
+            },
+            scales: {
+                xAxes: [
+                    {
+                        display: false,
+                        gridLines: {
+                            color: "#eee",
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        display: false,
+                        gridLines: {
+                            color: "#eee",
+                        },
+                    },
+                ],
+            },
+        },
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.TopCategoriesBySales.Select(item => item.Key).ToList())),
+            datasets: [
+                {
+                    label: "Data Set 1",
+                    backgroundColor: [
+                        "rgba(227, 53, 143, 0.8)",
+                        "rgba(55, 230, 224, 0.8)",
+                        "rgba(210, 224, 80, 0.8)",
+                        "rgba(224, 153, 80, 0.8)",
+                        "rgba(155, 223, 167, 0.8)",
+                        "rgba(101, 67, 99, 0.8)",
+                        "rgba(117, 89, 89, 0.8)",
+                    ],
+                    hoverBackgroundColor: [
+                        "rgba(227, 53, 143, 0.8)",
+                        "rgba(55, 230, 224, 0.8)",
+                        "rgba(210, 224, 80, 0.8)",
+                        "rgba(224, 153, 80, 0.8)",
+                        "rgba(155, 223, 167, 0.8)",
+                        "rgba(101, 67, 99, 0.8)",
+                        "rgba(117, 89, 89, 0.8)",
+                    ],
+                    borderColor: [
+                        "rgba(227, 53, 143, 0.8)",
+                        "rgba(55, 230, 224, 0.8)",
+                        "rgba(210, 224, 80, 0.8)",
+                        "rgba(224, 153, 80, 0.8)",
+                        "rgba(155, 223, 167, 0.8)",
+                        "rgba(101, 67, 99, 0.8)",
+                        "rgba(117, 89, 89, 0.8)",
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(Json.Serialize(Model.TopCategoriesBySales.Select(item => item.Value).ToList())),
+                }
+                
+            ],
+        },
+    });
 
 
+    const SalesOverTime = document.getElementById("LineChartSales");
+    var LineChart_SalesTime = new Chart(SalesOverTime, {
+          type: 'line',
+          data: {
+            labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+            datasets: [{ 
+                data: [86,114,106,106,107,111,133,221,783,2478],
+                label: "Africa",
+                borderColor: "#3e95cd",
+                fill: false
+              }, { 
+                data: [282,350,411,502,635,809,947,1402,3700,5267],
+                label: "Asia",
+                borderColor: "#8e5ea2",
+                fill: false
+              }, { 
+                data: [168,170,178,190,203,276,408,547,675,734],
+                label: "Europe",
+                borderColor: "#3cba9f",
+                fill: false
+              }, { 
+                data: [40,20,10,16,24,38,74,167,508,784],
+                label: "Latin America",
+                borderColor: "#e8c3b9",
+                fill: false
+              }, { 
+                data: [6,3,2,2,7,26,82,172,312,433],
+                label: "North America",
+                borderColor: "#c45850",
+                fill: false
+              }
+            ]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'World population per region (in millions)'
+            }
+          }
+        });
 
 
+    </script>
+    <script>
+    
 
+
+    const VISITPIECHART = document.getElementById("visitPieChart");
+    var pieChartExample = new Chart(VISITPIECHART, {
+        type: "pie",
+        options: {
+            legend: {
+                display: false,
+            },
+        },
+        data: {
+            labels: ["A", "B", "C", "D"],
+            datasets: [
+                {
+                    data: [300, 50, 100, 80],
+                    borderWidth: 0,
+                    backgroundColor: ["#723ac3", "#864DD9", "#9762e6", "#a678eb"],
+                    hoverBackgroundColor: ["#723ac3", "#864DD9", "#9762e6", "#a678eb"],
+                },
+            ],
+        },
+    });
 
     </script>

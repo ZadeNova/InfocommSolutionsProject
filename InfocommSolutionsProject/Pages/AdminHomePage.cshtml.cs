@@ -54,6 +54,12 @@ namespace InfocommSolutionsProject.Pages
 
         public Dictionary<string,int> TopCategories { get; set; }
 
+        public Dictionary<string, double> TopCategoriesBySales { get; set; }
+
+        public double TotalSales { get; set; }
+
+        public double AveragePricePerOrder { get; set; }
+
         public void OnGet()
         {
             // Assigning the variables from database
@@ -65,6 +71,9 @@ namespace InfocommSolutionsProject.Pages
             OrdersList = _context.Orders.ToList();
             ProductList = _context.Products.ToList();
             LatestOrders = _context.Orders.OrderByDescending(x => x.DateOfOrder).Take(8).ToList();
+            TotalSales = Math.Round(_context.Orders.Sum(x => x.PriceOfOrder) , 2);
+            AveragePricePerOrder = Math.Round((_context.Orders.Sum(x => x.PriceOfOrder) / _context.Orders.Count()), 2);
+            
            // ProductsCategory = _context.Categories.Where(x => x.CategoryFor.ToLower() == "product" || x.CategoryFor.ToLower() == "products").ToList();
             
             var UserList = _userManager.Users.ToList();
@@ -78,14 +87,15 @@ namespace InfocommSolutionsProject.Pages
                 Count = y.Count()
             }).ToDictionary(x => x.Category , x => x.Count);
 
+            TopCategoriesBySales = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id select new { cat.Product, prod.Category , cat.PriceOfOrder }).GroupBy(x => x.Category).Select(y => new
+            {
+                Category = y.Key,
+                Count = Math.Round(y.Sum( a => a.PriceOfOrder) , 2)
+            }).ToDictionary(x => x.Category, x => x.Count);
 
+            //foreach (var i in TopCategoriesBySales) System.Diagnostics.Debug.WriteLine($"{i.Key} , {i.Value}");
 
-            //var la = getNumberOfCategory.GroupBy(l => l.Category).Select(x => new
-            //{
-            //    Category = x.Category,
-            //    Count = x.Sum(x =>)
-
-            //})
+           
             //foreach (var i in getNumberOfCategory) System.Diagnostics.Debug.WriteLine($"{i.Category} , {i.Count}");
 
 
@@ -101,14 +111,14 @@ namespace InfocommSolutionsProject.Pages
             TopCustomers = OrdersList.GroupBy(x => x.Accounts).Select(g => new
             {
                 Account = g.Key,
-                Count = g.Sum(x => x.quantity * x.PriceOfOrder)
+                Count = Math.Round(g.Sum(x => x.PriceOfOrder) , 2)
             }).OrderByDescending(a => a.Count).Take(5).ToDictionary(x => x.Account, x => x.Count);
 
 
             TopProducts_byAmount = OrdersList.GroupBy(x => x.Product).Select(g => new
             {
                 Product = g.Key,
-                Count = g.Sum(x => x.quantity * x.PriceOfOrder)
+                Count = Math.Round(g.Sum(x => x.PriceOfOrder) , 2)
             }).OrderByDescending(v => v.Count).Take(5).ToDictionary(m => m.Product.Name , m => m.Count);
 
             TopProducts_byQuantity = OrdersList.GroupBy(x => x.Product).Select(g => new
