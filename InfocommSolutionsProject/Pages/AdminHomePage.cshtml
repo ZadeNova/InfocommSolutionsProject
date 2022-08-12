@@ -1082,12 +1082,19 @@
     
     </script>
     <script>
-
+        
 
     const CategoryBarChart = document.getElementById("CategoryBarChart");
     var barChartExample = new Chart(CategoryBarChart, {
         type: "bar",
         options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Number of Products sold Per Category',
+                    fontColor: 'white',
+                }
+            },
             scales: {
                 xAxes: [
                     {
@@ -1108,7 +1115,7 @@
             },
         },
         data: {
-            labels: @Html.Raw(Json.Serialize(Model.ProductsCategory)),
+            labels: @Html.Raw(Json.Serialize(Model.TopCategories.Select(item => item.Key).ToList())),
             datasets: [
                 {
                     label: "Data Set 1",
@@ -1140,40 +1147,9 @@
                         "rgba(134, 77, 217, 1)",
                     ],
                     borderWidth: 1,
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                },
-                {
-                    label: "Data Set 2",
-                    backgroundColor: [
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                    ],
-                    hoverBackgroundColor: [
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                    ],
-                    borderColor: [
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                        "rgba(75, 75, 75, 0.7)",
-                    ],
-                    borderWidth: 1,
-                    data: [35, 40, 60, 47, 88, 27, 30],
-                },
+                    data: @Html.Raw(Json.Serialize(Model.TopCategories.Select(item => item.Value).ToList())),
+                }
+                
             ],
         },
     });
