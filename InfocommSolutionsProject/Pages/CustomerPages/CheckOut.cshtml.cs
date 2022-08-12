@@ -40,7 +40,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             Accounts usr = await GetCurrentUserAsync();
             userid = usr.Id;
 
-            return usr?.Id;
+            return usr.Id;
         }
         [BindProperty]
         public OrdersModel ordersmodel { get; set; } = default!;
@@ -109,10 +109,11 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 var item = TheShoppingCart[i];
                 var product = TheShoppingCart[i].Product;
                 var quantity = TheShoppingCart[i].Quantity;
+                System.Diagnostics.Debug.WriteLine($"{Request.Form["AccountModel.Id"]} SUSSYBAKA!!!");
 
-              
                 if (item.Product.DiscountStatus == true)
                 {
+                    
                     TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
                     ordersmodel.Id= Guid.NewGuid();
                     ordersmodel.OrderStatus = "Packing";
@@ -122,7 +123,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     ordersmodel.DateOfOrder = datenow;
                     ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.Id"]));
                     ordersmodel.quantity = quantity;
-                    ordersmodel.PriceOfOrder = item.Product.Price - (item.Product.Price * item.Product.Discount / 100);
+                    ordersmodel.PriceOfOrder = (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
                     ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
                     _context.Orders.Add(ordersmodel);
                     await _context.SaveChangesAsync();
@@ -135,11 +136,11 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     ordersmodel.OrderStatus = "Packing";
                     ordersmodel.Address = Request.Form["AccountModel.Address"];
                     ordersmodel.PostalCode = Convert.ToInt32(Request.Form["AccountModel.PostalCode"]);
-                    ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"]);
+                    ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
                     ordersmodel.DateOfOrder = datenow;
-                    ordersmodel.Payment = _context.Payment.First(i => i.Id == Request.Form["PaymentModel1.Id"]);
+                    ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.Id"]));
                     ordersmodel.quantity = quantity;
-                    ordersmodel.PriceOfOrder = item.Product.Price - (item.Product.Price * item.Product.Discount / 100);
+                    ordersmodel.PriceOfOrder = (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
                     ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
                     _context.Orders.Add(ordersmodel);
                     await _context.SaveChangesAsync();
