@@ -158,7 +158,7 @@
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <canvas id="barChartExample2"></canvas>
+                    <canvas id="CategoryBarChart"></canvas>
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@
         <section class="pt-0">
           <div class="container-fluid">
             <div class="row gy-4">
-              <div class="col-lg-6">
+             @* <div class="col-lg-6">
                 <!-- Stat card-->
                 <div class="card mb-4">
                   <div class="card-body">
@@ -246,57 +246,83 @@
                     </div>
                   </div>
                 </div>
+              </div>*@
+              <div class="col-lg-8">
+                <div class="card">
+                  <div class="card-body">
+                    <h3 class="h4 mb-3">Latest Orders</h3>
+                       <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestOrders[0].Accounts)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestOrders[0].PriceOfOrder)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestOrders[0].Product)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestOrders[0].DateOfOrder)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestOrders[0].OrderStatus)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestOrders[0].Notes)</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach(var item in @Model.LatestOrders){
+
+                                        <tr>
+                                          <td>@Html.DisplayFor(modelItem => item.Accounts.Email)</td>
+                                          <td>$@Html.DisplayFor(modelItem => item.PriceOfOrder)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.DateOfOrder)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.OrderStatus)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.Notes)</td>
+                                        </tr>
+
+                                  }
+                               
+                              </tbody>
+                       </table>
+                  </div>
+                </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body" id="BestsellerTable">
+                    <h3 class="h4 mb-3">BestSellers</h3>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-secondary" id="quantitybtn" onclick="BestSellerFilter(this)" value="Quantity">By Quantity</button>
+                      <button type="button" class="btn btn-secondary" id="amountbtn" onclick="BestSellerFilter(this)" value="Amount">By Amount</button>
+                    </div>
+                     <table class="table" id="tableprodbestseller">
+                          <thead>
+                              <tr>
+
+                              <th>Product</th>
+                              <th>Sales</th>
+                              <th>Amount</th>
+
+                              </tr>
+                              
+                          </thead>
+                          <tbody id="ProductBestSellersTableBody">
+
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+
+              @*<div class="col-lg-6">
                 <div class="card">
                   <div class="card-body">
                     <canvas id="lineChart1"></canvas>
                   </div>
                 </div>
-              </div>
+              </div>*@
             </div>
           </div>
         </section>
         <section class="pt-0">
           <div class="container-fluid">
             <div class="row gy-4">
-              <div class="col-lg-4">
-                    <!-- User block-->
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="text-center">
-                          <div class="position-relative d-inline-block"><img class="avatar avatar-lg mb-3" src="~/Images/AdminPageImages/avatar-1.jpg" alt="Richard Nevoreski"><span class="avatar-badge bg-dash-color-1">1st</span></div>
-                          <h3 class="h5 mb-0">Richard Nevoreski</h3>
-                          <p class="text-sm fw-light">richardnevo</p>
-                          <div class="d-inline-block py-1 px-4 rounded-pill bg-dash-dark-3 fw-light text-sm mb-4">950 Contributions</div>
-                          <ul class="list-inline text-center mb-0 d-flex justify-content-between text-sm mb-0">                
-                            <li class="list-inline-item"><i class="fab fa-blogger-b me-2"></i>150</li>
-                            <li class="list-inline-item"><i class="fas fa-code-branch me-2"></i>340</li>
-                            <li class="list-inline-item"><i class="fab fa-gg me-2"></i>460</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-              </div>
-              <div class="col-lg-4">
-                    <!-- User block-->
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="text-center">
-                          <div class="position-relative d-inline-block"><img class="avatar avatar-lg mb-3" src="~/Images/AdminPageImages/avatar-4.jpg" alt="Samuel Watson"><span class="avatar-badge bg-dash-color-2">2nd</span></div>
-                          <h3 class="h5 mb-0">Samuel Watson</h3>
-                          <p class="text-sm fw-light">samwatson</p>
-                          <div class="d-inline-block py-1 px-4 rounded-pill bg-dash-dark-3 fw-light text-sm mb-4">772 Contributions</div>
-                          <ul class="list-inline text-center mb-0 d-flex justify-content-between text-sm mb-0">                
-                            <li class="list-inline-item"><i class="fab fa-blogger-b me-2"></i>80</li>
-                            <li class="list-inline-item"><i class="fas fa-code-branch me-2"></i>420</li>
-                            <li class="list-inline-item"><i class="fab fa-gg me-2"></i>272</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-              </div>
-              <div class="col-lg-4">
+
+        @*      <div class="col-lg-4">
                     <!-- User block-->
                     <div class="card">
                       <div class="card-body">
@@ -313,8 +339,8 @@
                         </div>
                       </div>
                     </div>
-              </div>
-              <div class="col-12">
+              </div>*@
+             @* <div class="col-12">
                     <div class="card">
                       <div class="card-body">
                         <div class="row gy-3 align-items-center">
@@ -339,59 +365,9 @@
                         </div>
                       </div>
                     </div>
-              </div>
-              <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row gy-3 align-items-center">
-                          <div class="col-lg-4">
-                            <div class="d-flex align-items-center"><strong class="text-sm d-none d-lg-block">5th</strong><img class="avatar ms-3" src="~/Images/AdminPageImages/avatar-2.jpg" alt="Alexander Shelby">
-                              <div class="ms-3">
-                                <h3 class="h5 mb-0">Alexander Shelby</h3>
-                                <p class="text-sm fw-light mb-0">alexshelby</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-4 text-center">
-                            <div class="d-inline-block py-1 px-4 rounded-pill bg-dash-dark-3 fw-light text-sm">320 Contributions</div>
-                          </div>
-                          <div class="col-lg-4">
-                            <ul class="list-inline text-center mb-0 d-flex justify-content-between mb-0 text-sm">                 
-                              <li class="list-inline-item"><i class="fab fa-blogger-b me-2"></i>150</li>
-                              <li class="list-inline-item"><i class="fas fa-code-branch me-2"></i>120</li>
-                              <li class="list-inline-item"><i class="fab fa-gg me-2"></i>50</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-              </div>
-              <div class="col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="row gy-3 align-items-center">
-                          <div class="col-lg-4">
-                            <div class="d-flex align-items-center"><strong class="text-sm d-none d-lg-block">6th</strong><img class="avatar ms-3" src="~/Images/AdminPageImages/avatar-6.jpg" alt="Arther Kooper">
-                              <div class="ms-3">
-                                <h3 class="h5 mb-0">Arther Kooper</h3>
-                                <p class="text-sm fw-light mb-0">artherkooper</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-4 text-center">
-                            <div class="d-inline-block py-1 px-4 rounded-pill bg-dash-dark-3 fw-light text-sm">170 Contributions</div>
-                          </div>
-                          <div class="col-lg-4">
-                            <ul class="list-inline text-center mb-0 d-flex justify-content-between mb-0 text-sm">                 
-                              <li class="list-inline-item"><i class="fab fa-blogger-b me-2"></i>60</li>
-                              <li class="list-inline-item"><i class="fas fa-code-branch me-2"></i>70</li>
-                              <li class="list-inline-item"><i class="fab fa-gg me-2"></i>40</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-              </div>
+              </div>*@
+            
+           
             </div>
           </div>
         </section>
@@ -997,6 +973,216 @@
         }
     }
 
+
+    var OrderList_ByQuantity = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
+    var OrderList_ByAmount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
+    var size = Object.keys(OrderList_ByQuantity).length
+    var ProductList = []
+
+    for (let key in OrderList_ByQuantity) {
+        ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
+    }
+    console.log(ProductList)
+
+    var prod_body = document.getElementById("ProductBestSellersTableBody")
+    for (let i = 0; i < size; i++) {
+                    let row = document.createElement('tr')
+                    let data1 = document.createElement('td')
+                    let data2 = document.createElement('td')
+                    let data3 = document.createElement('td')
+                    data1.innerHTML = ProductList[i].Product
+                    data2.innerHTML = ProductList[i].Sales
+                    data3.innerHTML = ProductList[i].Amount
+                    row.appendChild(data1)
+                    row.appendChild(data2)
+                    row.appendChild(data3)
+
+                    prod_body.append(row)
+                }
+                
+    BestSellerFilter = (btn) => {
+        
+        
+        switch (btn.value) {
+
+            case document.getElementById("quantitybtn").value:
+                $('#tableprodbestseller tbody tr').remove();
+                var OrderList_ByQuantity = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
+                var OrderList_ByAmount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
+                var size = Object.keys(OrderList_ByQuantity).length
+                var ProductList = []
+
+                for (let key in OrderList_ByQuantity) {
+
+                    ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
+
+                }
+                console.log(ProductList)
+
+                for (let i = 0; i < size; i++){
+
+                    let row = document.createElement('tr')
+
+                    let data1 = document.createElement('td')
+                    let data2 = document.createElement('td')
+                    let data3 = document.createElement('td')
+                    data1.innerHTML = ProductList[i].Product
+                    data2.innerHTML = ProductList[i].Sales
+                    data3.innerHTML = ProductList[i].Amount
+                    row.appendChild(data1)
+                    row.appendChild(data2)
+                    row.appendChild(data3)
+
+                    prod_body.append(row)
+                }
+
+                break;
+
+
+            case document.getElementById("amountbtn").value:
+
+                $('#tableprodbestseller tbody tr').remove(); // Clear the table
+
+                var OrderList_ByQuantity = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
+                var OrderList_ByAmount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
+                var size = Object.keys(OrderList_ByAmount).length
+                var ProductList = []
+                
+                for (let key in OrderList_ByAmount) {
+
+                    ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
+
+                }
+                console.log(ProductList)
+
+                for (let i = 0; i < size; i++){
+
+                    let row = document.createElement('tr')
+
+                    let data1 = document.createElement('td')
+                    let data2 = document.createElement('td')
+                    let data3 = document.createElement('td')
+                    data1.innerHTML = ProductList[i].Product
+                    data2.innerHTML = ProductList[i].Sales
+                    data3.innerHTML = ProductList[i].Amount
+                    row.appendChild(data1)
+                    row.appendChild(data2)
+                    row.appendChild(data3)
+
+                    prod_body.append(row)
+                }
+
+                break;
+
+        }
+
+
+    }
+
     
     </script>
-    
+    <script>
+
+
+    const CategoryBarChart = document.getElementById("CategoryBarChart");
+    var barChartExample = new Chart(CategoryBarChart, {
+        type: "bar",
+        options: {
+            scales: {
+                xAxes: [
+                    {
+                        display: false,
+                        gridLines: {
+                            color: "#eee",
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        display: false,
+                        gridLines: {
+                            color: "#eee",
+                        },
+                    },
+                ],
+            },
+        },
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.ProductsCategory)),
+            datasets: [
+                {
+                    label: "Data Set 1",
+                    backgroundColor: [
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                    ],
+                    hoverBackgroundColor: [
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                        "rgba(134, 77, 217, 0.57)",
+                    ],
+                    borderColor: [
+                        "rgba(134, 77, 217, 1)",
+                        "rgba(134, 77, 217, 1)",
+                        "rgba(134, 77, 217, 1)",
+                        "rgba(134, 77, 217, 1)",
+                        "rgba(134, 77, 217, 1)",
+                        "rgba(134, 77, 217, 1)",
+                        "rgba(134, 77, 217, 1)",
+                    ],
+                    borderWidth: 1,
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                },
+                {
+                    label: "Data Set 2",
+                    backgroundColor: [
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                    ],
+                    hoverBackgroundColor: [
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                    ],
+                    borderColor: [
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                        "rgba(75, 75, 75, 0.7)",
+                    ],
+                    borderWidth: 1,
+                    data: [35, 40, 60, 47, 88, 27, 30],
+                },
+            ],
+        },
+    });
+
+
+
+
+
+
+
+
+    </script>

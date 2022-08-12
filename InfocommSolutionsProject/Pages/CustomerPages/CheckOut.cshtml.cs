@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace InfocommSolutionsProject.Pages.CustomerPages
@@ -23,6 +27,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public string userid { get; set; }
         public SelectList PaymentList { get; set; }
         public PaymentModel PaymentModel1 { get; set; } = default!;
+        public IList<PaymentModel> PaymentModel2 { get; set; } = default!;
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
       
         public CheckOutModel(InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
@@ -49,13 +54,18 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         [BindProperty]
         public Accounts Accounts { get; set; } = default!;
         private Task<Accounts> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        public int cardid { get; set; }
         public async Task OnGet(string returnUrl = null)
         {
             
             PopulatePaymentList(_context);
             await GetCurrentUserId();
             PaymentModel1= await _context.Payment.FirstOrDefaultAsync(m => m.Accounts.Id == userid);
+            PaymentModel2 = await _context.Payment.Where(i => i.Accounts.Id == userid).ToListAsync();
             AccountModel = await _context.Users.FirstOrDefaultAsync(m => m.Id == userid);
+            if (cardid ==0) {
+                cardid = PaymentModel1.Id;
+            }
             returnUrl ??= Url.Content("~/");
              TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             // Check if shopping cart have items.
@@ -150,10 +160,23 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     ordersmodel.PostalCode = Convert.ToInt32(pos.ToString());
                     ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
                     ordersmodel.DateOfOrder = datenow;
-                    ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.Id"]));
+                    ordersmodel.Payment = _context.Payment.First(i=>i.Id==Convert.ToInt32( Request.Form["PaymentModel1.CardNumber"]));
+                    //if (cardnumber > 1)
+                    //{
+                    //    //var card_no_id = _context.Payment.FirstOrDefaultAsync(i => i.CardNumber == Request.Form["PaymentModel1.CardNumber"]);
+                    //    //ordersmodel.Payment= _context.Payment.First(i => i.Id == card_no_id.Id);
+                    //}
+                    //else
+                    //{
+                    //    var card_no_id = Request.Form["PaymentModel1.CardNumber"].ToString();
+
+                    //    ordersmodel.Payment =card_no_id;
+                    //}
+
                     ordersmodel.quantity = quantity;
                     ordersmodel.PriceOfOrder = (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
                     ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
+                   
                     _context.Orders.Add(ordersmodel);
                     int changes= await _context.SaveChangesAsync();
                     if (changes > 0) {
@@ -214,3 +237,4 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         }
     }
 }
+
