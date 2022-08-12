@@ -94,6 +94,7 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/CustomerPages/Home", "ALL");
     options.Conventions.AuthorizePage("/CustomerPages/ShoppingCart", "ALL");
     options.Conventions.AuthorizePage("/CustomerPages/CheckOut", "ALL");
+    options.Conventions.AuthorizePage("/CustomerPages/OrderDetails", "ALL");
     //options.Conventions.AuthorizePage("/CustomerPages/Shop", "ALL");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");

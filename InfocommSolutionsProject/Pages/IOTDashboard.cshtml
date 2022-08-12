@@ -256,7 +256,7 @@
                             <i class="fa-solid fa-truck"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Product Orders</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-1">0</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-1">@Model.NumberOfProductOrders</p>
                     </div>
                     <div class="progress" style="height: 3px">
                       <div class="progress-bar bg-dash-color-1" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -275,7 +275,7 @@
                             <i class="fa-solid fa-calculator"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Products</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-2">0</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-2">@Model.NumberOfProducts</p>
                     </div>
                     <div class="progress" style="height: 3px">
                       <div class="progress-bar bg-dash-color-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -294,7 +294,7 @@
                             <i class="fa-solid fa-calculator"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Suppliers</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-3">0s</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-3">@Model.NumberOfSuppliers</p>
                     </div>
                     <div class="progress" style="height: 3px">
                       <div class="progress-bar bg-dash-color-3" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -313,10 +313,29 @@
                             <i class="fa-solid fa-truck"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Supplier Orders</p>
                       </div>
-                      <p class="text-xxl lh-1 mb-0 text-dash-color-4">0</p>
+                      <p class="text-xxl lh-1 mb-0 text-dash-color-4">@Model.NumberOfSupplierOrders</p>
                     </div>
                     <div class="progress" style="height: 3px">
                       <div class="progress-bar bg-dash-color-4" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+               <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                              <use xlink:href="#paper-stack-1"> </use>
+                            </svg>*@
+                            <i class="fa-solid fa-user"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Users</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:aqua">@Model.NumberOfUsersInWebApplication</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:aqua" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>

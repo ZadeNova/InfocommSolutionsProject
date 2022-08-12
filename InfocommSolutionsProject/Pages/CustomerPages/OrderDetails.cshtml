@@ -1,0 +1,56 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.CustomerPages.OrderDetails
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Order Details</h1>
+
+<p>
+    <a asp-page="OrderDetail">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail[0].Accounts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail[0].Address)
+            </th>
+            <th>
+              
+             @Html.DisplayNameFor(model => model.OrderDetail[0].Product)
+            </th>
+            <th>
+                 @Html.DisplayNameFor(model => model.OrderDetail[0].DateOfOrder)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderDetail) {
+        <tr>
+            <td>
+                  
+                @Html.DisplayFor(modelItem =>item.Accounts.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.Product.Name)
+             
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.DateOfOrder)
+            </td>
+            <td>
+                <a asp-page="./PaymentEdit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./PaymentDetails" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./PaymentDelete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
