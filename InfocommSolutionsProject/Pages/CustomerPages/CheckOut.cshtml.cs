@@ -109,7 +109,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 var item = TheShoppingCart[i];
                 var product = TheShoppingCart[i].Product;
                 var quantity = TheShoppingCart[i].Quantity;
-                System.Diagnostics.Debug.WriteLine($"{Request.Form["AccountModel.Id"]} SUSSYBAKA!!!");
+                
 
                 if (item.Product.DiscountStatus == true)
                 {

@@ -509,37 +509,30 @@
               <div class="col-lg-6">                                           
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="h4 mb-3">Top Customers</h3><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
+                    <h3 class="h4 mb-3">Top Customers</h3>
+                    @foreach(var cust in Model.TopCustomers){
+
+
+                        <a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
                       <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-3.jpg" alt=""><span class="availability-status bg-success"></span></div>
                       <div class="ms-3">
-                        <p class="fw-bold mb-0">Nadia Halsey</p>
-                        <p class="text-sm fw-light mb-0">lorem ipsum dolor sit amit</p>
-                        <p class="small fw-light mb-0">09:30am</p>
-                      </div></a><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
-                      <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-2.jpg" alt=""><span class="availability-status bg-warning"></span></div>
-                      <div class="ms-3">
-                        <p class="fw-bold mb-0">Peter Ramsy</p>
-                        <p class="text-sm fw-light mb-0">lorem ipsum dolor sit amit</p>
-                        <p class="small fw-light mb-0">7:30am</p>
-                      </div></a><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
-                      <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-1.jpg" alt=""><span class="availability-status bg-danger"></span></div>
-                      <div class="ms-3">
-                        <p class="fw-bold mb-0">Sam Kaheil</p>
-                        <p class="text-sm fw-light mb-0">lorem ipsum dolor sit amit</p>
-                        <p class="small fw-light mb-0">06:55pm</p>
-                      </div></a><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
-                      <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-5.jpg" alt=""><span class="availability-status bg-gray"></span></div>
-                      <div class="ms-3">
-                        <p class="fw-bold mb-0">Sara Wood</p>
-                        <p class="text-sm fw-light mb-0">lorem ipsum dolor sit amit</p>
-                        <p class="small fw-light mb-0">10:30pm</p>
-                      </div></a><a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
+                        <p class="fw-bold mb-0">@cust.Key.Email</p>
+                        <p class="text-sm fw-light mb-0">Total amount spent</p>
+                        <p class="small fw-light mb-0">$@cust.Value</p>
+                      </div></a>
+
+                    }
+                    
+                    
+                    
+                      
+                     @*<a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
                       <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-1.jpg" alt=""><span class="availability-status bg-success"></span></div>
                       <div class="ms-3">
                         <p class="fw-bold mb-0">Nader Magdy</p>
                         <p class="text-sm fw-light mb-0">lorem ipsum dolor sit amit</p>
                         <p class="small fw-light mb-0">9:47pm</p>
-                      </div></a>
+                      </div></a>*@
                   </div>
                 </div>
               </div>
@@ -604,7 +597,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js" integrity="sha512-ZV3aKX6eFgm3To1hmxEyuh4dLtR1ovVeiz0auNstFXOcuwIcC6rBHGUP2lAmdUZb66yBj/mVborw4HhDkbvrhw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js" integrity="sha512-F+u8eWHrfY8Xw9BLzZ8rG/0wIvs0y+JyRJrXjp3VjtFPylAEEGwKbua5Ip/oiVhaTDaDs4eU2Xtsxjs/9ag2bQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   @* <script src="~/js/AdminPageJs/AdminPageCharts/AdminHomePageCharts.js"></script>*@
+    <script src="~/js/AdminPageJs/AdminPageCharts/AdminHomePageCharts.js"></script>
     <script>
     //var ProdUserDateChart = new Date()      // Get the time now in miliseconds
     //var ListDateSpec = []
