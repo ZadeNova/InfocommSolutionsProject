@@ -20,7 +20,7 @@ namespace InfocommSolutionsProject.Pages
 
         private readonly UserManager<Accounts> _userManager;
 
-        public AdminPageModel(InfocommSolutionsProjectContext context,UserManager<Accounts> userManager)
+        public AdminPageModel(InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -38,52 +38,79 @@ namespace InfocommSolutionsProject.Pages
 
         public IEnumerable<DateTime>? UserDateList { get; set; }
 
-        public Dictionary<Accounts,double> TopCustomers { get; set; }
-        
+        public Dictionary<Accounts, double> TopCustomers { get; set; }
+
+        public Dictionary<string, double> TopProducts_byAmount { get; set; }
+
+        public Dictionary<string, int> TopProducts_byQuantity { get; set; }
+
+        public List<OrdersModel> OrdersList { get; set; }
+
+        public List<ProductModel> ProductList { get; set; }
+
+        public List<OrdersModel> LatestOrders { get; set; }
+
+        public List<Categories> ProductsCategory { get; set; }
+
+        public Dictionary<string,int> TopCategories { get; set; }
 
         public void OnGet()
         {
+            // Assigning the variables from database
             NumberOfProducts = _context.Products.Count();
             NumberOfSuppliers = _context.Suppliers.Count();
             NumberOfProductOrders = _context.Orders.Count();
             NumberOfSupplierOrders = _context.SupplierOrders.Count();
             NumberOfUsersInWebApplication = _userManager.Users.Count();
-
+            OrdersList = _context.Orders.ToList();
+            ProductList = _context.Products.ToList();
+            LatestOrders = _context.Orders.OrderByDescending(x => x.DateOfOrder).Take(8).ToList();
+            ProductsCategory = _context.Categories.Where(x => x.CategoryFor.ToLower() == "product" || x.CategoryFor.ToLower() == "products").ToList();
+            
             var UserList = _userManager.Users.ToList();
             var testvar = from a in _userManager.Users select a.CreatedAt;
             UserDateList = UserList.Select(a => a.CreatedAt);
 
 
-            //var Test = from Acc in _context.Orders select Acc.Accounts;
-            var lol = _context.Orders.ToList();
-            
-            System.Diagnostics.Debug.WriteLine(lol.Count());
-            //var final = from l in lol group l by l.Product into g select new { Product = g.Key, Count = (from l in g select l.Product).Distinct().Count() };
 
-            //var final = lol.GroupBy(x => x.Product).Select(p => new
+
+
+            //TopCategories = ProductsCategory.GroupBy(x => x.CategoryName).Select(g => new
             //{
-            //    Product = p.Key,
-            //    TotalQuantity = p.Sum(x => x.quantity)
-            //});
+            //    Category = g.Key,
+            //    Count = g.Sum(x => x.CategoryFor == "Products")
 
-            //var final = from item in _context.Orders.ToList() group item by new { item.Product ,item.quantity } into itemsummary select new { Product = itemsummary.Key.Product, Count = itemsummary.Key.quantity };
+            //})
 
-            //var final = 
 
-            // foreach (var i in final) System.Diagnostics.Debug.WriteLine($"{i.Account} {i.Count} wtfffff");
-            //System.Diagnostics.Debug.WriteLine(final.Count());
-            TopCustomers = lol.GroupBy(x => x.Accounts).Select(g => new
+         
+            TopCustomers = OrdersList.GroupBy(x => x.Accounts).Select(g => new
             {
                 Account = g.Key,
                 Count = g.Sum(x => x.quantity * x.PriceOfOrder)
-            }).OrderByDescending(a => a.Count).ToDictionary(x => x.Account , x => x.Count);
+            }).OrderByDescending(a => a.Count).Take(5).ToDictionary(x => x.Account , x => x.Count);
 
-            foreach(var i in TopCustomers) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value} wtfffff");
 
-            //foreach (var l in lol) System.Diagnostics.Debug.WriteLine($"{l.Product.Name} {l.quantity}");
-            //foreach (var i in UserDates) System.Diagnostics.Debug.WriteLine($"{i} fuck u");
+            TopProducts_byAmount = OrdersList.GroupBy(x => x.Product).Select(g => new
+            {
+                Product = g.Key,
+                Count = g.Sum(x => x.quantity * x.PriceOfOrder)
+            }).OrderByDescending(v => v.Count).Take(5).ToDictionary(m => m.Product.Name , m => m.Count);
 
-            //System.Diagnostics.Debug.WriteLine($"{NumberOfProducts} HZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+            TopProducts_byQuantity = OrdersList.GroupBy(x => x.Product).Select(g => new
+            {
+                Product = g.Key,
+                Quantity = g.Sum(x => x.quantity)
+
+            }).OrderByDescending(x => x.Quantity).Take(5).ToDictionary(m => m.Product.Name, m => m.Quantity);
+
+
+
+            //foreach(var i in TopCustomers) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value} wtfffff");
+            foreach (var i in TopProducts_byQuantity) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value}");
+            //foreach (var b in Prods) System.Diagnostics.Debug.WriteLine($"{b.Key} {b.Value} Sussybaka");
+
+
 
         }
     }
