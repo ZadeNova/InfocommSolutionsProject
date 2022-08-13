@@ -43,6 +43,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             {
                 return NotFound();
             }
+            System.Diagnostics.Debug.WriteLine(dateTime);
+            System.Diagnostics.Debug.WriteLine("SUSSYBAka");
             datetimenow = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
             //HttpContext.Session.SetString(SessionKeyName3, dateTime.ToString("yyyy-MM-dd HH:mm:ss.SSS"));
             await GetCurrentUserId();
