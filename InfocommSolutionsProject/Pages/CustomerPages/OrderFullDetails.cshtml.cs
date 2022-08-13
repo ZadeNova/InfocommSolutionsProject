@@ -7,18 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Data;
 using InfocommSolutionsProject.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using InfocommSolutionsProject.Data;
-using InfocommSolutionsProject.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
 namespace InfocommSolutionsProject.Pages.CustomerPages
 {
     public class OrderFullDetailsModel : PageModel
@@ -34,23 +23,28 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
        
         public IList<OrdersModel> OrderDetail { get; set; } = default!;
         public IList<ProductModel> Products { get; set; } = default!;
+        public IList<PaymentModel> payments { get; set; } = default!;
         public string userid { get; set; }
         //public const string SessionKeyName3 = "_datetiemnow";
         public string datetimenow { get; set; }
-        public async Task<IActionResult> OnGetAsync(DateTime dateTime)
+        public async Task<IActionResult> OnGetAsync(DateTime date)
         {
-            if (dateTime.Equals(null) || _context.Payment == null)
+            if ( _context.Payment == null)
             {
                 return NotFound();
             }
-            datetimenow = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            datetimenow = date.ToString("yyyy-MM-dd HH:mm:ss");
             //HttpContext.Session.SetString(SessionKeyName3, dateTime.ToString("yyyy-MM-dd HH:mm:ss.SSS"));
             await GetCurrentUserId();
-            System.Diagnostics.Debug.WriteLine(dateTime + "dadadadadadada");
+            System.Diagnostics.Debug.WriteLine(date + "dadadadadadada");
             // get the userid from the above function and get the user payment information out only 
-            OrderDetail = await _context.Orders.Where(i => i.Accounts.Id == userid).Where(i => i.DateOfOrder.Equals(datetimenow)).ToListAsync();
-            Products = _context.Products.ToList();
+          
+            OrderDetail = await _context.Orders.Where(i => i.Accounts.Id == userid && i.DateOfOrder.Equals(date)).ToListAsync();
             
+            Products = _context.Products.ToList();
+
+            payments = _context.Payment.ToList();
+
             return Page();
         }
         public async Task<string> GetCurrentUserId()
@@ -60,7 +54,6 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
             return usr?.Id;
         }
-
         private Task<Accounts> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }
