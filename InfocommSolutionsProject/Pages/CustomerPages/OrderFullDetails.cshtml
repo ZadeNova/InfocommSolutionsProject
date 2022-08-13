@@ -1,14 +1,14 @@
 ﻿@page
-@model InfocommSolutionsProject.Pages.CustomerPages.OrderDetails
-
+@model InfocommSolutionsProject.Pages.CustomerPages.OrderFullDetailsModel
+@*@using Microsoft.AspNetCore.Http;*@
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Order Details</h1>
+<h1>Full Details</h1>
 
-
-<table class="table">
+<div>
+   <table class="table">
 	<thead>
 		<tr>
 			<th>
@@ -42,7 +42,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model.OrderDetail.DistinctBy(i=>i.DateOfOrder))
+		@foreach (var item in Model.OrderDetail)
 		{
 			<tr>
 				<td>
@@ -74,7 +74,7 @@
 				</td>
 				<td>
 					
-					<a asp-page="./OrderFullDetails" asp-route-id="">Details</a> 
+					
 					
 				</td>
 
@@ -82,3 +82,8 @@
 		}
 	</tbody>
 </table>
+</div>
+<div>
+   
+    <a asp-page="./OrderDetails">Back to List</a>
+</div>

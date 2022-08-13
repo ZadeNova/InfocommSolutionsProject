@@ -21,7 +21,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             _userManager = userManager;
             _context = context;
         }
-
+     
         public IList<OrdersModel> OrderDetail { get;set; } = default!;
         public IList<ProductModel> Products { get; set; } = default!;
         public string userid { get; set; }
@@ -35,6 +35,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 // get the userid from the above function and get the user payment information out only 
                 OrderDetail = await _context.Orders.Where(i => i.Accounts.Id == userid).ToListAsync();
                 Products = _context.Products.ToList();
+            
                 //OrderDetail = (from cat in _context.Orders where (cat.Accounts.Id==userid) && (cat.Product.Id == ) select cat).ToList();
                 //PaymentModel = await _context.Payment.ToListAsync();
             }
