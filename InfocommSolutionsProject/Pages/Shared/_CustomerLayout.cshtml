@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -164,7 +165,7 @@ body {top:0 !important;}
                                 </ul>
                             </li>
                             
-                            <li><a  >Contact</a></li>
+                            <li><a  href="/CustomerPages/Contacts">Contact</a></li>
                         
                         </ul>
                     </nav>
@@ -203,7 +204,7 @@ body {top:0 !important;}
                                   @foreach(var items_Category in Model.Products_Category)
                             {
 
-                                <li>  <a asp-page="#" >@items_Category.CategoryName</a></li>
+                                <li>  <a asp-page="/CustomerPages/Shop_Category" asp-route-category="@items_Category.CategoryName">@items_Category.CategoryName</a></li>
                             }
                          
                             
@@ -239,7 +240,7 @@ body {top:0 !important;}
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
                             <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">SHOP NOW</a>
+                            <a href="/CustomerPages/Shop" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
                 </div>

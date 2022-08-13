@@ -1,5 +1,5 @@
 ﻿@page
-@model InfocommSolutionsProject.Pages.CustomerPages.ShopModel
+@model InfocommSolutionsProject.Pages.CustomerPages.Shop_Category
 @using Microsoft.AspNetCore.Http;
 @{
 }
@@ -52,7 +52,7 @@
 					<h2>Organi Shop</h2>
 					<div class="breadcrumb__option">
 						<a href="/CustomerPages/Home">Home</a>
-						<span>Shop</span>
+						<span>@Model.cate</span>
 					</div>
 				</div>
 			</div>
@@ -281,6 +281,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-9 col-md-7">
 				<div class="product__discount">
 					<div class="section-title product__discount__title">
@@ -313,15 +314,15 @@
 											{
 												<div class="product__discount__percent">-@item.Discount%</div>
 												<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
-												<ul class="product__item__pic__hover">
-													<li><a href="#"><i class="fa fa-heart"></i></a></li>
-													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-													<li>
-														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-													</li>
-												</ul>
-											</form>
+													<ul class="product__item__pic__hover">
+														<li><a href="#"><i class="fa fa-heart"></i></a></li>
+														<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+														<li>
+															<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+															<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+														</li>
+													</ul>
+												</form>
 											}
 
 										</div>
@@ -363,31 +364,9 @@
 				<div class="filter__item">
 					<div class="row">
 						<div class="col-lg-4 col-md-5">
-							<div class="featured__controls">
-								<span>Sort By</span>
-								<ul>
-										<li class="active" data-filter="*">All</li>
-										@foreach (var items_Category in Model.Products_Category)
-										{
-
-											<li data-filter=".@items_Category.CategoryName">@items_Category.CategoryName</li>
-										}
-
-									</ul>
-								@*<select>
-										<option class="active" data-filter="*">ALL</option>
-										@foreach (var items_Category in Model.Products_Category)
-										{
-
-										<option data-filter="@items_Category.CategoryName">@items_Category.CategoryName</option>
-										}
-										
-								</select>	*@
-								@*<select>
-									<option value="0">Default</option>
-									<option value="0">Default</option>
-								</select>*@
-								@*<div class="featured__controls">
+							<div class="filter__sort">
+								@*<span>Sort By</span>
+								<div class="featured__controls">
 									<ul>
 										<li class="active" data-filter="*">All</li>
 										@foreach (var items_Category in Model.Products_Category)
@@ -396,7 +375,8 @@
 											<li data-filter=".@items_Category.CategoryName">@items_Category.CategoryName</li>
 										}
 
-									</ul>*@
+									</ul>
+								</div>*@
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4">
@@ -412,7 +392,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row featured__filter">
+				<div class="row">
 					@foreach (var item in Model.Products)
 					{
 
@@ -423,17 +403,18 @@
 						{
 							var FinalPrice = item.Price - (item.Price * item.Discount / 100);
 							System.Diagnostics.Debug.WriteLine(FinalPrice);
-							<div class="col-lg-3 col-md-4 col-sm-6 mix @item.Category">
+							<div class="col-lg-4">
 								<div class="product__discount__item">
 									<div class="product__discount__item__pic set-bg"
 								 data-setbg="@Url.Content(ImgPath)">
 										@if (@item.Quantity == 0)
 										{
-											<div  style="color:red	;">Out Of Stock</div>
+											<div style="color:red	;">Out Of Stock</div>
 
 											<ul class="product__item__pic__hover">
 												<li><a href="#"><i class="fa fa-heart"></i></a></li>
 												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+
 											</ul>
 
 										}
@@ -446,7 +427,7 @@
 													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
 													<li>
 														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-													
+
 														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
 													</li>
 												</ul>
@@ -469,7 +450,7 @@
 						}
 						else
 						{
-							<div class="col-lg-3 col-md-4 col-sm-6 mix @item.Category">
+							<div class="col-lg-4 col-md-6 col-sm-6">
 								<div class="product__item">
 									<div class="product__item__pic set-bg" data-setbg="@Url.Content(ImgPath)">
 										@if (@item.Quantity == 0)

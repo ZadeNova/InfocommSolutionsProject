@@ -274,23 +274,37 @@
                         <h4>Latest Products</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                @foreach (var theitem in Model.LatestProducts){
+                                @foreach (var theitem in Model.LatestProducts)
+                                {
+                                    string ImgPath = "~/Images/ProductImages/" + theitem.ImagePath;
 
-                                 string ImgPath = "~/Images/ProductImages/" + theitem.ImagePath;
+											<a asp-page="./ProductDetails" asp-route-id="@theitem.Id" class="latest-product__item">
+												<div class="latest-product__item__pic">
+													<img style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="" width="100" height="100">
+												</div>
 
-                                 <a asp-page="./ProductDetails" asp-route-id="@theitem.Id" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@theitem.Name</h6>
-                                        <span>@theitem.Price</span>
-                                    </div>
-                                </a>
+												<div class="latest-product__item__text">
+													<h6>@theitem.Name</h6>
+													@if (@theitem.DiscountStatus == true)
+													{
+														var FinalPrice = @theitem.Price - (@theitem.Price * @theitem.Discount / 100);
+														<span>@FinalPrice </span>
+													}
+													else
+													{
+														<span>@theitem.Price</span>
+													}
+													@if (theitem.Quantity == 0)
+													{
+														<div class="latest-product__item__text" style="color:red;">Out Of Stock</div>
+													}
+													
 
-                                }
-                               
+												</div>
+											</a>
                                 
+                               
+                                }
                                
                             </div>
                             <div class="latest-prdouct__slider__item">
