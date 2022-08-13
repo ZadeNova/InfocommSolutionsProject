@@ -64,7 +64,7 @@
                                     {
                                         // Discounted products...
                                         double discountedPrice =  item.Product.Price - (item.Product.Price * item.Product.Discount/100);
-                                        double Total = discountedPrice * item.Quantity;
+                                        double Total =Math.Round( discountedPrice * item.Quantity,2, MidpointRounding.AwayFromZero);
                                         <tr>
                                         <td class="shoping__cart__item">
                                             <img style="width:150px;height:150px;" src="@Url.Content(ImgPath)" alt="">

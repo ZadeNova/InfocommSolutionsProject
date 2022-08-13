@@ -24,6 +24,7 @@ namespace InfocommSolutionsProject.Models
         public string AccountStatus { get; set; }
 
         public string? Address { get; set; }
+        //[RegularExpression(@"(^[0-9]{6})", ErrorMessage = "Only 6 digit is allow")]
 
         public string? PostalCode { get; set; }
         //[Required]

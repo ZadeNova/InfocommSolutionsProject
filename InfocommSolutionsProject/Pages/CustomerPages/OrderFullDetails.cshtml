@@ -1,0 +1,102 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.CustomerPages.OrderFullDetailsModel
+@*@using Microsoft.AspNetCore.Http;*@
+@{
+	ViewData["Title"] = "Details";
+}
+
+<h1>Full Details</h1>
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Product)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].quantity)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].PriceOfOrder)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Accounts)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Payment)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Address)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].PostalCode)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].DateOfOrder)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].OrderStatus)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Notes)
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.OrderDetail)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Product.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Product.Quantity)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.PriceOfOrder)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Accounts.Email)
+					</td>
+					<td>
+						@{
+							string lengthofthecard = item.Payment.CardNumber.ToString();
+							var test = lengthofthecard.Length;
+							var first4 = lengthofthecard.Substring(0, 4);
+							var last4 = lengthofthecard.Substring(lengthofthecard.Length - 4);
+							var leftover = Convert.ToInt16(test) - 8;
+							var newMessage = new String('*', leftover);
+							var final = first4 + newMessage + last4;
+
+						}
+						@Html.DisplayFor(modelItem =>final)
+
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem =>item.Address)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem =>item.PostalCode)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DateOfOrder)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.OrderStatus)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Notes)
+					</td>
+					<td>
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+<div>
+
+	<a asp-page="./OrderDetails">Back to List</a>
+</div>
