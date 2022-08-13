@@ -35,10 +35,10 @@
 @{
 	if (@HttpContext.Session.GetString("_null_cart") == "Yes")
 	{
-	<div class="warning">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-				<strong>Kindly</strong> Add at least 1 item into the Cart before Check Out
-	</div>
+		<div class="warning">
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+			<strong>Kindly</strong> Add at least 1 item into the Cart before Check Out
+		</div>
 
 
 	}
@@ -69,13 +69,13 @@
 					<div class="sidebar__item">
 						<h4>Department</h4>
 						<ul>
-							
-                                  @foreach(var items_Category in Model.Products_Category)
-                            {
 
-                                <li>  <a asp-page="#" >@items_Category.CategoryName</a></li>
-                            }
-                         
+							@foreach (var items_Category in Model.Products_Category)
+							{
+
+								<li>  <a asp-page="#">@items_Category.CategoryName</a></li>
+							}
+
 						</ul>
 					</div>
 					<div class="sidebar__item">
@@ -300,31 +300,34 @@
 										 data-setbg="@Url.Content(ImgPath)">
 											@if (@item.Quantity == 0)
 											{
-												<div class="product__discount__percent" style="color:black;">Out Of Stock</div>
-													
-											<ul class="product__item__pic__hover">
-												<li><a href="#"><i class="fa fa-heart"></i></a></li>
-												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											
-											</ul>
-											
+												<div style="color:red	;">Out Of Stock</div>
+
+												<ul class="product__item__pic__hover">
+													<li><a href="#"><i class="fa fa-heart"></i></a></li>
+													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+
+												</ul>
+
 											}
 											else
 											{
 												<div class="product__discount__percent">-@item.Discount%</div>
-												<form asp-page-handler="AddToShoppingCart"  asp-route-id="@item.Id" method="post">
+												<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
 												<ul class="product__item__pic__hover">
 													<li><a href="#"><i class="fa fa-heart"></i></a></li>
 													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-													<li><button type="submit"><a asp-page="Shop" asp-route-id="@item.Id" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></a></button></li>
+													<li>
+														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+													</li>
 												</ul>
-												</form>
+											</form>
 											}
-										
+
 										</div>
 										<div class="product__discount__item__text">
 											<span>@item.Category</span>
-											<h5><a asp-page="./ProductDetails" asp-route-id="@item.Id" >@item.Name</a></h5>
+											<h5><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h5>
 
 
 
@@ -398,27 +401,31 @@
 								 data-setbg="@Url.Content(ImgPath)">
 										@if (@item.Quantity == 0)
 										{
-											<div class="product__discount__percent" style="color:black;">Out Of Stock</div>
-											
-										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
-											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											
-										</ul>
-										
+											<div  style="color:red	;">Out Of Stock</div>
+
+											<ul class="product__item__pic__hover">
+												<li><a href="#"><i class="fa fa-heart"></i></a></li>
+												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+
+											</ul>
+
 										}
 										else
 										{
 											<div class="product__discount__percent">-@item.Discount%</div>
-											<form asp-page-handler="AddToShoppingCart"  asp-route-id="@item.Id" method="post">
-										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
-											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											<li><button type="submit"><a asp-page="Shop" asp-route-id="@item.Id" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></a></button></li>
-										</ul>
-										</form>
+											<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+												<ul class="product__item__pic__hover">
+													<li><a href="#"><i class="fa fa-heart"></i></a></li>
+													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+													<li>
+														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+													
+														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+													</li>
+												</ul>
+											</form>
 										}
-										
+
 									</div>
 									<div class="product__discount__item__text">
 										<span>@item.Category</span>
@@ -440,28 +447,31 @@
 									<div class="product__item__pic set-bg" data-setbg="@Url.Content(ImgPath)">
 										@if (@item.Quantity == 0)
 										{
-											<div class="product__discount__percent" style="color:black;">Out Of Stock</div>
+											<div style="color:red;">Out Of Stock</div>
 											@*<div class="product__discount__percent">-@item.Discount%</div>*@
-										
-										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
-											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											
-										</ul>
-										
+
+											<ul class="product__item__pic__hover">
+												<li><a href="#"><i class="fa fa-heart"></i></a></li>
+												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+
+											</ul>
+
 										}
 										else
 										{
 											@*<div class="product__discount__percent">-@item.Discount%</div>*@
-											<form asp-page-handler="AddToShoppingCart"  asp-route-id="@item.Id" method="post">
-										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
-											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											<li><button type="submit"><a asp-page="Shop" asp-route-id="@item.Id" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></a></button></li>
-										</ul>
-										</form>
+											<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+												<ul class="product__item__pic__hover">
+													<li><a href="#"><i class="fa fa-heart"></i></a></li>
+													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+													<li>
+														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+													</li>
+												</ul>
+											</form>
 										}
-										
+
 									</div>
 									<div class="product__discount__item__text">
 										<span>@item.Category</span>
@@ -503,6 +513,6 @@
 
 	//To get selected value an text of dropdownlist
 	function myFunction() {
-  alert("Item have been added to cart");
-}
+		alert("Item have been added to cart");
+	}
 </script>

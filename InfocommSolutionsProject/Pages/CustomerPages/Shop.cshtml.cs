@@ -38,7 +38,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             foreach (var item in ProductsDiscount) System.Diagnostics.Debug.WriteLine($"{item.Name} {item.DiscountStatus} {item.Discount} {item.Price - (item.Price * item.Discount/100)}");
             HttpContext.Session.Remove("_null_cart");
         }
-        public IActionResult OnPostAddToShoppingCart(string id, int ItemQuantity=1)
+        public IActionResult OnPostAddToShoppingCart(string id, int ItemQuantity)
         {
             Guid id1=Guid.Parse(id);
             var product =  _context.Products.FirstOrDefault(m => m.Id == id1);
