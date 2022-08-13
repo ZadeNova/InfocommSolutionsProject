@@ -23,13 +23,13 @@
 							<div class="col-lg-6">
 								<div class="checkout__input">
 									<p>Fist Name<span>*</span></p>
-									<input asp-for="AccountModel.FirstName" readonly class="form-control" />
+									<input asp-for="AccountModel.FirstName" readonly class="checkout__input" />
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="checkout__input">
 									<p>Last Name<span>*</span></p>
-									<input asp-for="AccountModel.LastName" readonly class="form-control" />
+									<input asp-for="AccountModel.LastName" readonly class="checkout__input" />
 								</div>
 							</div>
 						</div>
@@ -37,11 +37,11 @@
 							<p>Address<span>*</span></p>
 							@if (Model.AccountModel.Address == null)
 							{
-								<input asp-for="AccountModel.Address" placeholder="Full Address" class="form-control" required />
+								<input asp-for="AccountModel.Address" id="add" placeholder="Full Address" class="checkout__input" required />
 							}
 							else
 							{
-								<input asp-for="AccountModel.Address" class="form-control" required />
+								<input asp-for="AccountModel.Address" id="add" class="checkout__input" required />
 
 							}
 						</div>
@@ -49,11 +49,12 @@
 							<p>Postcode / ZIP<span>*</span></p>
 							@if (Model.AccountModel.PostalCode == null)
 							{
-								<input asp-for="AccountModel.PostalCode" placeholder="PostCode/Zip" class="form-control" />
+								<input asp-for="AccountModel.PostalCode" id="zip" placeholder="PostCode/Zip" class="checkout__input" required  data-val-regex-pattern="(^[0-9]{6}$)" data-val-regex="Postal Code  must be 6 digits." />
 							}
 							else
-							{
-								<input asp-for="AccountModel.PostalCode" class="form-control" />
+							{	
+								<input asp-for="AccountModel.PostalCode" id="zip" class="checkout__input" required  data-val-regex-pattern="(^[0-9]{6}$)" data-val-regex="Postal Code  must be 6 digits."/>
+								
 							}
 
 						</div>
@@ -63,18 +64,18 @@
 									<p>Phone<span>*</span></p>
 									@if (Model.AccountModel.PhoneNumber == null)
 									{
-										<input asp-for="AccountModel.PhoneNumber" placeholder="Phone Number" class="form-control" />
+										<input asp-for="AccountModel.PhoneNumber" placeholder="Phone Number" class="checkout__input" />
 									}
 									else
 									{
-										<input asp-for="AccountModel.PhoneNumber" class="form-control" />
+										<input asp-for="AccountModel.PhoneNumber" class="checkout__input" />
 									}
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="checkout__input">
 									<p>Email<span>*</span></p>
-									<input asp-for="AccountModel.Email" readonly class="form-control" />
+									<input asp-for="AccountModel.Email" readonly class="checkout__input" />
 								</div>
 							</div>
 						</div>
@@ -83,7 +84,7 @@
 						{
 							<div class="checkout__input">
 								<p>Order notes<span>*</span></p>
-								<input asp-for="ordersmodel.Notes" class="form-control" placeholder="Notes about your order, e.g. special notes for delivery." />
+								<input asp-for="ordersmodel.Notes" class="checkout__input" placeholder="Notes about your order, e.g. special notes for delivery." />
 							</div>
 						}
 						else
@@ -97,13 +98,12 @@
 							<div class="checkout__input" >
 								<p>Address <span>*</span></p>
 
-								<input asp-for="ordersmodel.Address"  placeholder="Full Address" class="form-control"  />
+								<input asp-for="ordersmodel.Address" id="add1" placeholder="Full Address" class="checkout__input"  />
 
 							</div>
 							<div class="checkout__input">
 								<p>Postcode / ZIP<span>*</span></p>
-
-								<input asp-for="ordersmodel.PostalCode" placeholder="PostCode/Zip" class="form-control" />
+								<input asp-for="ordersmodel.PostalCode" id="post1" placeholder="PostCode/Zip" class="checkout__input" data-vapattern="(^[0-9]{6}$)" data-val-regex="Postal Code  must be 6 digits."  />
 							</div>
 							</div>
 							<script type="text/javascript">
@@ -114,26 +114,34 @@
 								checkbox.addEventListener('click', function handleClick() {
 									if (checkbox.checked) {
 										box.style.display = 'block';
+										document.getElementById("add1").required = true;
+										document.getElementById("post1").required = true;
+										document.getElementById("add").required = false;
+										document.getElementById("zip").required = false	;
 									} else {
 										box.style.display = 'none';
+										document.getElementById("add1").required = false;
+										document.getElementById("post1").required = false;
+										document.getElementById("add").required = true;
+										document.getElementById("zip").required = true	;
 									}
 								});</script>
 
 							<div class="checkout__input">
 								<p>Order notes<span>*</span></p>
-								<input asp-for="ordersmodel.Notes" class="form-control" placeholder="Notes about your order, e.g. special notes for delivery." />
+								<input asp-for="ordersmodel.Notes" class="checkout__input" placeholder="Notes about your order, e.g. special notes for delivery." />
 
 							</div>
 						}
 						<div>
 							<h4>Payment Details</h4>
 							@{
-								<div class="form-group">
-									<label asp-for="PaymentModel1.CardNumber" class="control-label"></label>
-									<select asp-for="PaymentModel1.CardNumber" class="form-control" id="mySelect" asp-items="@Model.PaymentList" onChange="SelectedValue(this)">
-									</select>
-									<span asp-validation-for="PaymentModel1.CardNumber" class="text-danger"></span>
-								</div>
+											<div class="form-group">
+												<label asp-for="PaymentModel1.CardNumber" class="control-label"></label>
+												<select asp-for="PaymentModel1.CardNumber" class="form-control" id="mySelect" asp-items="@Model.PaymentList" onChange="SelectedValue(this)">
+												</select>
+												<span asp-validation-for="PaymentModel1.CardNumber" class="text-danger"></span>
+											</div>
 
 
 			//	@if (@Model.cardid != 0)
@@ -187,8 +195,8 @@
 								}
 
 							</ul>
-							<div class="checkout__order__subtotal">Subtotal <span>$@Model.TotalCost</span></div>
-							<div class="checkout__order__total">Total <span>$@Model.TotalCost</span></div>
+							<div class="checkout__order__subtotal">Subtotal <span>$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
+							<div class="checkout__order__total">Total <span>$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
 							<div class="checkout__input__checkbox">
 								<div class="checkout__input__checkbox">
 									<label for="paypal">

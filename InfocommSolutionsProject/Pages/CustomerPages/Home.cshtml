@@ -69,16 +69,33 @@
                 
 
                 string ImgPath = "~/Images/ProductImages/" + item.ImagePath;
-               
-              
                 <div class="col-lg-3 col-md-4 col-sm-6 mix  @item.Category">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="@Url.Content(ImgPath)">
-                            <ul class="featured__item__pic__hover">
+                    <div class="product__discount__item">
+                        <div class="product__discount__item__pic set-bg" data-setbg="@Url.Content(ImgPath)">
+                            @if (item.Quantity == 0)
+                            {
+                                <div  style="color:red;">Out Of Stock</div>
+                                <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                              
                             </ul>
+                            }
+                            else
+                            {
+                               <div class="product__discount__percent" >-@item.Discount%</div>
+												<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+												<ul class="product__item__pic__hover">
+													<li><a href="#"><i class="fa fa-heart"></i></a></li>
+													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+													<li>
+														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+													</li>
+												</ul>
+											</form>
+                            }
+                            
                         </div>
                         <div class="featured__item__text">
                             <h6><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h6>
@@ -257,23 +274,37 @@
                         <h4>Latest Products</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                @foreach (var theitem in Model.LatestProducts){
+                                @foreach (var theitem in Model.LatestProducts)
+                                {
+                                    string ImgPath = "~/Images/ProductImages/" + theitem.ImagePath;
 
-                                 string ImgPath = "~/Images/ProductImages/" + theitem.ImagePath;
+											<a asp-page="./ProductDetails" asp-route-id="@theitem.Id" class="latest-product__item">
+												<div class="latest-product__item__pic">
+													<img style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="" width="100" height="100">
+												</div>
 
-                                 <a asp-page="./ProductDetails" asp-route-id="@theitem.Id" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img style="width:100px;height:100px;" src="@Url.Content(ImgPath)" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>@theitem.Name</h6>
-                                        <span>@theitem.Price</span>
-                                    </div>
-                                </a>
+												<div class="latest-product__item__text">
+													<h6>@theitem.Name</h6>
+													@if (@theitem.DiscountStatus == true)
+													{
+														var FinalPrice = @theitem.Price - (@theitem.Price * @theitem.Discount / 100);
+														<span>@FinalPrice </span>
+													}
+													else
+													{
+														<span>@theitem.Price</span>
+													}
+													@if (theitem.Quantity == 0)
+													{
+														<div class="latest-product__item__text" style="color:red;">Out Of Stock</div>
+													}
+													
 
-                                }
-                               
+												</div>
+											</a>
                                 
+                               
+                                }
                                
                             </div>
                             <div class="latest-prdouct__slider__item">

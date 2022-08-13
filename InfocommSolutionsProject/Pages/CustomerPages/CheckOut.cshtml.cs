@@ -59,7 +59,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public int cardid { get; set; }
         public async Task OnGet(string returnUrl = null)
         {
-
+            
+         
             PopulatePaymentList(_context);
             await GetCurrentUserId();
             PaymentModel1 = await _context.Payment.FirstOrDefaultAsync(m => m.Accounts.Id == userid);
@@ -73,7 +74,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             // Check if shopping cart have items.
 
-            if (TheShoppingCart.Count == 0)
+            if (TheShoppingCart == null)
             {
 
                 HttpContext.Session.SetString(SessionKeyName1, "Yes");
@@ -95,11 +96,11 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     {
                         if (item.Product.DiscountStatus == true)
                         {
-                            TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
+                            TotalCost +=Math.Round((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity,2, MidpointRounding.AwayFromZero);
                         }
                         else
                         {
-                            TotalCost += item.Product.Price * item.Quantity;
+                            TotalCost +=Math.Round( item.Product.Price * item.Quantity,2, MidpointRounding.AwayFromZero);
                         }
 
                     }
@@ -117,12 +118,13 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+           
             var address = Request.Form["AccountModel.Address"];
             var phn = Request.Form["AccountModel.PhoneNumber"];
             var pos = Request.Form["AccountModel.PostalCode"];
             var newadd = Request.Form["ordersmodel.Address"];
             var newzip = Request.Form["ordersmodel.PostalCode"];
-
+            
             var account = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
             if (account.Address == null || account.PostalCode == null || account.PhoneNumber == null)
             {
@@ -143,7 +145,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 await _context.SaveChangesAsync();
             }
 
-            var datenow = DateTime.Now;
+            var datenow = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             returnUrl ??= Url.Content("~/");
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             var total_number_of_distint = TheShoppingCart.Distinct().Count();
@@ -157,103 +159,61 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 var quantity = TheShoppingCart[i].Quantity;
 
                 System.Diagnostics.Debug.WriteLine($"{Request.Form["AccountModel.Id"]} SUSSYBAKA!!!");
-
                 if (item.Product.DiscountStatus == true)
                 {
                     TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
-                    ordersmodel.Id = Guid.NewGuid();
-                    ordersmodel.OrderStatus = "Packing";
-                    if (newadd.ToString() != null)
-                    {
-                        ordersmodel.Address = newadd.ToString();
-                    }
-                    else {
-                        ordersmodel.Address = address.ToString();
-                    }
-                    if (Convert.ToInt32(newzip.ToString()) != 0)
-                    {
-                        ordersmodel.PostalCode = Convert.ToInt32(newzip.ToString());
-                    }
-                    else {
-                        ordersmodel.PostalCode = Convert.ToInt32(pos.ToString());
-                    }
-                 
-                    ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
-                    ordersmodel.DateOfOrder = datenow;
-                    ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.CardNumber"]));
-                    
-                    ordersmodel.quantity = quantity;
-                    ordersmodel.PriceOfOrder = (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
-                    ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
-
-                    _context.Orders.Add(ordersmodel);
-                    int changes = await _context.SaveChangesAsync();
-                    if (changes > 0)
-                    {
-                        var product1 = await _context.Products.FirstOrDefaultAsync(m => m.Id == product.Id);
-                        if (product1 != null)
-                        {
-                            Product = product1;
-                            Product.UpdatedOn = datenow;
-                            Product.Quantity -= quantity;
-                            _context.Attach(Product).State = EntityState.Modified;
-                            await _context.SaveChangesAsync();
-
-                        }
-                        else
-                        {
-                        }
-
-                    }
-
+                }
+                else {
+                    TotalCost += item.Product.Price * item.Quantity;
+                }
+               
+                ordersmodel.Id = Guid.NewGuid();
+                ordersmodel.OrderStatus = "Packing";
+                if (!string.IsNullOrEmpty(newadd))
+                {
+                    ordersmodel.Address = newadd.ToString();
                 }
                 else
                 {
-                    TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
-                    ordersmodel.Id = Guid.NewGuid();
-                    ordersmodel.OrderStatus = "Packing";
-                    if (newadd.ToString() != null)
-                    {
-                        ordersmodel.Address = newadd.ToString();
-                    }
-                    else
-                    {
-                        ordersmodel.Address = address.ToString();
-                    }
-                    if (Convert.ToInt32(newzip.ToString()) != 0)
-                    {
-                        ordersmodel.PostalCode = Convert.ToInt32(newzip.ToString());
-                    }
-                    else
-                    {
-                        ordersmodel.PostalCode = Convert.ToInt32(pos.ToString());
-                    }
-                    ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
-                    ordersmodel.DateOfOrder = datenow;
-                    ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.Id"]));
-                    ordersmodel.quantity = quantity;
-                    ordersmodel.PriceOfOrder = (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
-                    ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
-                    _context.Orders.Add(ordersmodel);
-                    int changes = await _context.SaveChangesAsync();
-                    if (changes > 0)
-                    {
-                        var product1 = await _context.Products.FirstOrDefaultAsync(m => m.Id == product.Id);
-                        if (product1 != null)
-                        {
-                            Product = product1;
-                            Product.UpdatedOn = datenow;
-                            Product.Quantity -= quantity;
-                            _context.Attach(Product).State = EntityState.Modified;
-                            await _context.SaveChangesAsync();
-
-                        }
-                        else
-                        {
-                        }
-
-                    }
+                    ordersmodel.Address = address.ToString();
                 }
+                if (!string.IsNullOrEmpty(newzip))
+                {
+                    ordersmodel.PostalCode = int.Parse(newzip);
+                }
+                else
+                {
+                    ordersmodel.PostalCode = int.Parse(pos);
+                }
+
+                ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
+                ordersmodel.DateOfOrder = DateTime.Parse(datenow);
+                ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.CardNumber"]));
+
+                ordersmodel.quantity = quantity;
+                ordersmodel.PriceOfOrder =Math.Round ((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity,2, MidpointRounding.AwayFromZero);
+                ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
+
+                _context.Orders.Add(ordersmodel);
+                int changes = await _context.SaveChangesAsync();
+                if (changes > 0)
+                {
+                    var product1 = await _context.Products.FirstOrDefaultAsync(m => m.Id == product.Id);
+                    if (product1 != null)
+                    {
+                        Product = product1;
+                        Product.UpdatedOn = DateTime.Parse(datenow);
+                        Product.Quantity -= quantity;
+                        _context.Attach(Product).State = EntityState.Modified;
+                        await _context.SaveChangesAsync();
+
+                    }
+                    else
+                    {
+                    }
+
+                }
+                
             }
             HttpContext.Session.Remove("ShoppingCart");
             return Redirect("/CustomerPages/Shop");

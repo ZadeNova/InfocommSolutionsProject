@@ -1,64 +1,52 @@
 using InfocommSolutionsProject.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using InfocommSolutionsProject.Models;
 
 namespace InfocommSolutionsProject.Pages.CustomerPages
 {
-
-    public class HomeModel : PageModel
+    public class Shop_Category : PageModel
     {
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
-        public IList<Categories> Products_Category { get; set; }
 
-        public IList<ProductModel> Products { get; set; } 
-
-        public IList<ProductModel> LatestProducts { get; set; }
-
-        public IList<ProductModel> LatestProducts2 { get; set; }
-
-        public IList<ProductModel> TopRatedProducts { get; set; }
-
-        public IList<ProductModel> TopReviewsProduct { get; set; }
-        public List<ShoppingCartItem> TheShoppingCart { get; set; }
-        public ProductModel Product { get; set; } = default!;
-
-        public string path1 { get; set; }
-        public HomeModel(InfocommSolutionsProjectContext context)
+        public Shop_Category(InfocommSolutionsProjectContext context)
         {
             _context = context;
         }
 
-        public void OnGet()
+        public IList<ProductModel> Products { get; set; }
+
+        public IList<ProductModel> ProductsDiscount { get; set; }
+        public ProductModel Product { get; set; } = default!;
+        public IList<ProductModel> LatestProducts { get; set; }
+
+        public IList<ProductModel> LatestProducts2 { get; set; }
+
+        public List<ShoppingCartItem> TheShoppingCart { get; set; }
+
+        public IList<Categories> Products_Category { get; set; }
+        public string cate { get; set; }
+        public async Task <IActionResult> OnGet(string? category )
         {
-            Products = _context.Products.ToList();
-
-            // Get Latest Products
-
-
-
-            //
-            //get current path to use for _Aftercustomerloginlayout
-            path1 = HttpContext.Request.Path;
-            System.Diagnostics.Debug.WriteLine(path1);
+            if (category == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+            Products = _context.Products.Where(i=>i.Category==category).ToList();
+            cate = category;
+            ProductsDiscount = (from prod in _context.Products where prod.DiscountStatus == true where prod.Category==category select prod).OrderByDescending(x => x.Discount).Take(6).ToList();
+            Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();
             var TheLatestProductList = Products.OrderByDescending(x => x.CreatedOn).Take(6).ToList();
             LatestProducts = TheLatestProductList.Take(3).ToList();
             LatestProducts2 = TheLatestProductList.TakeLast(3).ToList();
-            
-            System.Diagnostics.Debug.WriteLine(LatestProducts2.LongCount());
-            Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();
-            foreach (var item in LatestProducts) System.Diagnostics.Debug.WriteLine($"{item.Name} {item.CreatedOn} Wtf bruh {item.UpdatedOn}");
-            foreach (var item in LatestProducts2) System.Diagnostics.Debug.WriteLine($"{item.Name} {item.CreatedOn} Wtf bruh {item.UpdatedOn}");
-
-            System.Diagnostics.Debug.WriteLine("Test");
-            
-
+            foreach (var item in ProductsDiscount) System.Diagnostics.Debug.WriteLine($"{item.Name} {item.DiscountStatus} {item.Discount} {item.Price - (item.Price * item.Discount/100)}");
+           
+            return Page();
         }
         public IActionResult OnPostAddToShoppingCart(string id, int ItemQuantity)
         {
-            Guid id1 = Guid.Parse(id);
-            var product = _context.Products.FirstOrDefault(m => m.Id == id1);
+            Guid id1=Guid.Parse(id);
+            var product =  _context.Products.FirstOrDefault(m => m.Id == id1);
             Product = product;
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             if (TheShoppingCart == null)

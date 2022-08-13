@@ -39,13 +39,19 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 // If cart has items calculate the total 
                 foreach (var item in TheShoppingCart)
                 {
+                    
                     if (item.Product.DiscountStatus == true)
                     {
-                        TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100))  * item.Quantity;
+
+                        TotalCost += Math.Round((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity,2, MidpointRounding.AwayFromZero);
+                        //TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100))  * item.Quantity;
+                        
                     }
                     else
                     {
-                        TotalCost += item.Product.Price * item.Quantity;
+                        
+                        TotalCost += Math.Round( item.Product.Price * item.Quantity,2, MidpointRounding.AwayFromZero);
+                         
                     }
 
                 }
