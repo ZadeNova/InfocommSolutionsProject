@@ -96,11 +96,11 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                     {
                         if (item.Product.DiscountStatus == true)
                         {
-                            TotalCost += (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
+                            TotalCost +=Math.Round((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity,2, MidpointRounding.AwayFromZero);
                         }
                         else
                         {
-                            TotalCost += item.Product.Price * item.Quantity;
+                            TotalCost +=Math.Round( item.Product.Price * item.Quantity,2, MidpointRounding.AwayFromZero);
                         }
 
                     }
@@ -191,7 +191,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.CardNumber"]));
 
                 ordersmodel.quantity = quantity;
-                ordersmodel.PriceOfOrder = (item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity;
+                ordersmodel.PriceOfOrder =Math.Round ((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity,2, MidpointRounding.AwayFromZero);
                 ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);
 
                 _context.Orders.Add(ordersmodel);

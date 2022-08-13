@@ -21,6 +21,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public IList<ProductModel> TopRatedProducts { get; set; }
 
         public IList<ProductModel> TopReviewsProduct { get; set; }
+        public List<ShoppingCartItem> TheShoppingCart { get; set; }
+        public ProductModel Product { get; set; } = default!;
 
         public string path1 { get; set; }
         public HomeModel(InfocommSolutionsProjectContext context)
@@ -52,6 +54,67 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             System.Diagnostics.Debug.WriteLine("Test");
             
 
+        }
+        public IActionResult OnPostAddToShoppingCart(string id, int ItemQuantity)
+        {
+            Guid id1 = Guid.Parse(id);
+            var product = _context.Products.FirstOrDefault(m => m.Id == id1);
+            Product = product;
+            TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
+            if (TheShoppingCart == null)
+            {
+                TheShoppingCart = new List<ShoppingCartItem>();
+                TheShoppingCart.Add(
+                    new ShoppingCartItem
+                    {
+                        Product = _context.Products.Find(Guid.Parse(id)),
+                        Quantity = ItemQuantity
+                    });
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
+
+            }
+            else
+            {
+                int index = Exists(TheShoppingCart, id);
+                if (index == -1)
+                {
+                    TheShoppingCart.Add(new ShoppingCartItem
+                    {
+                        Product = _context.Products.Find(Guid.Parse(id)),
+                        Quantity = ItemQuantity
+
+                    });
+                }
+                else
+                {
+                    TheShoppingCart[index].Quantity += ItemQuantity;
+
+                }
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
+
+
+
+            }
+
+
+
+
+            //return RedirectToPage("ProductDetails" + id);
+            return Redirect("~/CustomerPages/Shop");
+
+        }
+
+
+        private int Exists(List<ShoppingCartItem> cart, string id)
+        {
+            for (var i = 0; i < cart.Count; i++)
+            {
+                if (cart[i].Product.Id.ToString() == id)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }

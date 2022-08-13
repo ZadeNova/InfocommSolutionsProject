@@ -195,8 +195,8 @@
 								}
 
 							</ul>
-							<div class="checkout__order__subtotal">Subtotal <span>$@Model.TotalCost</span></div>
-							<div class="checkout__order__total">Total <span>$@Model.TotalCost</span></div>
+							<div class="checkout__order__subtotal">Subtotal <span>$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
+							<div class="checkout__order__total">Total <span>$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
 							<div class="checkout__input__checkbox">
 								<div class="checkout__input__checkbox">
 									<label for="paypal">
