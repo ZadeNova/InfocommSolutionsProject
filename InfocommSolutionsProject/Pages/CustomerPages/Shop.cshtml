@@ -303,10 +303,15 @@
 												<div style="color:red	;">Out Of Stock</div>
 
 												<ul class="product__item__pic__hover">
-													<li><a href="#"><i class="fa fa-heart"></i></a></li>
-													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-
-												</ul>
+                                            <li>
+                                                <form asp-page-handler="AddToWishList" asp-route-id="@item.Id" method="post">
+                                                 <input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+                                                <button type="submit" ><i class="fa fa-heart"></i></button>
+                                                </form>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                           
+                                        </ul>
 
 											}
 											else
@@ -320,17 +325,21 @@
 													
 												}
 
-												
-												<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
 												<ul class="product__item__pic__hover">
-													<li><a href="#"><i class="fa fa-heart"></i></a></li>
-													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-													<li>
-														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-													</li>
-												</ul>
-											</form>
+                                            <li>
+                                                <form asp-page-handler="AddToWishList" asp-route-id="@item.Id" method="post">
+                                                 <input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+                                                <button type="submit" ><i class="fa fa-heart"></i></button>
+                                                </form>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li>
+                                                <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+                                                <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                                                <button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+                                                </form>
+                                            </li>
+                                        </ul>
 											}
 
 										</div>
@@ -441,25 +450,35 @@
 											<div  style="color:red	;">Out Of Stock</div>
 
 											<ul class="product__item__pic__hover">
-												<li><a href="#"><i class="fa fa-heart"></i></a></li>
-												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											</ul>
+                                            <li>
+                                                <form asp-page-handler="AddToWishList" asp-route-id="@item.Id" method="post">
+                                                 <input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+                                                <button type="submit" ><i class="fa fa-heart"></i></button>
+                                                </form>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                           
+                                        </ul>
 
 										}
 										else
 										{
 											<div class="product__discount__percent">-@item.Discount%</div>
-											<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
-												<ul class="product__item__pic__hover">
-													<li><a href="#"><i class="fa fa-heart"></i></a></li>
-													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-													<li>
-														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-													
-														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-													</li>
-												</ul>
-											</form>
+											<ul class="product__item__pic__hover">
+                                            <li>
+                                                <form asp-page-handler="AddToWishList" asp-route-id="@item.Id" method="post">
+                                                 <input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+                                                <button type="submit" ><i class="fa fa-heart"></i></button>
+                                                </form>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li>
+                                                <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+                                                <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                                                <button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+                                                </form>
+                                            </li>
+                                        </ul>
 										}
 
 									</div>
@@ -487,25 +506,35 @@
 											@*<div class="product__discount__percent">-@item.Discount%</div>*@
 
 											<ul class="product__item__pic__hover">
-												<li><a href="#"><i class="fa fa-heart"></i></a></li>
-												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-
-											</ul>
+                                            <li>
+                                                <form asp-page-handler="AddToWishList" asp-route-id="@item.Id" method="post">
+                                                 <input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+                                                <button type="submit" ><i class="fa fa-heart"></i></button>
+                                                </form>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                          
+                                        </ul>
 
 										}
 										else
 										{
 											@*<div class="product__discount__percent">-@item.Discount%</div>*@
-											<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
-												<ul class="product__item__pic__hover">
-													<li><a href="#"><i class="fa fa-heart"></i></a></li>
-													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-													<li>
-														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-													</li>
-												</ul>
-											</form>
+											<ul class="product__item__pic__hover">
+                                            <li>
+                                                <form asp-page-handler="AddToWishList" asp-route-id="@item.Id" method="post">
+                                                 <input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+                                                <button type="submit" ><i class="fa fa-heart"></i></button>
+                                                </form>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li>
+                                                <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+                                                <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                                                <button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+                                                </form>
+                                            </li>
+                                        </ul>
 										}
 
 									</div>

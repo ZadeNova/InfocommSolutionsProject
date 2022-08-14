@@ -20,10 +20,11 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             _context = context;
             _userManager = userManager;
         }
-        public IList<ProductModel> Products1 { get; set; }
+        public IList<ProductModel> Products1 { get; set; } = default!;
+        public Accounts accounts { get; set; } = default!;
         public IList<OrdersModel> orderDetails { get; set; }
         public ProductModel Product { get; set; } = default!;
-        public IList<RatingsModel> ratings { get; set; }
+        public IList<RatingsModel> ratings { get; set; } = default!;
         public List<ShoppingCartItem> TheShoppingCart { get; set; }
         public string userid { get; set; }
         [BindProperty]
@@ -52,7 +53,6 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             {
                 return NotFound();
             }
-
             var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -63,7 +63,11 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 Product = product;
                 var cate = product.Category;
                 Products1 = _context.Products.Where(i => i.Category == cate).Where(i=>i.Id !=id).ToList();
-                ratings = _context.Ratings.Where(i => i.Product.Id == id).ToList();
+                ratings = await _context.Ratings.Where(i => i.Product.Id == id).ToListAsync();
+                //accounts = await _context.Users.ToListAsync();
+
+                //ratings = (from P in _context.Ratings join x in _context.Users on P.Accounts.Id equals x.Id where P.Product.Id == id select new RatingsModel { rating = P.rating, Description = P.Description, CreatedOn = P.CreatedOn }).ToList();
+                var lol = _context.Users.ToList();
                 orderDetails = _context.Orders.Where(i => i.Product.Id == id).Where(i=>i.Accounts.Id==userid).ToList();
                 if (orderDetails.Count == 0)
                 {
@@ -167,40 +171,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             rating2.rating =Convert.ToInt32( Request.Form["Rating"]);
             _context.Ratings.Add(rating2);
             await _context.SaveChangesAsync();
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == newguid);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Product = product;
-                var cate = product.Category;
-                Products1 = _context.Products.Where(i => i.Category == cate).Where(i => i.Id != newguid).ToList();
-                ratings = _context.Ratings.Where(i => i.Product.Id == newguid).ToList();
-                orderDetails = _context.Orders.Where(i => i.Product.Id == newguid).Where(i => i.Accounts.Id == userid).ToList();
-                if (orderDetails.Count == 0)
-                {
-                    checkifuserhavebuy = 0;
-                }
-                else
-                {
-                    checkifuserhavebuy = 1;
-                }
-                if (ratings.Count != 0)
-                {
-                    foreach (var idk123 in ratings)
-                    {
-                        totalnum += idk123.rating;
-                        totalcount += 1;
-
-                    }
-
-                    averangenum = totalnum / totalcount;
-                }
-            }
-
-            return Page();
+            return Redirect("~/CustomerPages/ProductDetails?id=" + id);
 
         }
 

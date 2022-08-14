@@ -58,7 +58,7 @@
 	<thead>
 		<tr>
             <th>
-				<a asp-page="./ViewRating" asp-route-sortOrder="@Model.ProdName">@Html.DisplayNameFor(model => model.ratings[0].Product)</a>
+				<a asp-page="./ViewRating" asp-route-sortOrder="@Model.ProdName">@Html.DisplayNameFor(model => model.ratings[0].Product.Name)</a>
 			</th>
             <th>
 				<a asp-page="./ViewRating" asp-route-sortOrder="@Model.RatingSort">@Html.DisplayNameFor(model => model.ratings[0].rating)</a>
