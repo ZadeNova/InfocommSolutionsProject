@@ -4,6 +4,7 @@ using InfocommSolutionsProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfocommSolutionsProject.Migrations
 {
     [DbContext(typeof(InfocommSolutionsProjectContext))]
-    partial class InfocommSolutionsProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220814081530_add_new_ratingmodel")]
+    partial class add_new_ratingmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,37 +254,6 @@ namespace InfocommSolutionsProject.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("InfocommSolutionsProject.Models.RatingsModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AccountsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("rating")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountsId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Ratings");
-                });
-
             modelBuilder.Entity("InfocommSolutionsProject.Models.SupplierModel", b =>
                 {
                     b.Property<Guid>("SupplierId")
@@ -505,23 +476,6 @@ namespace InfocommSolutionsProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Accounts");
-                });
-
-            modelBuilder.Entity("InfocommSolutionsProject.Models.RatingsModel", b =>
-                {
-                    b.HasOne("InfocommSolutionsProject.Models.Accounts", "Accounts")
-                        .WithMany()
-                        .HasForeignKey("AccountsId");
-
-                    b.HasOne("InfocommSolutionsProject.Models.ProductModel", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Accounts");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("InfocommSolutionsProject.Models.SupplierOrdersModel", b =>
