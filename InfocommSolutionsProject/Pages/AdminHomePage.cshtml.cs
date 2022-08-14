@@ -721,11 +721,11 @@ namespace InfocommSolutionsProject.Pages
                 }
             }
 
-            Seed_Quantity_Over_Today = Today_Dict_Quantity_Final_Seeds;
-            Seed_Quantity_Over_Yesterday = Yesterday_Dict_Quantity_Final_Seeds;
-            Seed_Quantity_Over_7Day = SevenDayDict_Quantity_Seeds;
-            Seed_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Seeds;
-            Seed_Quantity_Over_Monthly = MonthlyDict_Quantity_Seeds;
+            Herbs_Quantity_Over_Today = Today_Dict_Quantity_Final_Seeds;
+            Herbs_Quantity_Over_Yesterday = Yesterday_Dict_Quantity_Final_Seeds;
+            Herbs_Quantity_Over_7Day = SevenDayDict_Quantity_Seeds;
+            Herbs_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Seeds;
+            Herbs_Quantity_Over_Monthly = MonthlyDict_Quantity_Seeds;
             // End of seed
             // Start of Vegetable
 
