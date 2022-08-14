@@ -180,7 +180,7 @@
 
 												<div class="latest-product__item__text">
 													<h6>@theitem.Name</h6>
-													@if (@theitem.DiscountStatus == true)
+													@if (@theitem.DiscountStatus == true  && theitem.Discount != 0)
 													{
 														var FinalPrice = @theitem.Price - (@theitem.Price * @theitem.Discount / 100);
 														<span>@FinalPrice </span>
@@ -215,7 +215,7 @@
 												<div class="latest-product__item__text">
 
 													<h6>@theitem.Name</h6>
-													@if (@theitem.DiscountStatus == true)
+													@if (@theitem.DiscountStatus == true  && theitem.Discount != 0)
 													{
 														var FinalPrice = @theitem.Price - (@theitem.Price * @theitem.Discount / 100);
 														<span>@FinalPrice </span>
@@ -246,7 +246,7 @@
 
 											<div class="latest-product__item__text">
 												<h6>@theitem2.Name</h6>
-												@if (@theitem2.DiscountStatus == true)
+												@if (@theitem2.DiscountStatus == true  && theitem2.Discount != 0)
 												{
 													var FinalPrice = @theitem2.Price - (@theitem2.Price * @theitem2.Discount / 100);
 													<span>@FinalPrice </span>
@@ -311,7 +311,16 @@
 											}
 											else
 											{
-												<div class="product__discount__percent">-@item.Discount%</div>
+												@if (item.DiscountStatus == true && item.Discount != 0)
+												{
+													<div class="product__discount__percent">-@item.Discount%</div>
+												}
+												else
+												{
+													
+												}
+
+												
 												<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
 												<ul class="product__item__pic__hover">
 													<li><a href="#"><i class="fa fa-heart"></i></a></li>
@@ -419,7 +428,7 @@
 						string ImgPath = "~/Images/ProductImages/" + item.ImagePath;
 
 
-						if (item.DiscountStatus)
+						if (item.DiscountStatus==true && item.Discount!=0)
 						{
 							var FinalPrice = item.Price - (item.Price * item.Discount / 100);
 							System.Diagnostics.Debug.WriteLine(FinalPrice);

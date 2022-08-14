@@ -1333,7 +1333,7 @@
     var Vegetable_SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Today));
     var Herbs_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Today));
 
-    console.log(Seed_Quantity_Today)
+    console.log(Herbs_Quantity_Today)
 
     const SalesOver_Time_Chart = document.getElementById("SalesOverTimeChart");
     var SalesOverTimeChart_Line = new Chart(SalesOver_Time_Chart, {
@@ -1414,7 +1414,7 @@
             labels: Object.keys(Herbs_SalesToday),
             datasets: [{ 
                 data: Object.values(Herbs_SalesToday),
-                label: "Seed Sales Revenue ($) ",
+                label: "Herbs Sales Revenue ($) ",
                 borderColor: "#3e95cd",
                 fill: false
               }, { 
@@ -1441,10 +1441,10 @@
     var LineChart_CategorySalesTime_Quantity = new Chart(CategorySalesOverTime_Quantity, {
           type: 'line',
           data: {
-            labels: Object.keys(Seed_Quantity_Today),
+            labels: Object.keys(Herbs_Quantity_Today),
             datasets: [{ 
-                data: Object.values(Seed_Quantity_Today),
-                label: "Seed unit sales ",
+                data: Object.values(Herbs_Quantity_Today),
+                label: "Herbs unit sales ",
                 borderColor: "#3e95cd",
                 fill: false
               }, { 
@@ -1473,16 +1473,16 @@
         switch (btn.value) {
             case document.getElementById("tdybtn").value:
                 //Updating Category units sold over time chart
-                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Seed_Quantity_Today)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
-                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Seed_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Herbs_Quantity_Today)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Herbs_Quantity_Today)
 
                 LineChart_CategorySalesTime_Quantity.update()
 
                 // Updating Category Revenue Over Time Chart
-                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Seed_SalesToday)
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Herbs_SalesToday)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(Vegetable_SalesToday)
-                LineChart_CategorySalesTime.data.labels = Object.keys(Seed_SalesToday)
+                LineChart_CategorySalesTime.data.labels = Object.keys(Herbs_SalesToday)
                 LineChart_CategorySalesTime.update()
                 // Updating Sales over time chart
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesToday)
@@ -1491,21 +1491,21 @@
                 break;
             case document.getElementById("yestbtn").value:
                 var SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Yesterday));
-                var Seed_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Yesterday));
+                var Herbs_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Yesterday));
                 var Vegetable_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Yesterday));
-                var Seed_Quantity_yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Yesterday));
+                var Herbs_Quantity_yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Yesterday));
 
                 //Updating Category units sold over time chart
-                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Seed_Quantity_yesterday)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
-                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Seed_Quantity_yesterday)
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Herbs_Quantity_yesterday)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Herbs_Quantity_yesterday)
 
                 LineChart_CategorySalesTime_Quantity.update()
 
                 // Updating Category Revenue over time chart
-                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Seed_SalesYesterday)
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Herbs_SalesYesterday)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(Vegetable_SalesYesterday)
-                LineChart_CategorySalesTime.data.labels = Object.keys(Seed_SalesYesterday)
+                LineChart_CategorySalesTime.data.labels = Object.keys(Herbs_SalesYesterday)
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesYesterday)
@@ -1515,21 +1515,21 @@
             case document.getElementById("7daybtn").value:
                 // Seven days
                 var SalesSevenDay = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_7day));
-                var SeedSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_7Day));
+                var HerbSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_7Day));
                 var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_7Day));
-                var Seed_QuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_7Day));
+                var Herbs_QuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_7Day));
 
                 //Updating Category units sold over time chart
-                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Seed_QuantityData)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
-                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Seed_QuantityData)
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Herbs_QuantityData)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Herbs_QuantityData)
 
                 LineChart_CategorySalesTime_Quantity.update()
 
                 // Updating Category Revenue over time chart
-                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(SeedSalesData)
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(HerbsSalesData)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
-                LineChart_CategorySalesTime.data.labels = Object.keys(SeedSalesData)
+                LineChart_CategorySalesTime.data.labels = Object.keys(HerbsSalesData)
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesSevenDay)
@@ -1540,20 +1540,20 @@
                 // Twenty Eight Days
 
                 var SalesTwentyEightDay = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_28Day));
-                var SeedSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_28Day));
+                var HerbsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_28Day));
                 var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_28Day));
-                var SeedQuantityData =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_28Day));
+                var HerbsQuantityData =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_28Day));
 
                 //Updating Category units sold over time chart
-                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(SeedQuantityData)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
-                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(SeedQuantityData)
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(HerbsQuantityData)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(HerbsQuantityData)
                 LineChart_CategorySalesTime_Quantity.update()
 
                 // Updating Category Revenue over time chart
-                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(SeedSalesData)
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(HerbsSalesData)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
-                LineChart_CategorySalesTime.data.labels = Object.keys(SeedSalesData)
+                LineChart_CategorySalesTime.data.labels = Object.keys(HerbsSalesData)
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart           
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesTwentyEightDay)
@@ -1562,20 +1562,20 @@
                 break;
             case document.getElementById("Yearbtn").value:
                 var MonthlySales = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Monthly));
-                var SeedSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Monthly));
+                var HerbsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Monthly));
                 var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Monthly));
-                var SeedQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Monthly));
+                var HerbsQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Monthly));
 
                 //Updating Category units sold over time chart
-                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(SeedQuantityData)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
-                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(SeedQuantityData)
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(HerbsQuantityData)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(HerbsQuantityData)
                 LineChart_CategorySalesTime_Quantity.update()
 
                 // Updating Category Revenue over time chart
-                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(SeedSalesData)
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(HerbsSalesData)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
-                LineChart_CategorySalesTime.data.labels = Object.keys(SeedSalesData)
+                LineChart_CategorySalesTime.data.labels = Object.keys(HerbsSalesData)
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(MonthlySales)

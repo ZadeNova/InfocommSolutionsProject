@@ -79,17 +79,17 @@
 					<h3>@Model.Product.Name</h3>
 					<div class="product__details__rating">
 						@{
-							for (var i = 1; i <= @Model.averangenum;  i++ )
-								{
-										<i class="starGlowN"></i>
-								}
-							for (var i = (@Model.averangenum +1); i <= 5; i++)
-								{
-										<i	 class="starFadeN"></i	>
-								}
+							for (var i = 1; i <= @Model.averangenum; i++)
+							{
+								<i class="starGlowN"></i>
+							}
+							for (var i = (@Model.averangenum + 1); i <= 5; i++)
+							{
+								<i class="starFadeN"></i>
+							}
 							//foreach (var item123 in Model.ratings)
 							//{
-								
+
 
 
 							//	for (var i = 1; i <= item123.rating;  i++ )
@@ -220,55 +220,56 @@
 									<dt>
 										Comment
 									</dt>
-									@if (@Model.checkifuserhavebuy== 0)
+									@if (@Model.checkifuserhavebuy == 0)
 									{
-										
-											<p>Comment will be enable after you have make an Order</p>
-										
-									}else
+
+										<p>Comment will be enable after you have make an Order</p>
+
+									}
+									else
 									{
 										<dd>
-										<div class="commentBox">
-											@*@using (Html.BeginForm("Add", "ArticlesComments", FormMethod.Post, new { onsubmit = "return SubmitComment()" }))
+											<div class="commentBox">
+												@*@using (Html.BeginForm("Add", "ArticlesComments", FormMethod.Post, new { onsubmit = "return SubmitComment()" }))
 											{*@
 												@*@Html.AntiForgeryToken()*@
-												<form  asp-page-handler="AddRating" asp-route-id="@Model.Product.Id" method="post">
-												<div class="form-horizontal">
-													<div class="form-group">
-														<label class="col-md-4 control-label">
-															Your rating <span style="font-weight:normal;">(1 start is bad, 5 star is good)</span>
-														</label>
-														<div class="col-md-7">
-															<div onmouseout="CRateSelected()">
-																<span class="starFade"  id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
-																<span asp-validation-for="rating2.rating" class="text-danger" class="form-control"></span>
+												<form asp-page-handler="AddRating" asp-route-id="@Model.Product.Id" method="post">
+													<div class="form-horizontal">
+														<div class="form-group">
+															<label class="col-md-4 control-label">
+																Your rating <span style="font-weight:normal;">(1 start is bad, 5 star is good)</span>
+															</label>
+															<div class="col-md-7">
+																<div onmouseout="CRateSelected()">
+																	<span class="starFade" id="Rate1" onclick="CRate(1)" onmouseover="CRateOver(1)" onmouseout="CRateOut(1)"></span><span class="starFade" id="Rate2" onclick="CRate(2)" onmouseover="CRateOver(2)" onmouseout="CRateOut(2)"></span><span class="starFade" id="Rate3" onclick="CRate(3)" onmouseover="CRateOver(3)" onmouseout="CRateOut(3)"></span><span class="starFade" id="Rate4" onclick="CRate(4)" onmouseover="CRateOver(4)" onmouseout="CRateOut(4)"></span><span class="starFade" id="Rate5" onclick="CRate(5)" onmouseover="CRateOver(5)" onmouseout="CRateOut(5)"></span>
+																	<span asp-validation-for="rating2.rating" class="text-danger" class="form-control"></span>
+
+																</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<div class="col-md-12">
+																<input asp-for="rating2.Description" name="Comment" id="Comment" required rows="5" style="width:100%;" class="form-control">
+																<span asp-validation-for="rating2.Description" class="text-danger" class="form-control"></span>
 
 															</div>
 														</div>
-													</div>
-													<div class="form-group">
-														<div class="col-md-12">
-															<input asp-for="rating2.Description" name="Comment" id="Comment" required rows="5" style="width:100%;" class="form-control">
-															<span asp-validation-for="rating2.Description" class="text-danger" class="form-control"></span>
+														<div class="form-group">
+															<div class="col-md-12">
 
+																<input type="hidden" name="Rating" id="Rating" value="0" />
+																<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+																<input type="submit" asp-page="/CustomerPages/ProductDetails" asp-page-handler="AddRating" asp-route-id="@Model.Product.Id" class="primary-btn" onclick="SubmitComment()" value="Submit Comment">
+															</div>
 														</div>
 													</div>
-													<div class="form-group">
-														<div class="col-md-12">
-															
-															<input type="hidden" name="Rating" id="Rating" value="0" />
-															<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
-															<input type="submit" asp-page="/CustomerPages/ProductDetails" asp-page-handler="AddRating" asp-route-id="@Model.Product.Id" class="primary-btn" onclick="SubmitComment()" value="Submit Comment">
-														</div>
-													</div>
-												</div>
 												</form>
-											@*}*@
-										</div>
-									</dd>
+												@*}*@
+											</div>
+										</dd>
 									}
 
-									
+
 
 								</dl>
 								<h6>Reviews</h6>
@@ -299,20 +300,28 @@
 										@{
 											foreach (var item in Model.ratings)
 											{
-													<tr>
-														<td>
-															@Html.DisplayFor(modelItem => item.Accounts.Email)
-														</td>
-														<td>
-															@Html.DisplayFor(modelItem => item.rating)
-														</td>
-														<td>
-															@Html.DisplayFor(modelItem => item.Description)
-														</td>
-														<td>
-															@Html.DisplayFor(modelItem => item.CreatedOn)
-														</td>
-													</tr>
+												<tr>
+													<td>
+														@Html.DisplayFor(modelItem => item.Accounts.Email)
+													</td>
+													<td>
+														@for (var i = 1; i <= item.rating;  i++ )
+													{
+													<i class="starGlowN"></i>
+														}
+														@for (var i = (item.rating +1); i <= 5; i++)
+													{
+													<i class="starFadeN"></i>
+														}
+														
+													</td>
+													<td>
+														@Html.DisplayFor(modelItem => item.Description)
+													</td>
+													<td>
+														@Html.DisplayFor(modelItem => item.CreatedOn)
+													</td>
+												</tr>
 											}
 										}
 
@@ -343,36 +352,43 @@
 				foreach (var item123 in Model.Products1)
 				{
 					string ImgPath1 = "~/Images/ProductImages/" + item123.ImagePath;
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="product__discount__item">
-								<div class="product__discount__item__pic set-bg" data-setbg="@Url.Content(ImgPath1)">
-									@if (item123.Quantity == 0)
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="product__discount__item">
+							<div class="product__discount__item__pic set-bg" data-setbg="@Url.Content(ImgPath1)">
+								@if (item123.Quantity == 0)
 								{
-										<div style="color:red;">Out Of Stock</div>
-										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
-											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+									<div style="color:red;">Out Of Stock</div>
+									<ul class="product__item__pic__hover">
+										<li><a href="#"><i class="fa fa-heart"></i></a></li>
+										<li><a href="#"><i class="fa fa-retweet"></i></a></li>
 
-										</ul>
+									</ul>
 								}
 								else
 								{
-
+									@if (item123.DiscountStatus == true && item123.Discount != 0)
+									{
 										<div class="product__discount__percent">-@item123.Discount%</div>
-										<form asp-page-handler="AddToShoppingCart" asp-route-id="@item123.Id" method="post">
-											<ul class="product__item__pic__hover">
-												<li><a href="#"><i class="fa fa-heart"></i></a></li>
-												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-												<li>
-													<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-													<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-												</li>
-											</ul>
-										</form>
+									}
+									else
+									{
+
+									}
+
+									<form asp-page-handler="AddToShoppingCart" asp-route-id="@item123.Id" method="post">
+										<ul class="product__item__pic__hover">
+											<li><a href="#"><i class="fa fa-heart"></i></a></li>
+											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+											<li>
+												<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+												<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+											</li>
+										</ul>
+									</form>
 								}
 
-								</div>
-							@if (@item123.DiscountStatus == true)
+							</div>
+							@if (@item123.DiscountStatus == true && item123.Discount != 0)
 							{
 								var FinalPrice1 = @item123.Price - (@item123.Price * @item123.Discount / 100);
 								<div class="featured__item__text">
@@ -386,11 +402,11 @@
 									<h6><a asp-page="./ProductDetails" asp-route-id="@item123.Id">@item123.Name</a></h6>
 									<h5>$@item123.Price</h5>
 								</div>
-						
+
 							}
-								</div>
-							
 						</div>
+
+					</div>
 				}
 			}
 			@*<div class="col-lg-3 col-md-4 col-sm-6">
