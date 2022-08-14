@@ -47,7 +47,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public PaginatedList<RatingsModel> ratings { get;set; } = default!;
         public IList<Accounts> Accounts { get; set; } = default!;
         public IList<ProductModel> Product { get; set; } = default!;
-     
+        public ProductModel Product1 { get; set; } = default!;
         public string userid { get; set; }
         //public IList<PaymentModel> UserSelectList { get; set; }
         public async Task OnGetAsync(string searchString, int? pageIndex, string sortOrder, string NumPage)
@@ -92,8 +92,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
                 CurrentFilter = searchString;
                 Accounts = await _context.Users.Where(i => i.Id == userid).ToListAsync();
-                Product =  await _context.Products.ToListAsync();
-                
+                //Product =  await _context.Products.ToListAsync();
+                var lol = _context.Products.ToList();
                 IQueryable<RatingsModel> ProductQueryable = from cat in _context.Ratings join dog in _context.Users on cat.Accounts.Id equals dog.Id join idk in _context.Products on cat.Product.Id equals idk.Id where (cat.Accounts.Id == userid)  select cat;
 
                 switch (NumPage)

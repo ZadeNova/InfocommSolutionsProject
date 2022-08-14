@@ -32,6 +32,7 @@ public class InfocommSolutionsProjectContext : IdentityDbContext<Accounts>
 
     public DbSet<Categories> Categories { get; set; }
     public DbSet<RatingsModel> Ratings { get; set; }
+    public DbSet<WishListModel> wishLists { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
