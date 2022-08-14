@@ -74,30 +74,49 @@
                         <div class="product__discount__item__pic set-bg" data-setbg="@Url.Content(ImgPath)">
                             @if (item.Quantity == 0)
                             {
+
                                 <div  style="color:red;">Out Of Stock</div>
                                 <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                               
-                            </ul>
+                                </ul>
                             }
                             else
                             {
-                               <div class="product__discount__percent" >-@item.Discount%</div>
-												<form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
-												<ul class="product__item__pic__hover">
-													<li><a href="#"><i class="fa fa-heart"></i></a></li>
-													<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-													<li>
-														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-													</li>
-												</ul>
-											</form>
-                            }
+                                @if (item.DiscountStatus == true && item.Discount != 0)
+                                {
+                                    <div class="product__discount__percent" >-@item.Discount%</div>
+                                    <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+                                        <ul class="product__item__pic__hover">
+                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li>
+                                                <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                                                <button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                }
+                                else
+                                {
+                                     <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+                                        <ul class="product__item__pic__hover">
+                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li>
+                                                <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                                                <button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                }
+
+
+                        }
                             
                         </div>
-                        @if (item.DiscountStatus == true)
+                        @if (item.DiscountStatus == true &&item.Discount!=0)
                         {
                             var FinalPrice = @item  .Price - (@item.Price * @item.Discount / 100);
 							<div class="featured__item__text">
@@ -297,7 +316,7 @@
 
 												<div class="latest-product__item__text">
 													<h6>@theitem.Name</h6>
-													@if (@theitem.DiscountStatus == true)
+													@if (@theitem.DiscountStatus == true &&theitem.Discount!=0)
 													{
 														var FinalPrice = @theitem.Price - (@theitem.Price * @theitem.Discount / 100);
 														<span>@FinalPrice </span>
@@ -329,8 +348,23 @@
                                         <img style="width:100px;height:100px;"  src="@Url.Content(ImgPath)" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>@theitem2.Name</h6>
-                                        <span>@theitem2.Price</span>
+                                         <h6>@theitem2.Name</h6>
+                                        @if (theitem2.DiscountStatus == true && theitem2.Discount != 0)
+                                        {
+                                            var FinalPrice = @theitem2.Price - (@theitem2.Price * @theitem2.Discount / 100);
+											<span>@FinalPrice </span>
+                                        }
+                                        else
+                                        {
+                                            
+                                            <span>@theitem2.Price</span>
+                                        }
+                                        @if (theitem2.Quantity == 0)
+                                        {
+                                            <div class="latest-product__item__text" style="color:red;">Out Of Stock</div>
+                                        }
+
+
                                     </div>
                                 </a>
 

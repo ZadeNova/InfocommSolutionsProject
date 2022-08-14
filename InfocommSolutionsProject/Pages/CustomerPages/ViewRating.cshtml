@@ -4,7 +4,44 @@
 @{
 	ViewData["Title"] = "Index";
 }
+<style>
 
+	.commentBox {
+		background-color: #efefef;
+		padding: 10px;
+		border-radius: 10px;
+	}
+
+	.starFade {
+		background-image: url('/Images/CustomerPageImages/StarFade.gif');
+		min-width: 30px;
+		min-height: 30px;
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	.starFadeN {
+		background-image: url('/Images/CustomerPageImages/StarFade.gif');
+		min-width: 30px;
+		min-height: 30px;
+		display: inline-block;
+	}
+
+	.starGlow {
+		background-image: url('/Images/CustomerPageImages/starglow.gif');
+		min-width: 30px;
+		min-height: 30px;
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	.starGlowN {
+		background-image: url('/Images/CustomerPageImages/starglow.gif');
+		min-width: 30px;
+		min-height: 30px;
+		display: inline-block;
+	}
+</style>
 <h1>Order Details</h1>
 
 <form asp-page="/ViewRating" method="get">
@@ -47,7 +84,15 @@
 					@Html.DisplayFor(modelItem =>item.Product.Name)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.rating)
+                    @for (var i = 1; i <= item.rating;  i++ )
+								{
+										<i class="starGlowN"></i>
+								}
+							@for (var i = (item.rating +1); i <= 5; i++)
+								{
+										<i	 class="starFadeN"></i	>
+								}
+					
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.CreatedOn)
