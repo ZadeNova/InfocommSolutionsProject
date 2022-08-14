@@ -11,11 +11,11 @@
     color:pink;
     }
 </style>
-<div class="container">
-    <h1>Details</h1>
-
-<div>
-    <h4>Product</h4>
+<div class="container-fluid">
+     <div class="row gy-4">
+    <div class="col-4">
+        <h1>Details</h1>
+        <h4>Product</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -75,11 +75,143 @@
         <dd class="col-sm-10">
             <img src="@ProductImagePath" asp-append-version="true" class="ImageThumbnail" width="150px" height="150px"/>
         </dd>
+         <div>
+            <a asp-page="./Edit" asp-route-id="@Model.Product?.Id"><button type="button" class="btn btn-warning" title="Edit Item"><i class="fa-solid fa-pen-clip"></i></button></a> |
+            <a asp-page="./Index">Back to List</a>
+        </div>
     </dl>
+    </div>
+    <div class="col-8">
+        <div class="btn-group" role="group" aria-label="Basic example">
+                      <button id="tdybtn" type="button" class="btn btn-secondary" value="Today" onclick="FilterDate(this)">Today</button>
+                      <button id="yestbtn" type="button" class="btn btn-secondary" value="Yesterday" onclick="FilterDate(this)">Yesterday</button>
+                      <button id="7daybtn" type="button" class="btn btn-secondary" value="Last 7 Days" onclick="FilterDate(this)">Last 7 Days</button>
+                      <button id="28daybtn" type="button" class="btn btn-secondary" value="Last 28 Days" onclick="FilterDate(this)">Last 28 Days</button>
+                      <button id="monthbtn"  type="button" class="btn btn-secondary" value="This Year" onclick="FilterDate(this)">This Year</button>
+        </div>
+        <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                              <use xlink:href="#paper-stack-1"> </use>
+                            </svg>*@
+                            <i class="fa-solid fa-user"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Sales ($)</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:goldenrod" id="salestodaytext">$@Model.Total_ProductSales_Today</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:goldenrod" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+        </div>
+
+            <div class="card">
+                  <div class="card-body" style="height:350px;" >
+                      <canvas id="SalesOverTime_ForProduct"></canvas>
+                  </div>
+            </div>
+            <div class="card">
+                  <div class="card-body" style="height:350px">
+                      <canvas id=""></canvas>
+                  </div>
+            </div>
+             
+    </div>
+
+  </div>
+    
+
+
+
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Product?.Id"><button type="button" class="btn btn-info"><i class="fa-solid fa-circle-info"></i></button></a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+console.log(document.getElementById("SalesOverTime_ForProduct"))
+var ProductSalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_Today));
+console.log(ProductSalesToday)
+var ProdChart = new Chart(document.getElementById("SalesOverTime_ForProduct"), {
+  type: 'line',
+  data: {
+      labels: Object.keys(ProductSalesToday),
+    datasets: [{ 
+        data: Object.values(ProductSalesToday),
+        label: "@Model.Product.Name",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  },
+  options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+          title: {
+          display: true,
+          text: 'Sales for @Model.Product.Name Over Time',
+        }
+      },
+      animation: {
+
+           duration: 600,
+           easing: 'linear'
+      },
+    
+  }
+});
+
+FilterDate = (btn) => {
+    switch (btn.value) {
+        case document.getElementById("tdybtn").value:
+            document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_Today;
+
+            ProdChart.data.labels = Object.keys(ProductSalesToday)
+            ProdChart.data.datasets[0].data = Object.values(ProductSalesToday)
+            ProdChart.update()
+            break;
+        case document.getElementById("yestbtn").value:
+            var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_Yesterday));
+            
+            document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_Yesterday;
+
+            ProdChart.data.labels = Object.keys(ProductSalesData)
+            ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
+            ProdChart.update()
+            break;
+        case document.getElementById("7daybtn").value:
+            var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_7Day));
+            
+            document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_7Day;
+
+            ProdChart.data.labels = Object.keys(ProductSalesData)
+            ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
+            ProdChart.update()
+            break;
+        case document.getElementById("28daybtn").value:
+            var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_28Day));
+
+            document.getElementById("salestodaytext").innerHTML =  "$" + @Model.Total_ProductSales_28Day;
+
+            ProdChart.data.labels = Object.keys(ProductSalesData)
+            ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
+            ProdChart.update()
+            break;
+        case document.getElementById("monthbtn").value:
+            var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_Month));
+
+            document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_Month;
+
+            ProdChart.data.labels = Object.keys(ProductSalesData)
+            ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
+            ProdChart.update()
+            break;
+
+    }
+}
+
+
+</script>
 

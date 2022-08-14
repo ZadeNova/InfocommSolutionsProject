@@ -35,6 +35,18 @@ namespace InfocommSolutionsProject.Pages.Product
 
         public Guid? ProductID { get; set; }
 
+        public SelectList? ProductCategoryList { get; set; }
+
+
+        public void PopulateProductCategoryList(InfocommSolutionsProjectContext _context, object userobj = null)
+        {
+            bool lol = true;
+            var Productcategoryy = from Cat in _context.Categories where Cat.CategoryFor == "Products" || Cat.CategoryFor == "Product" select Cat;
+            ProductCategoryList = new SelectList(Productcategoryy, "CategoryName", "CategoryName", userobj);
+            foreach (var i in ProductCategoryList) System.Diagnostics.Debug.WriteLine(i.Text.ToString());
+
+        }
+
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null || _context.Products == null)
@@ -47,7 +59,9 @@ namespace InfocommSolutionsProject.Pages.Product
             {
                 return NotFound();
             }
-            
+
+            PopulateProductCategoryList(_context);
+
             Product = product;
             System.Diagnostics.Debug.WriteLine($"Discount Status: {product.DiscountStatus}");
             return Page();
@@ -69,6 +83,7 @@ namespace InfocommSolutionsProject.Pages.Product
 
             // Update date for product
             Product.UpdatedOn = DateTime.Now;
+            Product.Category = Request.Form["Product.Category"].ToString();
 
             //var TheProduct = _context.Products.FirstOrDefault(x => x.Id == ProductID);
             
