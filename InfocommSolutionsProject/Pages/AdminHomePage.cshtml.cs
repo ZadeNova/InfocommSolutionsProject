@@ -40,9 +40,9 @@ namespace InfocommSolutionsProject.Pages
 
         public Dictionary<Accounts, double> TopCustomers { get; set; }
 
-        public Dictionary<string, double> TopProducts_byAmount { get; set; }
+        public List<BestSellerClass> TopProducts_byAmount { get; set; }
 
-        public Dictionary<string, int> TopProducts_byQuantity { get; set; }
+        public List<BestSellerClass> TopProducts_byQuantity { get; set; }
 
         public List<OrdersModel> OrdersList { get; set; }
 
@@ -60,6 +60,7 @@ namespace InfocommSolutionsProject.Pages
 
         public double AveragePricePerOrder { get; set; }
 
+        // Start of sales over time
         public Dictionary<DateTime,double> SalesOverTime { get; set; }
 
         public Dictionary<string,double> SalesOverTime_7day { get; set; }
@@ -71,6 +72,7 @@ namespace InfocommSolutionsProject.Pages
         public Dictionary <string , double> SalesOverTime_Yesterday { get; set; }
 
         public Dictionary<string , double> SalesOverTime_Monthly { get; set; }
+        // Start of herbs
 
         public Dictionary<string, double> Herbs_SalesOverTime { get; set; }
 
@@ -83,6 +85,8 @@ namespace InfocommSolutionsProject.Pages
         public Dictionary<string, double> Herbs_SalesOver_7Day { get; set; }
 
         public Dictionary<string, double> Herbs_SalesOver_Monthly { get; set; }
+        // End of herbs
+        // Start of vegetables
 
         public Dictionary<string, double> Vegetable_SalesOver_Today { get; set; }
 
@@ -93,6 +97,23 @@ namespace InfocommSolutionsProject.Pages
         public Dictionary<string, double> Vegetable_SalesOver_7Day { get; set; }
 
         public Dictionary<string, double> Vegetable_SalesOver_Monthly { get; set; }
+        // End of vegetables
+        // Start of Fruits
+
+        public Dictionary<string, double> Fruits_SalesOverTime { get; set; }
+
+        public Dictionary<string, double> Fruits_SalesOver_Today { get; set; }
+
+        public Dictionary<string, double> Fruits_SalesOver_Yesterday { get; set; }
+
+        public Dictionary<string, double> Fruits_SalesOver_28Day { get; set; }
+
+        public Dictionary<string, double> Fruits_SalesOver_7Day { get; set; }
+
+        public Dictionary<string, double> Fruits_SalesOver_Monthly { get; set; }
+        // End of fruits
+        // End of Sales Over time
+        // Start of Quantity over time
 
         public Dictionary<string, double> Vegetable_Quantity_Over_Today { get; set; }
 
@@ -104,6 +125,8 @@ namespace InfocommSolutionsProject.Pages
 
         public Dictionary<string, double> Vegetable_Quantity_Over_Monthly { get; set; }
 
+        // End of vegetable
+
         public Dictionary<string, double> Herbs_Quantity_Over_Today { get; set; }
 
         public Dictionary<string, double> Herbs_Quantity_Over_Yesterday { get; set; }
@@ -114,9 +137,28 @@ namespace InfocommSolutionsProject.Pages
 
         public Dictionary<string, double> Herbs_Quantity_Over_Monthly { get; set; }
 
+        // End of herbs
+
+        public Dictionary<string, double> Fruits_Quantity_Over_Today { get; set; }
+
+        public Dictionary<string, double> Fruits_Quantity_Over_Yesterday { get; set; }
+
+        public Dictionary<string, double> Fruits_Quantity_Over_28Day { get; set; }
+
+        public Dictionary<string, double> Fruits_Quantity_Over_7Day { get; set; }
+
+        public Dictionary<string, double> Fruits_Quantity_Over_Monthly { get; set; }
+
+        // End of fruits
+
+        public List<RatingsModel> LatestRatings { get; set; }
+
+
         public List<string> Time_Hours { get; set; }
 
         public List<string> Months { get; set; }
+
+        public List<BestSellerClass> TheTopSellers { get; set; }
 
         public void OnGet()
         {
@@ -129,6 +171,7 @@ namespace InfocommSolutionsProject.Pages
             OrdersList = _context.Orders.ToList();
             ProductList = _context.Products.ToList();
             LatestOrders = _context.Orders.OrderByDescending(x => x.DateOfOrder).Take(8).ToList();
+            LatestRatings = _context.Ratings.OrderByDescending(x => x.CreatedOn).Take(8).ToList();
             TotalSales = Math.Round(_context.Orders.Sum(x => x.PriceOfOrder) , 2);
             AveragePricePerOrder = Math.Round((_context.Orders.Sum(x => x.PriceOfOrder) / _context.Orders.Count()), 2);
             
@@ -252,11 +295,14 @@ namespace InfocommSolutionsProject.Pages
                     Yesterday_DictSales[entry.Key.TimeOfDay.ToString().Substring(0,2)] = 0;
 
                 }
-
-                if (MonthlyDictSales.ContainsKey(entry.Key.ToString("MMMM")))
+                if (entry.Key.Year == DateTime.Today.Year)
                 {
-                    MonthlyDictSales[entry.Key.ToString("MMMM")] += Math.Round(entry.Value,2);
+                    if (MonthlyDictSales.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDictSales[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    }
                 }
+                
                 
                 
             }
@@ -319,10 +365,10 @@ namespace InfocommSolutionsProject.Pages
 
 
 
-            TopCategories = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id select new { cat.Product , prod.Category}).GroupBy(x => x.Category).Select(y => new
+            TopCategories = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id select new { cat.Product , prod.Category , cat.quantity}).GroupBy(x => x.Category).Select(y => new
             {
                 Category = y.Key,
-                Count = y.Count()
+                Count = y.Sum(x => x.quantity)
             }).ToDictionary(x => x.Category , x => x.Count);
 
             TopCategoriesBySales = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id select new { cat.Product, prod.Category , cat.PriceOfOrder }).GroupBy(x => x.Category).Select(y => new
@@ -347,22 +393,49 @@ namespace InfocommSolutionsProject.Pages
             }).OrderByDescending(a => a.Count).Take(5).ToDictionary(x => x.Account, x => x.Count);
 
 
-            TopProducts_byAmount = OrdersList.GroupBy(x => x.Product).Select(g => new
+            var Top_ProductBy_Sales = OrdersList.GroupBy(x => x.Product).Select(g => new
             {
                 Product = g.Key,
-                Count = Math.Round(g.Sum(x => x.PriceOfOrder) , 2)
-            }).OrderByDescending(v => v.Count).Take(5).ToDictionary(m => m.Product.Name , m => m.Count);
+                Sales = Math.Round(g.Sum(x => x.PriceOfOrder) , 2)
+            }).OrderByDescending(v => v.Sales).Take(5).ToDictionary(m => m.Product , m => m.Sales);
 
-            TopProducts_byQuantity = OrdersList.GroupBy(x => x.Product).Select(g => new
+            //TopProducts_byQuantity = OrdersList.GroupBy(x => x.Product).Select(g => new
+            //{
+            //    Product = g.Key,
+            //    Quantity = g.Sum(x => x.quantity)
+
+            //}).OrderByDescending(x => x.Quantity).Take(5).ToDictionary(m => m.Product.Name, m => m.Quantity);
+
+            //Dictionary<Guid, int> Thetestdict = new Dictionary<Guid, int>();
+
+
+            var Top_ProductBy_Quantity = OrdersList.GroupBy(x => x.Product).Select(g => new
             {
                 Product = g.Key,
                 Quantity = g.Sum(x => x.quantity)
 
-            }).OrderByDescending(x => x.Quantity).Take(5).ToDictionary(m => m.Product.Name, m => m.Quantity);
+            }).OrderByDescending(x => x.Quantity).Take(5).ToDictionary(m => m.Product , m => m.Quantity);
+
+            //TheTopSellers = new List<BestSellerClass>();
+
+            TopProducts_byAmount = new List<BestSellerClass>();
+            TopProducts_byQuantity = new List<BestSellerClass>();
+
+            foreach(var key in Top_ProductBy_Quantity)
+            {
+                System.Diagnostics.Debug.WriteLine($"{key.Key} {key.Value}");
+                
+
+                TopProducts_byQuantity.Add(new BestSellerClass { ProductName = key.Key.Name , Sales = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.PriceOfOrder) , UnitsSold = key.Value });
+            }
+
+            foreach (var key in Top_ProductBy_Sales)
+            {
+                TopProducts_byAmount.Add(new BestSellerClass { ProductName = key.Key.Name, Sales = key.Value, UnitsSold = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.quantity) });
+
+            }
 
 
-
-            //foreach(var i in TopCustomers) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value} wtfffff");
             //foreach (var i in TopProducts_byQuantity) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value}");
             //foreach (var b in Prods) System.Diagnostics.Debug.WriteLine($"{b.Key} {b.Value} Sussybaka");
 
@@ -387,6 +460,13 @@ namespace InfocommSolutionsProject.Pages
 
             }).ToDictionary(x => x.TheDate, x => x.Sales);
 
+            var Fruits_sales = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id where prod.Category == "Fruits" select new { cat.PriceOfOrder, cat.DateOfOrder }).GroupBy(x => x.DateOfOrder).Select(f => new
+            {
+                TheDate = f.Key,
+                Sales = Math.Round(f.Sum(a => a.PriceOfOrder), 2),
+
+            }).ToDictionary(x => x.TheDate, x => x.Sales);
+
             // For Seeds
             Dictionary<string, double> MonthlyDictSales_Herbs = new Dictionary<string, double>();
             Dictionary<string, double> SevenDayDictSales_Herbs = new Dictionary<string, double>();
@@ -405,12 +485,23 @@ namespace InfocommSolutionsProject.Pages
             Dictionary<string, double> Yesterday_DictSales_Vegetable = new Dictionary<string, double>();
             Dictionary<string, double> Yesterday_DictSales_Final_Vegetable = new Dictionary<string, double>();
 
+            // For Fruits
+            Dictionary<string, double> MonthlyDictSales_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> SevenDayDictSales_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> TwentyEight_DictSales_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Today_DictSales_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Today_DictSales_Final_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Yesterday_DictSales_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Yesterday_DictSales_Final_Fruits = new Dictionary<string, double>();
+
             for (int i = 0; i < Time_Hours.Count; i++)
             {
                 Yesterday_DictSales_Final_Herbs[Time_Hours[i]] = 0;
                 Today_DictSales_Final_Herbs[Time_Hours[i]] = 0;
                 Yesterday_DictSales_Final_Vegetable[Time_Hours[i]] = 0;
                 Today_DictSales_Final_Vegetable[Time_Hours[i]] = 0;
+                Yesterday_DictSales_Final_Fruits[Time_Hours[i]] = 0;
+                Today_DictSales_Final_Fruits[Time_Hours[i]] = 0;
 
             }
 
@@ -418,12 +509,14 @@ namespace InfocommSolutionsProject.Pages
             {
                 MonthlyDictSales_Vegetable[Months[i]] = 0;
                 MonthlyDictSales_Herbs[Months[i]] = 0;
+                MonthlyDictSales_Fruits[Months[i]] = 0;
             }
 
             for (int i = 1; i < 29; i++)
             {
                 TwentyEight_DictSales_Vegetable[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
                 TwentyEight_DictSales_Herbs[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+                TwentyEight_DictSales_Fruits[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
             }
 
 
@@ -431,10 +524,11 @@ namespace InfocommSolutionsProject.Pages
             {
                 SevenDayDictSales_Vegetable[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
                 SevenDayDictSales_Herbs[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+                SevenDayDictSales_Fruits[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
             }
 
 
-            // For seed first
+            // For herb first
             foreach (KeyValuePair<DateTime, double> entry in Herbs_sales)
             {
                 if (TwentyEight_DictSales_Herbs.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
@@ -457,11 +551,15 @@ namespace InfocommSolutionsProject.Pages
                     Yesterday_DictSales_Herbs[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
 
                 }
-
-                if (MonthlyDictSales_Herbs.ContainsKey(entry.Key.ToString("MMMM")))
+                if (entry.Key.Year == DateTime.Today.Year)
                 {
-                    MonthlyDictSales_Herbs[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    if (MonthlyDictSales_Herbs.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDictSales_Herbs[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    }
                 }
+
+                
 
 
             }
@@ -486,7 +584,7 @@ namespace InfocommSolutionsProject.Pages
                     }
                 }
             }
-            // This is for seed 
+            // This is for herbs
             foreach (var key in Today_DictSales_Final_Herbs)
             {
                 if (Today_DictSales_Herbs.ContainsKey(key.Key.Substring(0, 2)))
@@ -533,11 +631,14 @@ namespace InfocommSolutionsProject.Pages
                     Yesterday_DictSales_Vegetable[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
 
                 }
-
-                if (MonthlyDictSales_Vegetable.ContainsKey(entry.Key.ToString("MMMM")))
+                if (entry.Key.Year == DateTime.Today.Year)
                 {
-                    MonthlyDictSales_Vegetable[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    if (MonthlyDictSales_Vegetable.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDictSales_Vegetable[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    }
                 }
+                
 
 
             }
@@ -587,11 +688,94 @@ namespace InfocommSolutionsProject.Pages
 
             foreach (KeyValuePair<DateTime, double> entry in Vegetable_sales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
 
+
+            foreach (KeyValuePair<DateTime, double> entry in Fruits_sales)
+            {
+                if (TwentyEight_DictSales_Fruits.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+                {
+                    TwentyEight_DictSales_Fruits[entry.Key.ToString("dd/MM/yyyy")] += Math.Round(entry.Value, 2);
+                    if (SevenDayDictSales_Fruits.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+                    {
+                        SevenDayDictSales_Fruits[entry.Key.ToString("dd/MM/yyyy")] += Math.Round(entry.Value, 2);
+                    }
+                }
+
+                if (entry.Key.Date == DateTime.Today)
+                {
+                    Today_DictSales_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+                }
+
+                if (entry.Key.Date == DateTime.Today.AddDays(-1))
+                {
+
+                    Yesterday_DictSales_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+
+                }
+                if (entry.Key.Year == DateTime.Today.Year)
+                {
+                    if (MonthlyDictSales_Fruits.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDictSales_Fruits[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    }
+                }
+                
+
+
+            }
+
+            // For today and Yesterday only
+            foreach (KeyValuePair<DateTime, double> entry in Fruits_sales)
+            {
+                if (entry.Key.Date == DateTime.Today)
+                {
+                    if (Today_DictSales_Fruits.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+                    {
+                        Today_DictSales_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+                    }
+                }
+
+
+                if (entry.Key.Date == DateTime.Today.AddDays(-1))
+                {
+                    if (Yesterday_DictSales_Fruits.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+                    {
+                        Yesterday_DictSales_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+                    }
+                }
+            }
+            // This is for herbs
+            foreach (var key in Today_DictSales_Final_Fruits)
+            {
+                if (Today_DictSales_Fruits.ContainsKey(key.Key.Substring(0, 2)))
+                {
+                    Today_DictSales_Final_Fruits[key.Key] = Math.Round(Today_DictSales_Fruits[key.Key.Substring(0, 2)], 2);
+                }
+            }
+
+            foreach (var key in Yesterday_DictSales_Final_Fruits)
+            {
+                if (Yesterday_DictSales_Fruits.ContainsKey(key.Key.Substring(0, 2)))
+                {
+                    Yesterday_DictSales_Final_Fruits[key.Key] = Math.Round(Yesterday_DictSales_Fruits[key.Key.Substring(0, 2)], 2);
+                }
+            }
+
+            Fruits_SalesOver_28Day = TwentyEight_DictSales_Fruits;
+            Fruits_SalesOver_7Day = SevenDayDictSales_Fruits;
+            Fruits_SalesOver_Today = Today_DictSales_Final_Fruits;
+            Fruits_SalesOver_Yesterday = Yesterday_DictSales_Final_Fruits;
+            Fruits_SalesOver_Monthly = MonthlyDictSales_Fruits;
+
+
+
+
+
+
         }
 
         public void CategoryData_Quantity()
         {
-            var Seed_Quantity = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id where prod.Category == "Seeds" select new { cat.quantity, cat.DateOfOrder }).GroupBy(x => x.DateOfOrder).Select(f => new
+            var Herbs_Quantity = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id where prod.Category == "Herbs" select new { cat.quantity, cat.DateOfOrder }).GroupBy(x => x.DateOfOrder).Select(f => new
             {
                 TheDate = f.Key,
                 Quantity = f.Sum(a => a.quantity),
@@ -605,14 +789,21 @@ namespace InfocommSolutionsProject.Pages
 
             }).ToDictionary(x => x.TheDate, x => x.Quantity);
 
-            // For Seeds
-            Dictionary<string, double> MonthlyDict_Quantity_Seeds = new Dictionary<string, double>();
-            Dictionary<string, double> SevenDayDict_Quantity_Seeds = new Dictionary<string, double>();
-            Dictionary<string, double> TwentyEight_Dict_Quantity_Seeds = new Dictionary<string, double>();
-            Dictionary<string, double> Today_Dict_Quantity_Seeds = new Dictionary<string, double>();
-            Dictionary<string, double> Today_Dict_Quantity_Final_Seeds = new Dictionary<string, double>();
-            Dictionary<string, double> Yesterday_Dict_Quantity_Seeds = new Dictionary<string, double>();
-            Dictionary<string, double> Yesterday_Dict_Quantity_Final_Seeds = new Dictionary<string, double>();
+            var Fruits_Quantity = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id where prod.Category == "Fruits" select new { cat.quantity, cat.DateOfOrder }).GroupBy(x => x.DateOfOrder).Select(f => new
+            {
+                TheDate = f.Key,
+                Quantity = f.Sum(a => a.quantity),
+
+            }).ToDictionary(x => x.TheDate, x => x.Quantity);
+
+            // For Herbs
+            Dictionary<string, double> MonthlyDict_Quantity_Herbs = new Dictionary<string, double>();
+            Dictionary<string, double> SevenDayDict_Quantity_Herbs = new Dictionary<string, double>();
+            Dictionary<string, double> TwentyEight_Dict_Quantity_Herbs = new Dictionary<string, double>();
+            Dictionary<string, double> Today_Dict_Quantity_Herbs = new Dictionary<string, double>();
+            Dictionary<string, double> Today_Dict_Quantity_Final_Herbs = new Dictionary<string, double>();
+            Dictionary<string, double> Yesterday_Dict_Quantity_Herbs = new Dictionary<string, double>();
+            Dictionary<string, double> Yesterday_Dict_Quantity_Final_Herbs = new Dictionary<string, double>();
 
             //For Vegetable
             Dictionary<string, double> MonthlyDict_Quantity_Vegetable = new Dictionary<string, double>();
@@ -623,109 +814,126 @@ namespace InfocommSolutionsProject.Pages
             Dictionary<string, double> Yesterday_Dict_Quantity_Vegetable = new Dictionary<string, double>();
             Dictionary<string, double> Yesterday_Dict_Quantity_Final_Vegetable = new Dictionary<string, double>();
 
+            // For Fruits
+            Dictionary<string, double> MonthlyDict_Quantity_Fruits= new Dictionary<string, double>();
+            Dictionary<string, double> SevenDayDict_Quantity_Fruits= new Dictionary<string, double>();
+            Dictionary<string, double> TwentyEight_Dict_Quantity_Fruits= new Dictionary<string, double>();
+            Dictionary<string, double> Today_Dict_Quantity_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Today_Dict_Quantity_Final_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Yesterday_Dict_Quantity_Fruits = new Dictionary<string, double>();
+            Dictionary<string, double> Yesterday_Dict_Quantity_Final_Fruits = new Dictionary<string, double>();
+
             for (int i = 0; i < Time_Hours.Count; i++)
             {
-                Yesterday_Dict_Quantity_Final_Seeds[Time_Hours[i]] = 0;
-                Today_Dict_Quantity_Final_Seeds[Time_Hours[i]] = 0;
+                Yesterday_Dict_Quantity_Final_Herbs[Time_Hours[i]] = 0;
+                Today_Dict_Quantity_Final_Herbs[Time_Hours[i]] = 0;
                 Yesterday_Dict_Quantity_Final_Vegetable[Time_Hours[i]] = 0;
                 Today_Dict_Quantity_Final_Vegetable[Time_Hours[i]] = 0;
+                Today_Dict_Quantity_Final_Fruits[Time_Hours[i]] = 0;
+                Yesterday_Dict_Quantity_Final_Fruits[Time_Hours[i]] = 0;
 
             }
 
             for (int i = 0; i < Months.Count; i++)
             {
                 MonthlyDict_Quantity_Vegetable[Months[i]] = 0;
-                MonthlyDict_Quantity_Seeds[Months[i]] = 0;
+                MonthlyDict_Quantity_Herbs[Months[i]] = 0;
+                MonthlyDict_Quantity_Fruits[Months[i]] = 0;
             }
 
             for (int i = 1; i < 29; i++)
             {
                 TwentyEight_Dict_Quantity_Vegetable[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
-                TwentyEight_Dict_Quantity_Seeds[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+                TwentyEight_Dict_Quantity_Herbs[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+                TwentyEight_Dict_Quantity_Fruits[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
             }
 
 
             for (int i = 1; i < 8; i++)
             {
                 SevenDayDict_Quantity_Vegetable[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
-                SevenDayDict_Quantity_Seeds[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+                SevenDayDict_Quantity_Herbs[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+                SevenDayDict_Quantity_Fruits[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
             }
 
 
-            // For seed first
-            foreach (KeyValuePair<DateTime, int> entry in Seed_Quantity)
+            // For herbs first
+            foreach (KeyValuePair<DateTime, int> entry in Herbs_Quantity)
             {
-                if (TwentyEight_Dict_Quantity_Seeds.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+                if (TwentyEight_Dict_Quantity_Herbs.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
                 {
-                    TwentyEight_Dict_Quantity_Seeds[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
-                    if (SevenDayDict_Quantity_Seeds.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+                    TwentyEight_Dict_Quantity_Herbs[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
+                    if (SevenDayDict_Quantity_Herbs.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
                     {
-                        SevenDayDict_Quantity_Seeds[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
+                        SevenDayDict_Quantity_Herbs[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
                     }
                 }
 
                 if (entry.Key.Date == DateTime.Today)
                 {
-                    Today_Dict_Quantity_Seeds[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+                    Today_Dict_Quantity_Herbs[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
                 }
 
                 if (entry.Key.Date == DateTime.Today.AddDays(-1))
                 {
 
-                    Yesterday_Dict_Quantity_Seeds[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+                    Yesterday_Dict_Quantity_Herbs[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
 
                 }
-
-                if (MonthlyDict_Quantity_Seeds.ContainsKey(entry.Key.ToString("MMMM")))
+                if (entry.Key.Year == DateTime.Today.Year)
                 {
-                    MonthlyDict_Quantity_Seeds[entry.Key.ToString("MMMM")] += entry.Value;
+                    if (MonthlyDict_Quantity_Herbs.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDict_Quantity_Herbs[entry.Key.ToString("MMMM")] += entry.Value;
+                    }
                 }
+                
 
 
             }
 
             // For today and Yesterday only
-            foreach (KeyValuePair<DateTime, int> entry in Seed_Quantity)
+            foreach (KeyValuePair<DateTime, int> entry in Herbs_Quantity)
             {
                 if (entry.Key.Date == DateTime.Today)
                 {
-                    if (Today_Dict_Quantity_Seeds.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+                    if (Today_Dict_Quantity_Herbs.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
                     {
-                        Today_Dict_Quantity_Seeds[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+                        Today_Dict_Quantity_Herbs[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
                     }
                 }
 
 
                 if (entry.Key.Date == DateTime.Today.AddDays(-1))
                 {
-                    if (Yesterday_Dict_Quantity_Seeds.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+                    if (Yesterday_Dict_Quantity_Herbs.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
                     {
-                        Yesterday_Dict_Quantity_Seeds[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+                        Yesterday_Dict_Quantity_Herbs[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
                     }
                 }
             }
             // This is for seed 
-            foreach (var key in Today_Dict_Quantity_Final_Seeds)
+            foreach (var key in Today_Dict_Quantity_Final_Herbs)
             {
-                if (Today_Dict_Quantity_Seeds.ContainsKey(key.Key.Substring(0, 2)))
+                if (Today_Dict_Quantity_Herbs.ContainsKey(key.Key.Substring(0, 2)))
                 {
-                    Today_Dict_Quantity_Final_Seeds[key.Key] = Math.Round(Today_Dict_Quantity_Seeds[key.Key.Substring(0, 2)], 2);
+                    Today_Dict_Quantity_Final_Herbs[key.Key] = Math.Round(Today_Dict_Quantity_Herbs[key.Key.Substring(0, 2)], 2);
                 }
             }
 
-            foreach (var key in Yesterday_Dict_Quantity_Final_Seeds)
+            foreach (var key in Yesterday_Dict_Quantity_Final_Herbs)
             {
-                if (Yesterday_Dict_Quantity_Seeds.ContainsKey(key.Key.Substring(0, 2)))
+                if (Yesterday_Dict_Quantity_Herbs.ContainsKey(key.Key.Substring(0, 2)))
                 {
-                    Yesterday_Dict_Quantity_Final_Seeds[key.Key] = Math.Round(Yesterday_Dict_Quantity_Seeds[key.Key.Substring(0, 2)], 2);
+                    Yesterday_Dict_Quantity_Final_Herbs[key.Key] = Math.Round(Yesterday_Dict_Quantity_Herbs[key.Key.Substring(0, 2)], 2);
                 }
             }
 
-            Herbs_Quantity_Over_Today = Today_Dict_Quantity_Final_Seeds;
-            Herbs_Quantity_Over_Yesterday = Yesterday_Dict_Quantity_Final_Seeds;
-            Herbs_Quantity_Over_7Day = SevenDayDict_Quantity_Seeds;
-            Herbs_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Seeds;
-            Herbs_Quantity_Over_Monthly = MonthlyDict_Quantity_Seeds;
+            Herbs_Quantity_Over_Today = Today_Dict_Quantity_Final_Herbs;
+            Herbs_Quantity_Over_Yesterday = Yesterday_Dict_Quantity_Final_Herbs;
+            Herbs_Quantity_Over_7Day = SevenDayDict_Quantity_Herbs;
+            Herbs_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Herbs;
+            Herbs_Quantity_Over_Monthly = MonthlyDict_Quantity_Herbs;
             // End of seed
             // Start of Vegetable
 
@@ -751,11 +959,14 @@ namespace InfocommSolutionsProject.Pages
                     Yesterday_Dict_Quantity_Vegetable[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
 
                 }
-
-                if (MonthlyDict_Quantity_Vegetable.ContainsKey(entry.Key.ToString("MMMM")))
+                if (entry.Key.Year == DateTime.Today.Year)
                 {
-                    MonthlyDict_Quantity_Vegetable[entry.Key.ToString("MMMM")] += entry.Value;
+                    if (MonthlyDict_Quantity_Vegetable.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDict_Quantity_Vegetable[entry.Key.ToString("MMMM")] += entry.Value;
+                    }
                 }
+                
 
 
             }
@@ -807,6 +1018,87 @@ namespace InfocommSolutionsProject.Pages
             Vegetable_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Vegetable;
             Vegetable_Quantity_Over_Monthly = MonthlyDict_Quantity_Vegetable;
             //foreach (KeyValuePair<DateTime, int> entry in Seed_Quantity) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
+
+            foreach (KeyValuePair<DateTime, int> entry in Fruits_Quantity)
+            {
+                if (TwentyEight_Dict_Quantity_Fruits.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+                {
+                    TwentyEight_Dict_Quantity_Fruits[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
+                    if (SevenDayDict_Quantity_Fruits.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+                    {
+                        SevenDayDict_Quantity_Fruits[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
+                    }
+                }
+
+                if (entry.Key.Date == DateTime.Today)
+                {
+                    Today_Dict_Quantity_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+                }
+
+                if (entry.Key.Date == DateTime.Today.AddDays(-1))
+                {
+
+                    Yesterday_Dict_Quantity_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+
+                }
+
+                if(entry.Key.Year == DateTime.Today.Year)
+                {
+                    if (MonthlyDict_Quantity_Fruits.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDict_Quantity_Fruits[entry.Key.ToString("MMMM")] += entry.Value;
+                    }
+                }
+                
+
+
+            }
+
+            // For today and Yesterday only
+            foreach (KeyValuePair<DateTime, int> entry in Fruits_Quantity)
+            {
+                if (entry.Key.Date == DateTime.Today)
+                {
+                    if (Today_Dict_Quantity_Fruits.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+                    {
+                        Today_Dict_Quantity_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+                    }
+                }
+
+
+                if (entry.Key.Date == DateTime.Today.AddDays(-1))
+                {
+                    if (Yesterday_Dict_Quantity_Fruits.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+                    {
+                        Yesterday_Dict_Quantity_Fruits[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+                    }
+                }
+            }
+            // This is for Vegetable
+            foreach (var key in Today_Dict_Quantity_Final_Fruits)
+            {
+                if (Today_Dict_Quantity_Fruits.ContainsKey(key.Key.Substring(0, 2)))
+                {
+                    Today_Dict_Quantity_Final_Fruits[key.Key] = Today_Dict_Quantity_Fruits[key.Key.Substring(0, 2)];
+                }
+            }
+
+            foreach (var key in Yesterday_Dict_Quantity_Final_Fruits)
+            {
+                if (Yesterday_Dict_Quantity_Fruits.ContainsKey(key.Key.Substring(0, 2)))
+                {
+                    Yesterday_Dict_Quantity_Final_Fruits[key.Key] = Yesterday_Dict_Quantity_Fruits[key.Key.Substring(0, 2)];
+                }
+            }
+
+            Fruits_Quantity_Over_Today = Today_Dict_Quantity_Final_Fruits;
+            Fruits_Quantity_Over_Yesterday = Yesterday_Dict_Quantity_Final_Fruits;
+            Fruits_Quantity_Over_7Day = SevenDayDict_Quantity_Fruits;
+            Fruits_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Fruits;
+            Fruits_Quantity_Over_Monthly = MonthlyDict_Quantity_Fruits;
+
+
+
 
         }
     }

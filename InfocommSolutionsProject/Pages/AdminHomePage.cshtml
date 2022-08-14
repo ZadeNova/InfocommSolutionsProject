@@ -28,7 +28,12 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>*@
- 
+ <style>
+     .ptagz{
+         margin-top: 15px;
+
+     }
+ </style>
 
       <!-- Sidebar Navigation-->
       
@@ -147,7 +152,7 @@
                            @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#paper-stack-1"> </use>
                             </svg>*@
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-sack-dollar"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Avg Sales per Order</p>
                       </div>
                       <p class="text-xxl lh-1 mb-0" style="color:steelblue">$@Model.AveragePricePerOrder</p>
@@ -167,7 +172,7 @@
                            @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#paper-stack-1"> </use>
                             </svg>*@
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-sack-dollar"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Total Sales per Order</p>
                       </div>
                       <p class="text-xxl lh-1 mb-0" style="color:goldenrod">$@Model.TotalSales</p>
@@ -257,8 +262,30 @@
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <canvas id=""></canvas>
+                    <h1 class="text-xxl lh-1 mb-0" style="color:DarkOrange">Statistics</h1>
                     <br />
+                    <div>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="stats_sales">Total Sales For Today: $@Math.Round(Model.SalesOverTime_Today.Sum(x => x.Value),2)</p>
+                        
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="cat1">Total Herbs Category Sales for Today: $@Math.Round(Model.Herbs_Quantity_Over_Today.Sum(x => x.Value),2)</p>
+
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="cat2">Total Vegetable Category Sales for Today: $@Math.Round(Model.Vegetable_SalesOver_Today.Sum(x => x.Value),2)</p>
+                        
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="cat3">Total Fruits Category Sales for Today: $@Math.Round(Model.Fruits_SalesOver_Today.Sum(x => x.Value),2)</p>
+
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="catunit1">Herbs Category Units sold Today: @Model.Herbs_Quantity_Over_Today.Sum(x => x.Value)</p>
+
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="catunit2">Vegetable Category Units sold Today: @Model.Vegetable_Quantity_Over_Today.Sum(x => x.Value)</p>
+
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0 ptagz" id="catunit3">Fruits Category Units sold Today: @Model.Fruits_Quantity_Over_Today.Sum(x => x.Value)</p>
+
+
+
+                    </div>
+                   
+
+
+                    
                   
                   </div>
                 </div>
@@ -373,15 +400,15 @@
                     <h3 class="h4 mb-3">BestSellers</h3>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                       <button type="button" class="btn btn-secondary" id="quantitybtn" onclick="BestSellerFilter(this)" value="Quantity">By Quantity</button>
-                      <button type="button" class="btn btn-secondary" id="amountbtn" onclick="BestSellerFilter(this)" value="Amount">By Amount</button>
+                      <button type="button" class="btn btn-secondary" id="amountbtn" onclick="BestSellerFilter(this)" value="Amount">By Sales</button>
                     </div>
                      <table class="table" id="tableprodbestseller">
                           <thead>
                               <tr>
 
                               <th>Product</th>
+                              <th>Units</th>
                               <th>Sales</th>
-                              <th>Amount</th>
 
                               </tr>
                               
@@ -394,13 +421,7 @@
                 </div>
               </div>
 
-              @*<div class="col-lg-6">
-                <div class="card">
-                  <div class="card-body">
-                    <canvas id="lineChart1"></canvas>
-                  </div>
-                </div>
-              </div>*@
+             
             </div>
           </div>
         </section>
@@ -457,7 +478,7 @@
             </div>
           </div>
         </section>
-        <section class="pt-0">
+       @* <section class="pt-0">
           <div class="container-fluid">
             <div class="row d-flex align-items-stretch gy-4">
               <div class="col-lg-4">
@@ -513,62 +534,45 @@
               </div>
             </div>
           </div>
-        </section>
+        </section>*@
         <section class="pt-0">
           <div class="container-fluid">
             <div class="row gy-4">
-              <div class="col-lg-6">
+              <div class="col-lg-8">
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="h4 mb-3">BestSellers</h3>
-                    <form id="checkListForm"> 
-                      <div class="p-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-1" id="input-1" checked>
-                          <label class="form-check-label text-gray-600 text-sm" for="input-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                      <div class="p-3 bg-dash-dark-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-2" id="input-2" checked>
-                          <label class="form-check-label text-gray-600 text-sm" for="input-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                      <div class="p-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-3" id="input-3">
-                          <label class="form-check-label text-gray-600 text-sm" for="input-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                      <div class="p-3 bg-dash-dark-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-4" id="input-4">
-                          <label class="form-check-label text-gray-600 text-sm" for="input-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                      <div class="p-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-5" id="input-5">
-                          <label class="form-check-label text-gray-600 text-sm" for="input-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                      <div class="p-3 bg-dash-dark-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-6" id="input-6">
-                          <label class="form-check-label text-gray-600 text-sm" for="input-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                      <div class="p-3">
-                        <div class="form-check mb-0 py-1">
-                          <input class="form-check-input" type="checkbox" name="input-7" id="input-7">
-                          <label class="form-check-label text-gray-600 text-sm" for="input-7">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</label>
-                        </div>
-                      </div>
-                    </form>
+                    <h3 class="h4 mb-3">Latest Reviews</h3>
+                        <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestRatings[0].Accounts)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestRatings[0].Description)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestRatings[0].rating)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestRatings[0].Product.Name)</th>
+                                  <th scope="col">@Html.DisplayNameFor(model => model.LatestRatings[0].CreatedOn)</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach(var item in @Model.LatestRatings){
+
+                                        <tr>
+                                          <td>@Html.DisplayFor(modelItem => item.Accounts.Email)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.rating)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                                          <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
+                                          
+                                        </tr>
+
+                                  }
+                               
+                              </tbody>
+                       </table>
+                    
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">                                           
+              <div class="col-lg-4">                                           
                 <div class="card">
                   <div class="card-body">
                     <h3 class="h4 mb-3">Top Customers</h3>
@@ -576,7 +580,7 @@
 
 
                         <a class="d-block d-flex align-items-center text-reset text-decoration-none bg-dash-dark-2 py-2 px-3" href="#"> 
-                      <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/avatar-3.jpg" alt=""><span class="availability-status bg-success"></span></div>
+                      <div class="position-relative"><img class="avatar" src="~/Images/AdminPageImages/ProfilePic.png" alt="">@*<span class="availability-status bg-success"></span>*@</div>
                       <div class="ms-3">
                         <p class="fw-bold mb-0">@cust.Key.Email</p>
                         <p class="text-sm fw-light mb-0">Total amount spent</p>
@@ -777,6 +781,90 @@
             ]
         }
     })
+    ListDateSpec = [
+                    "00:00",
+                    "01:00",
+                    "02:00",
+                    "03:00",
+                    "04:00",
+                    "05:00",
+                    "06:00",
+                    "07:00",
+                    "08:00",
+                    "09:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                    "20:00",
+                    "21:00",
+                    "22:00",
+                    "23:00",
+                ]
+                var IndexArray = []
+                var DateComparison = []
+                var TodaysDate = new Date().toDateString()
+                var CompareDatesToday = ListOfDates.map(x => new Date(x).toDateString())
+                for (let i = 0; i < CompareDatesToday.length; i++) {
+                    if (CompareDatesToday[i] === TodaysDate) {
+                        IndexArray.push(i)
+                    }
+                    
+                    
+                }
+                console.log(CompareDatesToday)
+                console.log(TodaysDate)
+                console.log(IndexArray)
+                
+                for (let i in IndexArray) {
+                    
+                    DateComparison.push(ListOfDates[IndexArray[i]])
+                }
+
+                let ToTime = DateComparison.map(x => new Date(x).toTimeString().slice(0,8))
+
+                console.log(DateComparison)
+                console.log("looool")
+                console.log(ToTime)
+                //var TestingArray = ['20:00:00' , '21:00:00' , '20:00:00']
+                
+
+                var ArrayObj = []
+                
+                var CleanedArry = ToTime.map(l => l.slice(0,2))
+
+                for (let i = 0; i < ListDateSpec.length; i++){
+                    ArrayObj.push({Time:ListDateSpec[i].slice(0,2) , Number:0})
+                }
+                console.log(ArrayObj)
+                console.log("array obj")
+                for (var key in ArrayObj){
+                    if (CleanedArry.includes( ArrayObj[key].Time)) 
+                    {
+                        var Lol = CleanedArry.filter((element) => { return element ===  ArrayObj[key].Time })
+                         ArrayObj[key].Number = Lol.length
+                        
+                        
+                    }
+                    else {
+                         ArrayObj[key].Number = 0;
+                        
+                    }
+                    
+                }
+                
+                
+
+                // Update Chart!
+                TheLineChart.data.datasets[0].data = ArrayObj.map(x => x.Number)
+                TheLineChart.data.labels = ListDateSpec
+                TheLineChart.update()
     
     FilterDate = (btn) => {
         ListDateSpec = [] // Clear Array
@@ -1062,25 +1150,34 @@
     }
 
 
-    var OrderList_ByQuantity = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
-    var OrderList_ByAmount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
-    var size = Object.keys(OrderList_ByQuantity).length
+    var Top_Quantity_Products = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
+    var Top_ByAmount_Products = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
+    
+    //var size = Object.keys(OrderList_ByQuantity).length
     var ProductList = []
 
-    for (let key in OrderList_ByQuantity) {
-        ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
-    }
-    console.log(ProductList)
+    console.log(Top_Quantity_Products);
+    console.log(Top_ByAmount_Products);
+    console.log("Testing var5555555");
 
+
+    
+
+
+    //for (let key in OrderList_ByQuantity) {
+    //    ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
+    //}
+    console.log(ProductList)
+    console.log("Hiaaa")
     var prod_body = document.getElementById("ProductBestSellersTableBody")
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < Top_Quantity_Products.length; i++) {
                     let row = document.createElement('tr')
                     let data1 = document.createElement('td')
                     let data2 = document.createElement('td')
                     let data3 = document.createElement('td')
-                    data1.innerHTML = ProductList[i].Product
-                    data2.innerHTML = ProductList[i].Sales
-                    data3.innerHTML = ProductList[i].Amount
+                    data1.innerHTML = Top_Quantity_Products[i].ProductName
+                    data2.innerHTML = Top_Quantity_Products[i].Sales
+                    data3.innerHTML = Top_Quantity_Products[i].UnitsSold
                     row.appendChild(data1)
                     row.appendChild(data2)
                     row.appendChild(data3)
@@ -1095,28 +1192,23 @@
 
             case document.getElementById("quantitybtn").value:
                 $('#tableprodbestseller tbody tr').remove();
-                var OrderList_ByQuantity = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
-                var OrderList_ByAmount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
-                var size = Object.keys(OrderList_ByQuantity).length
-                var ProductList = []
+                var Top_Quantity_Products = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
+                var Top_ByAmount_Products = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
+                
+                
+                
+             
 
-                for (let key in OrderList_ByQuantity) {
-
-                    ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
-
-                }
-                console.log(ProductList)
-
-                for (let i = 0; i < size; i++){
+                for (let i = 0; i < Top_Quantity_Products.length; i++){
 
                     let row = document.createElement('tr')
 
                     let data1 = document.createElement('td')
                     let data2 = document.createElement('td')
                     let data3 = document.createElement('td')
-                    data1.innerHTML = ProductList[i].Product
-                    data2.innerHTML = ProductList[i].Sales
-                    data3.innerHTML = ProductList[i].Amount
+                    data1.innerHTML = Top_Quantity_Products[i].ProductName
+                    data2.innerHTML = Top_Quantity_Products[i].Sales
+                    data3.innerHTML = Top_Quantity_Products[i].UnitsSold
                     row.appendChild(data1)
                     row.appendChild(data2)
                     row.appendChild(data3)
@@ -1131,28 +1223,21 @@
 
                 $('#tableprodbestseller tbody tr').remove(); // Clear the table
 
-                var OrderList_ByQuantity = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
-                var OrderList_ByAmount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
-                var size = Object.keys(OrderList_ByAmount).length
-                var ProductList = []
+                var Top_Quantity_Products = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byQuantity))
+                var Top_ByAmount_Products = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProducts_byAmount))
                 
-                for (let key in OrderList_ByAmount) {
-
-                    ProductList.push({Product:key , Sales:OrderList_ByQuantity[key] , Amount:OrderList_ByAmount[key]})
-
-                }
-                console.log(ProductList)
-
-                for (let i = 0; i < size; i++){
+               
+             
+                for (let i = 0; i < Top_ByAmount_Products.length; i++){
 
                     let row = document.createElement('tr')
 
                     let data1 = document.createElement('td')
                     let data2 = document.createElement('td')
                     let data3 = document.createElement('td')
-                    data1.innerHTML = ProductList[i].Product
-                    data2.innerHTML = ProductList[i].Sales
-                    data3.innerHTML = ProductList[i].Amount
+                    data1.innerHTML = Top_ByAmount_Products[i].ProductName
+                    data2.innerHTML = Top_ByAmount_Products[i].Sales
+                    data3.innerHTML = Top_ByAmount_Products[i].UnitsSold
                     row.appendChild(data1)
                     row.appendChild(data2)
                     row.appendChild(data3)
@@ -1166,7 +1251,6 @@
 
 
     }
-
     
     </script>
     <script>
@@ -1329,11 +1413,17 @@
     <script>
 
     var SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Today));
+
     var Herbs_SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Today));
     var Vegetable_SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Today));
-    var Herbs_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Today));
+    var Fruits_SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_SalesOver_Today));
 
-    console.log(Herbs_Quantity_Today)
+
+    var Vegetable_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_Quantity_Over_Today));
+    var Herbs_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Today));
+    var Fruits_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_Quantity_Over_Today));
+
+   
 
     const SalesOver_Time_Chart = document.getElementById("SalesOverTimeChart");
     var SalesOverTimeChart_Line = new Chart(SalesOver_Time_Chart, {
@@ -1395,7 +1485,7 @@
                     pointHoverRadius: 5,
                     pointHoverBorderColor: "#fff",
                     pointHoverBorderWidth: 0,
-                    pointRadius: 3,
+                    pointRadius: 2,
                     pointHitRadius: 0,
                     data: Object.values(SalesToday),
                     spanGaps: false,
@@ -1415,13 +1505,25 @@
             datasets: [{ 
                 data: Object.values(Herbs_SalesToday),
                 label: "Herbs Sales Revenue ($) ",
-                borderColor: "#3e95cd",
-                fill: false
+                borderColor: "#4deaef",
+                fill: false,
+                lineTension: 0.3,
+                borderWidth: 2,
               }, { 
                 data: Object.values(Vegetable_SalesToday),
                 label: "Vegetable Sales Revenue ($)",
-                borderColor: "#8e5ea2",
-                fill: false
+                borderColor: "#cbd629",
+                fill: false,
+                lineTension: 0.3,
+                borderWidth: 2,
+              },
+              { 
+                data: Object.values(Fruits_SalesToday),
+                label: "Fruits Sales Revenue ($)",
+                borderColor: "#228c67",
+                fill: false,
+                lineTension: 0.3,
+                borderWidth: 2,
               },
             ]
           },
@@ -1444,15 +1546,30 @@
             labels: Object.keys(Herbs_Quantity_Today),
             datasets: [{ 
                 data: Object.values(Herbs_Quantity_Today),
-                label: "Herbs unit sales ",
-                borderColor: "#3e95cd",
-                fill: false
+                label: "Herbs Unit Sales",
+                borderColor: "#4deaef",
+                fill: false,
+                lineTension: 0.3,
+                borderWidth: 2,
               }, { 
-                data: [],
-                label: "Vegetable Sales Revenue ($)",
-                borderColor: "#8e5ea2",
-                fill: false
+                data: Object.values(Vegetable_Quantity_Today),
+                label: "Vegetable Unit Sales",
+                borderColor: "#cbd629",
+                fill: false,
+                lineTension: 0.3,
+                borderWidth: 2,
+
               },
+              { 
+                data: Object.values(Fruits_Quantity_Today),
+                label: "Fruits Unit Sales",
+                borderColor: "#228c67",
+                fill: false,
+                lineTension: 0.3,
+                borderWidth: 2,
+
+              },
+
             ]
           },
           options: {
@@ -1472,9 +1589,24 @@
             
         switch (btn.value) {
             case document.getElementById("tdybtn").value:
+
+                // Update stats
+                document.getElementById("stats_sales").innerHTML = "Total Sales For Today: $" + @Math.Round(Model.SalesOverTime_Today.Sum(x => x.Value));
+                document.getElementById("cat1").innerHTML = "Total Herbs Category Sales Today: $" + @Math.Round(Model.Herbs_SalesOver_Today.Sum(x => x.Value));
+                document.getElementById("cat2").innerHTML = "Total Vegetable Category Sales Today: $" + @Math.Round(Model.Vegetable_SalesOver_Today.Sum(x => x.Value)); 
+                document.getElementById("cat3").innerHTML = "Total Fruits Category Sales Today: $" + @Math.Round(Model.Fruits_SalesOver_Today.Sum(x => x.Value));
+
+                document.getElementById("catunit1").innerHTML = "Herbs Category Units sold Today:" + @Model.Herbs_Quantity_Over_Today.Sum(x => x.Value);
+                document.getElementById("catunit2").innerHTML = "Vegetable Category Units sold Today:" + @Model.Vegetable_Quantity_Over_Today.Sum(x => x.Value); 
+                document.getElementById("catunit3").innerHTML = "Fruits Category Units sold Today:" + @Model.Fruits_Quantity_Over_Today.Sum(x => x.Value);
                 //Updating Category units sold over time chart
+
+
                 LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Herbs_Quantity_Today)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Vegetable_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[2].data = Object.values(Fruits_Quantity_Today)
+                console.log(Fruits_Quantity_Today)
+                console.log(Vegetable_Quantity_Today)
                 LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Herbs_Quantity_Today)
 
                 LineChart_CategorySalesTime_Quantity.update()
@@ -1482,6 +1614,8 @@
                 // Updating Category Revenue Over Time Chart
                 LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Herbs_SalesToday)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(Vegetable_SalesToday)
+                LineChart_CategorySalesTime.data.datasets[2].data = Object.values(Fruits_SalesToday)
+
                 LineChart_CategorySalesTime.data.labels = Object.keys(Herbs_SalesToday)
                 LineChart_CategorySalesTime.update()
                 // Updating Sales over time chart
@@ -1491,13 +1625,31 @@
                 break;
             case document.getElementById("yestbtn").value:
                 var SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Yesterday));
+
                 var Herbs_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Yesterday));
                 var Vegetable_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Yesterday));
-                var Herbs_Quantity_yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Yesterday));
+                var Fruits_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_SalesOver_Yesterday));
 
+                var Herbs_Quantity_yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Yesterday));
+                var Vegetable_Quantity_Yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_Quantity_Over_Yesterday));
+                var Fruits_Quantity_Yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_Quantity_Over_Yesterday));
+
+                // Update stats
+                document.getElementById("stats_sales").innerHTML = "Yesterday Total Sales: $" + @Math.Round(Model.SalesOverTime_Yesterday.Sum(x => x.Value),2);
+
+                document.getElementById("cat1").innerHTML = "Yesterday Total Herbs Category Sales: $" + @Math.Round(Model.Herbs_SalesOver_Yesterday.Sum(x => x.Value));
+                document.getElementById("cat2").innerHTML = "Yesterday Total Vegetable Category Sales: $" + @Math.Round(Model.Vegetable_SalesOver_Yesterday.Sum(x => x.Value)); 
+                document.getElementById("cat3").innerHTML = "Yesterday Total Fruits Category Sales: $" + @Math.Round(Model.Fruits_SalesOver_Yesterday.Sum(x => x.Value));
+
+                document.getElementById("catunit1").innerHTML = "Herbs Category Units sold Yesterday:" + @Model.Herbs_Quantity_Over_Yesterday.Sum(x => x.Value);
+                document.getElementById("catunit2").innerHTML = "Vegetable Category Units sold Yesterday:" + @Model.Vegetable_Quantity_Over_Yesterday.Sum(x => x.Value); 
+                document.getElementById("catunit3").innerHTML = "Fruits Category Units sold Yesterday:" + @Model.Fruits_Quantity_Over_Yesterday.Sum(x => x.Value);
+                
                 //Updating Category units sold over time chart
+
                 LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Herbs_Quantity_yesterday)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Vegetable_Quantity_Yesterday)
+                LineChart_CategorySalesTime_Quantity.data.datasets[2].data = Object.values(Fruits_Quantity_Yesterday)
                 LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Herbs_Quantity_yesterday)
 
                 LineChart_CategorySalesTime_Quantity.update()
@@ -1505,8 +1657,11 @@
                 // Updating Category Revenue over time chart
                 LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Herbs_SalesYesterday)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(Vegetable_SalesYesterday)
+                LineChart_CategorySalesTime.data.datasets[2].data = Object.values(Fruits_SalesYesterday)
                 LineChart_CategorySalesTime.data.labels = Object.keys(Herbs_SalesYesterday)
+
                 LineChart_CategorySalesTime.update()
+
                 // Updating sales over time chart
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesYesterday)
                 SalesOverTimeChart_Line.data.labels = Object.keys(SalesYesterday)
@@ -1515,13 +1670,34 @@
             case document.getElementById("7daybtn").value:
                 // Seven days
                 var SalesSevenDay = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_7day));
-                var HerbSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_7Day));
+
+                var HerbsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_7Day));
                 var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_7Day));
+                var FruitsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_SalesOver_7Day));
+
+
                 var Herbs_QuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_7Day));
+                var Vegetable_QuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_Quantity_Over_7Day));
+                var Fruits_QuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_Quantity_Over_7Day));
+
+
+                // Update stats
+                
+                document.getElementById("stats_sales").innerHTML = "Total Sales For last 7 days: $" + @Math.Round(Model.SalesOverTime_7day.Sum(x => x.Value),2);
+
+                document.getElementById("cat1").innerHTML = "Total Herbs Category Sales for last 7 days: $" + @Math.Round(Model.Herbs_SalesOver_7Day.Sum(x => x.Value));
+                document.getElementById("cat2").innerHTML = "Total Vegetable Category Sales for last 7 days: $" + @Math.Round(Model.Vegetable_SalesOver_7Day.Sum(x => x.Value)); 
+                document.getElementById("cat3").innerHTML = "Total Fruits Category Sales for last 7 days: $" + @Math.Round(Model.Fruits_SalesOver_7Day.Sum(x => x.Value));
+
+                document.getElementById("catunit1").innerHTML = "Herbs Category Units sold last 7 days:" + @Model.Herbs_Quantity_Over_7Day.Sum(x => x.Value);
+                document.getElementById("catunit2").innerHTML = "Vegetable Category Units sold last 7 days:" + @Model.Vegetable_Quantity_Over_7Day.Sum(x => x.Value); 
+                document.getElementById("catunit3").innerHTML = "Fruits Category Units sold last 7 days:" + @Model.Fruits_Quantity_Over_7Day.Sum(x => x.Value);
+
 
                 //Updating Category units sold over time chart
                 LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Herbs_QuantityData)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Vegetable_QuantityData)
+                LineChart_CategorySalesTime_Quantity.data.datasets[2].data = Object.values(Fruits_QuantityData)
                 LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Herbs_QuantityData)
 
                 LineChart_CategorySalesTime_Quantity.update()
@@ -1529,6 +1705,7 @@
                 // Updating Category Revenue over time chart
                 LineChart_CategorySalesTime.data.datasets[0].data = Object.values(HerbsSalesData)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
+                LineChart_CategorySalesTime.data.datasets[2].data = Object.values(FruitsSalesData)
                 LineChart_CategorySalesTime.data.labels = Object.keys(HerbsSalesData)
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart
@@ -1536,45 +1713,94 @@
                 SalesOverTimeChart_Line.data.labels = Object.keys(SalesSevenDay)
                 SalesOverTimeChart_Line.update()
                 break;
+
             case document.getElementById("28daybtn").value:
                 // Twenty Eight Days
 
                 var SalesTwentyEightDay = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_28Day));
+
+
                 var HerbsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_28Day));
                 var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_28Day));
+                var FruitsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_SalesOver_28Day));
+
+
                 var HerbsQuantityData =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_28Day));
+                var VegetableQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_Quantity_Over_28Day));
+                var FruitsQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_Quantity_Over_28Day));
+
+
+                // Update stats
+                document.getElementById("stats_sales").innerHTML = "Total Sales For last 28 days: $" + @Math.Round(Model.SalesOverTime_28Day.Sum(x => x.Value),2);
+
+                document.getElementById("cat1").innerHTML = "Total Herbs Category Sales for last 28 days: $" + @Math.Round(Model.Herbs_SalesOver_28Day.Sum(x => x.Value));
+                document.getElementById("cat2").innerHTML = "Total Vegetable Category Sales for last 28 days: $" + @Math.Round(Model.Vegetable_SalesOver_28Day.Sum(x => x.Value)); 
+                document.getElementById("cat3").innerHTML = "Total Fruits Category Sales for last 28 days: $" + @Math.Round(Model.Fruits_SalesOver_28Day.Sum(x => x.Value));
+                
+                document.getElementById("catunit1").innerHTML = "Herbs Category Units sold last 28 days:" + @Model.Herbs_Quantity_Over_28Day.Sum(x => x.Value);
+                document.getElementById("catunit2").innerHTML = "Vegetable Category Units sold last 28 days:" + @Model.Vegetable_Quantity_Over_28Day.Sum(x => x.Value); 
+                document.getElementById("catunit3").innerHTML = "Fruits Category Units sold last 28 days:" + @Model.Fruits_Quantity_Over_28Day.Sum(x => x.Value);
+                
 
                 //Updating Category units sold over time chart
                 LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(HerbsQuantityData)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(VegetableQuantityData)
+                LineChart_CategorySalesTime_Quantity.data.datasets[2].data = Object.values(FruitsQuantityData)
                 LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(HerbsQuantityData)
+
                 LineChart_CategorySalesTime_Quantity.update()
 
                 // Updating Category Revenue over time chart
                 LineChart_CategorySalesTime.data.datasets[0].data = Object.values(HerbsSalesData)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
+                LineChart_CategorySalesTime.data.datasets[2].data = Object.values(FruitsSalesData)
                 LineChart_CategorySalesTime.data.labels = Object.keys(HerbsSalesData)
+
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart           
                 SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesTwentyEightDay)
                 SalesOverTimeChart_Line.data.labels = Object.keys(SalesTwentyEightDay)
+
                 SalesOverTimeChart_Line.update()
+                
                 break;
             case document.getElementById("Yearbtn").value:
                 var MonthlySales = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Monthly));
+
                 var HerbsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Monthly));
                 var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Monthly));
+                var FruitsSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_SalesOver_Monthly));
+
                 var HerbsQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Monthly));
+                var VegetableQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_Quantity_Over_Monthly));
+                var FruitsQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_Quantity_Over_Monthly));
+
+                // Update stats
+
+                document.getElementById("stats_sales").innerHTML = "Total Sales entire year: $" + @Math.Round(Model.SalesOverTime_Monthly.Sum(x => x.Value),2);
+
+                document.getElementById("cat1").innerHTML = "Total Herbs Category Sales for entire year: $" + @Math.Round(Model.Herbs_SalesOver_Monthly.Sum(x => x.Value));
+                document.getElementById("cat2").innerHTML = "Total Vegetable Category Sales for entire year: $" + @Math.Round(Model.Vegetable_SalesOver_Monthly.Sum(x => x.Value)); 
+                document.getElementById("cat3").innerHTML = "Total Fruits Category Sales for entire year: $" + @Math.Round(Model.Fruits_SalesOver_Monthly.Sum(x => x.Value));
+
+                document.getElementById("catunit1").innerHTML = "Herbs Category Units sold for entire year:" + @Model.Herbs_Quantity_Over_Monthly.Sum(x => x.Value);
+                document.getElementById("catunit2").innerHTML = "Vegetable Category Units sold for entire year:" + @Model.Vegetable_Quantity_Over_Monthly.Sum(x => x.Value); 
+                document.getElementById("catunit3").innerHTML = "Fruits Category Units sold for entire year:" + @Model.Fruits_Quantity_Over_Monthly.Sum(x => x.Value);
+
 
                 //Updating Category units sold over time chart
                 LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(HerbsQuantityData)
-                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Herbs_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(VegetableQuantityData)
+                LineChart_CategorySalesTime_Quantity.data.datasets[2].data = Object.values(FruitsQuantityData)
                 LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(HerbsQuantityData)
+
                 LineChart_CategorySalesTime_Quantity.update()
+
 
                 // Updating Category Revenue over time chart
                 LineChart_CategorySalesTime.data.datasets[0].data = Object.values(HerbsSalesData)
                 LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
+                LineChart_CategorySalesTime.data.datasets[2].data = Object.values(FruitsSalesData)
                 LineChart_CategorySalesTime.data.labels = Object.keys(HerbsSalesData)
                 LineChart_CategorySalesTime.update()
                 // Updating sales over time chart

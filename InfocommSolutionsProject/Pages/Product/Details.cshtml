@@ -89,7 +89,8 @@
                       <button id="28daybtn" type="button" class="btn btn-secondary" value="Last 28 Days" onclick="FilterDate(this)">Last 28 Days</button>
                       <button id="monthbtn"  type="button" class="btn btn-secondary" value="This Year" onclick="FilterDate(this)">This Year</button>
         </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="row gy-4">
+            <div class="col-md-3 col-sm-6">
                 <div class="card mb-0">
                   <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between mb-2">
@@ -97,7 +98,7 @@
                            @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
                               <use xlink:href="#paper-stack-1"> </use>
                             </svg>*@
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-sack-dollar"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Sales ($)</p>
                       </div>
                       <p class="text-xxl lh-1 mb-0" style="color:goldenrod" id="salestodaytext">$@Model.Total_ProductSales_Today</p>
@@ -107,7 +108,32 @@
                     </div>
                   </div>
                 </div>
+
         </div>
+        <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
+                              <use xlink:href="#paper-stack-1"> </use>
+                            </svg>*@
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0" id="avgtxt">Average Rating For Today</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:Aqua" id="avgtxtnum">@Model.AvgRating_Tdy</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:Aqua" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+
+        </div>
+
+        </div>
+        
+
 
             <div class="card">
                   <div class="card-body" style="height:350px;" >
@@ -141,7 +167,9 @@ var ProdChart = new Chart(document.getElementById("SalesOverTime_ForProduct"), {
         data: Object.values(ProductSalesToday),
         label: "@Model.Product.Name",
         borderColor: "#3e95cd",
-        fill: false
+        fill: false,
+        lineTension: 0.3,
+        borderWidth: 2,
       }
     ]
   },
@@ -167,7 +195,8 @@ FilterDate = (btn) => {
     switch (btn.value) {
         case document.getElementById("tdybtn").value:
             document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_Today;
-
+            document.getElementById("avgtxt").innerHTML = "Today's Avg Rating";
+            document.getElementById("avgtxtnum").innerHTML = @Model.AvgRating_Tdy;
             ProdChart.data.labels = Object.keys(ProductSalesToday)
             ProdChart.data.datasets[0].data = Object.values(ProductSalesToday)
             ProdChart.update()
@@ -176,6 +205,9 @@ FilterDate = (btn) => {
             var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_Yesterday));
             
             document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_Yesterday;
+            document.getElementById("avgtxt").innerHTML = "Yesterday's Avg Rating";
+            document.getElementById("avgtxtnum").innerHTML = @Model.AvgRating_Yest;
+
 
             ProdChart.data.labels = Object.keys(ProductSalesData)
             ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
@@ -185,6 +217,8 @@ FilterDate = (btn) => {
             var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_7Day));
             
             document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_7Day;
+            document.getElementById("avgtxt").innerHTML = "Last 7 Days Avg rating";
+            document.getElementById("avgtxtnum").innerHTML = @Model.AvgRating_7Day;
 
             ProdChart.data.labels = Object.keys(ProductSalesData)
             ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
@@ -194,6 +228,8 @@ FilterDate = (btn) => {
             var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_28Day));
 
             document.getElementById("salestodaytext").innerHTML =  "$" + @Model.Total_ProductSales_28Day;
+            document.getElementById("avgtxt").innerHTML = "Last 28 Days Avg rating";
+            document.getElementById("avgtxtnum").innerHTML = @Model.AvgRating_28Day;
 
             ProdChart.data.labels = Object.keys(ProductSalesData)
             ProdChart.data.datasets[0].data = Object.values(ProductSalesData)
