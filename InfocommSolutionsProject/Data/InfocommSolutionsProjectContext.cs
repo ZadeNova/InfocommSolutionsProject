@@ -31,7 +31,7 @@ public class InfocommSolutionsProjectContext : IdentityDbContext<Accounts>
     public DbSet<SupplierOrdersModel> SupplierOrders { get; set; }
 
     public DbSet<Categories> Categories { get; set; }
-
+    public DbSet<RatingsModel> Ratings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
