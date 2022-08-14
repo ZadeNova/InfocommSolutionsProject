@@ -227,6 +227,13 @@
 
         <section class="pt-0">
           <div class="container-fluid">
+               <div class="btn-group" role="group" aria-label="Basic example">
+                      <button id="tdybtn" type="button" class="btn btn-secondary" value="Today" onclick="DateFilterForChart(this)">Today</button>
+                      <button id="yestbtn" type="button" class="btn btn-secondary" value="Yesterday" onclick="DateFilterForChart(this)">Yesterday</button>
+                      <button id="7daybtn"  type="button" class="btn btn-secondary" value="Last 7 Days" onclick="DateFilterForChart(this)">Last 7 Days</button>
+                      <button id="28daybtn"  type="button" class="btn btn-secondary" value="Last 28 Days" onclick="DateFilterForChart(this)">Last 28 Days</button>
+                      <button id="Yearbtn"  type="button" class="btn btn-secondary" value="This Year" onclick="DateFilterForChart(this)">This Year</button>
+                    </div>
             <div class="row gy-4">
               <div class="col-lg-6">
                 <div class="card">
@@ -236,22 +243,23 @@
                 </div>
                 <div class="card">
                   <div class="card-body">
-                      <canvas id="CategoryBarChart"></canvas>
+                      <canvas id="SalesOverTimeChart"></canvas>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="card">
                   <div class="card-body">
+                    <canvas id="LineChartCategoryQuantity"></canvas>
+                    <br />
+                  
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
                     <canvas id=""></canvas>
                     <br />
-                   <div class="btn-group" role="group" aria-label="Basic example">
-                      <button id="tdybtn" type="button" class="btn btn-secondary" value="Today" onclick="FilterDate(this)">Today</button>
-                      <button type="button" class="btn btn-secondary" value="Yesterday" onclick="FilterDate(this)">Yesterday</button>
-                      <button type="button" class="btn btn-secondary" value="Last 7 Days" onclick="FilterDate(this)">Last 7 Days</button>
-                      <button type="button" class="btn btn-secondary" value="Last 28 Days" onclick="FilterDate(this)">Last 28 Days</button>
-                      <button type="button" class="btn btn-secondary" value="This Year" onclick="FilterDate(this)">This Year</button>
-                    </div>
+                  
                   </div>
                 </div>
               </div>
@@ -683,6 +691,7 @@
                 ]
 
     var ListOfDates = @Html.Raw(Json.Serialize(Model.UserDateList))
+    console.log(ListOfDates)
     //var ListOfDatesNoTime = ListOfDates.map(x => new Date(Date.parse(x)).toDateString())
         
     //    ListOfDates.map(x => x.toDateString())
@@ -804,7 +813,7 @@
                 ]
                 var IndexArray = []
                 var DateComparison = []
-                var TodaysDate = new Date()
+                var TodaysDate = new Date().toDateString()
                 var CompareDatesToday = ListOfDates.map(x => new Date(x).toDateString())
                 for (let i = 0; i < CompareDatesToday.length; i++) {
                     if (CompareDatesToday[i] === TodaysDate) {
@@ -825,6 +834,7 @@
                 let ToTime = DateComparison.map(x => new Date(x).toTimeString().slice(0,8))
 
                 console.log(DateComparison)
+                console.log("looool")
                 console.log(ToTime)
                 //var TestingArray = ['20:00:00' , '21:00:00' , '20:00:00']
                 
@@ -837,7 +847,7 @@
                     ArrayObj.push({Time:ListDateSpec[i].slice(0,2) , Number:0})
                 }
                 console.log(ArrayObj)
-
+                console.log("array obj")
                 for (var key in ArrayObj){
                     if (CleanedArry.includes( ArrayObj[key].Time)) 
                     {
@@ -1313,72 +1323,273 @@
     });
 
 
-    const SalesOverTime = document.getElementById("LineChartSales");
-    var LineChart_SalesTime = new Chart(SalesOverTime, {
-          type: 'line',
-          data: {
-            labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
-            datasets: [{ 
-                data: [86,114,106,106,107,111,133,221,783,2478],
-                label: "Africa",
-                borderColor: "#3e95cd",
-                fill: false
-              }, { 
-                data: [282,350,411,502,635,809,947,1402,3700,5267],
-                label: "Asia",
-                borderColor: "#8e5ea2",
-                fill: false
-              }, { 
-                data: [168,170,178,190,203,276,408,547,675,734],
-                label: "Europe",
-                borderColor: "#3cba9f",
-                fill: false
-              }, { 
-                data: [40,20,10,16,24,38,74,167,508,784],
-                label: "Latin America",
-                borderColor: "#e8c3b9",
-                fill: false
-              }, { 
-                data: [6,3,2,2,7,26,82,172,312,433],
-                label: "North America",
-                borderColor: "#c45850",
-                fill: false
-              }
-            ]
-          },
-          options: {
-            title: {
-              display: true,
-              text: 'World population per region (in millions)'
-            }
-          }
-        });
-
+    
 
     </script>
     <script>
-    
 
+    var SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Today));
+    var Herbs_SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Today));
+    var Vegetable_SalesToday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Today));
+    var Herbs_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Today));
 
-    const VISITPIECHART = document.getElementById("visitPieChart");
-    var pieChartExample = new Chart(VISITPIECHART, {
-        type: "pie",
+    console.log(Seed_Quantity_Today)
+
+    const SalesOver_Time_Chart = document.getElementById("SalesOverTimeChart");
+    var SalesOverTimeChart_Line = new Chart(SalesOver_Time_Chart, {
+        type: "line",
         options: {
+            plugins: {
+                 title: {
+                display:true,
+                text: "Sales Over Time",
+
+                },
+            },
+           
+            scales: {
+                xAxes: [
+                    {
+                        display: true,
+                        gridLines: {
+                            display: true,
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        ticks: {
+                            max: 40,
+                            min: 10,
+                            stepSize: 0.1,
+                        },
+                        display: false,
+                        gridLines: {
+                            display: true,
+                        },
+                    },
+                ],
+            },
             legend: {
-                display: false,
+                display: true,
             },
         },
         data: {
-            labels: ["A", "B", "C", "D"],
+            labels: Object.keys(SalesToday),
             datasets: [
                 {
-                    data: [300, 50, 100, 80],
-                    borderWidth: 0,
-                    backgroundColor: ["#723ac3", "#864DD9", "#9762e6", "#a678eb"],
-                    hoverBackgroundColor: ["#723ac3", "#864DD9", "#9762e6", "#a678eb"],
+                    label: "Sales Per Revenue ($)",
+                    fill: true,
+                    lineTension: 0.3,
+                    backgroundColor: "transparent",
+                    borderColor: "#EF8C99",
+                    pointBorderColor: "#EF8C99",
+                    pointHoverBackgroundColor: "#EF8C99",
+                    borderCapStyle: "butt",
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: "miter",
+                    borderWidth: 2.5,
+                    pointBackgroundColor: "#EF8C99",
+                    pointBorderWidth: 3,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 0,
+                    pointRadius: 3,
+                    pointHitRadius: 0,
+                    data: Object.values(SalesToday),
+                    spanGaps: false,
                 },
+                
             ],
         },
     });
+
+    
+
+    const CategorySalesOverTime_Revenue = document.getElementById("LineChartSales");
+    var LineChart_CategorySalesTime = new Chart(CategorySalesOverTime_Revenue, {
+          type: 'line',
+          data: {
+            labels: Object.keys(Herbs_SalesToday),
+            datasets: [{ 
+                data: Object.values(Herbs_SalesToday),
+                label: "Seed Sales Revenue ($) ",
+                borderColor: "#3e95cd",
+                fill: false
+              }, { 
+                data: Object.values(Vegetable_SalesToday),
+                label: "Vegetable Sales Revenue ($)",
+                borderColor: "#8e5ea2",
+                fill: false
+              },
+            ]
+          },
+          options: {
+              plugins: {
+                  title: {
+                       display: true,
+                       fontColor: 'white',
+                       fontSize:20,
+                       text: 'Revenue per Category Over Time',
+                    },
+            },
+          }
+        });
+
+    const CategorySalesOverTime_Quantity = document.getElementById("LineChartCategoryQuantity");
+    var LineChart_CategorySalesTime_Quantity = new Chart(CategorySalesOverTime_Quantity, {
+          type: 'line',
+          data: {
+            labels: Object.keys(Seed_Quantity_Today),
+            datasets: [{ 
+                data: Object.values(Seed_Quantity_Today),
+                label: "Seed unit sales ",
+                borderColor: "#3e95cd",
+                fill: false
+              }, { 
+                data: [],
+                label: "Vegetable Sales Revenue ($)",
+                borderColor: "#8e5ea2",
+                fill: false
+              },
+            ]
+          },
+          options: {
+              
+              plugins: {
+                  title: {
+                       display: true,
+                       fontColor: 'white',
+                       fontSize:20,
+                       text: 'Number of Units sold Per Category',
+                    },
+            },
+          }
+        });
+
+    DateFilterForChart = (btn) => {
+            
+        switch (btn.value) {
+            case document.getElementById("tdybtn").value:
+                //Updating Category units sold over time chart
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Seed_Quantity_Today)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Seed_Quantity_Today)
+
+                LineChart_CategorySalesTime_Quantity.update()
+
+                // Updating Category Revenue Over Time Chart
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Seed_SalesToday)
+                LineChart_CategorySalesTime.data.datasets[1].data = Object.values(Vegetable_SalesToday)
+                LineChart_CategorySalesTime.data.labels = Object.keys(Seed_SalesToday)
+                LineChart_CategorySalesTime.update()
+                // Updating Sales over time chart
+                SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesToday)
+                SalesOverTimeChart_Line.data.labels = Object.keys(SalesToday)
+                SalesOverTimeChart_Line.update()
+                break;
+            case document.getElementById("yestbtn").value:
+                var SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Yesterday));
+                var Seed_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Yesterday));
+                var Vegetable_SalesYesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Yesterday));
+                var Seed_Quantity_yesterday = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Yesterday));
+
+                //Updating Category units sold over time chart
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Seed_Quantity_yesterday)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Seed_Quantity_yesterday)
+
+                LineChart_CategorySalesTime_Quantity.update()
+
+                // Updating Category Revenue over time chart
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(Seed_SalesYesterday)
+                LineChart_CategorySalesTime.data.datasets[1].data = Object.values(Vegetable_SalesYesterday)
+                LineChart_CategorySalesTime.data.labels = Object.keys(Seed_SalesYesterday)
+                LineChart_CategorySalesTime.update()
+                // Updating sales over time chart
+                SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesYesterday)
+                SalesOverTimeChart_Line.data.labels = Object.keys(SalesYesterday)
+                SalesOverTimeChart_Line.update()
+                break;
+            case document.getElementById("7daybtn").value:
+                // Seven days
+                var SalesSevenDay = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_7day));
+                var SeedSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_7Day));
+                var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_7Day));
+                var Seed_QuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_7Day));
+
+                //Updating Category units sold over time chart
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(Seed_QuantityData)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(Seed_QuantityData)
+
+                LineChart_CategorySalesTime_Quantity.update()
+
+                // Updating Category Revenue over time chart
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(SeedSalesData)
+                LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
+                LineChart_CategorySalesTime.data.labels = Object.keys(SeedSalesData)
+                LineChart_CategorySalesTime.update()
+                // Updating sales over time chart
+                SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesSevenDay)
+                SalesOverTimeChart_Line.data.labels = Object.keys(SalesSevenDay)
+                SalesOverTimeChart_Line.update()
+                break;
+            case document.getElementById("28daybtn").value:
+                // Twenty Eight Days
+
+                var SalesTwentyEightDay = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_28Day));
+                var SeedSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_28Day));
+                var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_28Day));
+                var SeedQuantityData =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_28Day));
+
+                //Updating Category units sold over time chart
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(SeedQuantityData)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(SeedQuantityData)
+                LineChart_CategorySalesTime_Quantity.update()
+
+                // Updating Category Revenue over time chart
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(SeedSalesData)
+                LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
+                LineChart_CategorySalesTime.data.labels = Object.keys(SeedSalesData)
+                LineChart_CategorySalesTime.update()
+                // Updating sales over time chart           
+                SalesOverTimeChart_Line.data.datasets[0].data = Object.values(SalesTwentyEightDay)
+                SalesOverTimeChart_Line.data.labels = Object.keys(SalesTwentyEightDay)
+                SalesOverTimeChart_Line.update()
+                break;
+            case document.getElementById("Yearbtn").value:
+                var MonthlySales = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SalesOverTime_Monthly));
+                var SeedSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_SalesOver_Monthly));
+                var VegetableSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Vegetable_SalesOver_Monthly));
+                var SeedQuantityData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Monthly));
+
+                //Updating Category units sold over time chart
+                LineChart_CategorySalesTime_Quantity.data.datasets[0].data = Object.values(SeedQuantityData)
+                //LineChart_CategorySalesTime_Quantity.data.datasets[1].data = Object.values(Seed_Quantity_Today)
+                LineChart_CategorySalesTime_Quantity.data.labels = Object.keys(SeedQuantityData)
+                LineChart_CategorySalesTime_Quantity.update()
+
+                // Updating Category Revenue over time chart
+                LineChart_CategorySalesTime.data.datasets[0].data = Object.values(SeedSalesData)
+                LineChart_CategorySalesTime.data.datasets[1].data = Object.values(VegetableSalesData)
+                LineChart_CategorySalesTime.data.labels = Object.keys(SeedSalesData)
+                LineChart_CategorySalesTime.update()
+                // Updating sales over time chart
+                SalesOverTimeChart_Line.data.datasets[0].data = Object.values(MonthlySales)
+                SalesOverTimeChart_Line.data.labels = Object.keys(MonthlySales)
+                SalesOverTimeChart_Line.update()
+                break;
+
+        }
+
+
+
+
+        } 
+
+    
 
     </script>

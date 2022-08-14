@@ -30,9 +30,12 @@
                 <input asp-for="Product.Price" class="form-control" />
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label asp-for="Product.Category" class="control-label"></label>
-                <input asp-for="Product.Category" class="form-control" />
+                @*<input asp-for="SupplierModel.SupplierCategory" class="form-control" />*@
+                 <select asp-for="Product.Category" class="form-control" asp-items="@Model.ProductCategoryList" >
+                     <option value="">Please select</option>
+                </select>
                 <span asp-validation-for="Product.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -77,15 +80,29 @@
                     };
                     var DiscountAmountDiv = document.getElementById("DiscountAmtDiv");
                     var DiscountAmountBox = document.getElementById("DiscountAmount");
+                    var DiscountcheckBox = document.getElementById("DiscountStatusCheckbox").checked;
+
+                    if (DiscountcheckBox === true) {
+                        console.log("Its true and its checked")
+                        document.getElementById("DiscountStatusCheckbox").value = true;
+                        DiscountAmountDiv.hidden = false;
+                        
+                    }
+                    else {
+                        console.log("Its false and its unchecked")
+                        document.getElementById("DiscountStatusCheckbox").value = false;
+                        DiscountAmountBox.value = 0;
+                        DiscountAmountDiv.hidden = true;
+                    }
 
                      HideDiscount = () => {
-                        var DiscountcheckBox = document.getElementById("DiscountStatusCheckbox").checked;
+                        //console.log(DiscountcheckBox)
+                        //console.log(document.getElementById("DiscountStatusCheckbox").checked)
                         
-                        
-                        if (DiscountcheckBox === false) {
+                        if (document.getElementById("DiscountStatusCheckbox").checked === false) {
                             DiscountAmountDiv.hidden = true;
                             DiscountAmountBox.value = 0;
-                            console.log("Discount is false.No discount")
+                            console.log("Hide discount box")
                             document.getElementById("DiscountStatusCheckbox").value = false;
                             
                         }

@@ -97,10 +97,22 @@
                             }
                             
                         </div>
-                        <div class="featured__item__text">
+                        @if (item.DiscountStatus == true)
+                        {
+                            var FinalPrice = @item  .Price - (@item.Price * @item.Discount / 100);
+							<div class="featured__item__text">
+                            <h6><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h6>
+                            <h5>$@FinalPrice</h5>
+                           </div>
+                        }
+                        else
+                        {
+                            <div class="featured__item__text">
                             <h6><a asp-page="./ProductDetails" asp-route-id="@item.Id">@item.Name</a></h6>
                             <h5>$@item.Price</h5>
                         </div>
+                        }
+                        
                     </div>
                 </div>
 

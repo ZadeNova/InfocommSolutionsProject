@@ -22,7 +22,7 @@ namespace InfocommSolutionsProject.Models
         [Required]
         [Display(Name = "Address")]
         public string Address { get; set; }
-        //[RegularExpression(@"(^[0-9]{6})", ErrorMessage = "Only 6 digit is allow")]
+        [RegularExpression(@"(^[0-9]{6}$)", ErrorMessage = "Only 6 digit is allow")]
         [Required]
         [Display(Name = "Postal Code")]
         public int PostalCode { get; set; }
