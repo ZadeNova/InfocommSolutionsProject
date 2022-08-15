@@ -26,6 +26,12 @@ namespace InfocommSolutionsProject.Pages
 
         public int NumberOfUsersInWebApplication { get; set; }
 
+        public double TotalSales { get; set; }
+
+        public double AveragePricePerOrder { get; set; }
+
+        public int Accounts_That_Have_Wishlist { get; set; }
+
 
         public DashboardModel(InfocommSolutionsProject.Data.InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
         {
@@ -41,6 +47,9 @@ namespace InfocommSolutionsProject.Pages
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(byteArray));
             request.ContentLength = 0;
 
+            TotalSales = Math.Round(_context.Orders.Sum(x => x.PriceOfOrder), 2);
+            AveragePricePerOrder = Math.Round((_context.Orders.Sum(x => x.PriceOfOrder) / _context.Orders.Count()), 2);
+            Accounts_That_Have_Wishlist = (_context.wishLists.Where(x => x.Status == "Waiting").Select(x => x.Accounts).Distinct()).Count();
 
             NumberOfProducts = _context.Products.Count();
             NumberOfSuppliers = _context.Suppliers.Count();

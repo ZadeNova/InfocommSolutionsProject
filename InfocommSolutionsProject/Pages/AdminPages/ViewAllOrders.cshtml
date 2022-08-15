@@ -1,0 +1,188 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.AdminPages.ViewAllOrdersModel
+@{
+}
+@using Microsoft.AspNetCore.Http;
+
+    <h1>View All Product Orders</h1>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search Ratings by Description:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./ViewAllOrders">Back to full List</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.AccountsSort">@Html.DisplayNameFor(model => model.OrdersList[0].Accounts)</a>
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.ProductSort">@Html.DisplayNameFor(model => model.OrdersList[0].Product)</a>
+                
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.Quantity_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].quantity)</a>
+                
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.Price_Of_OrderSort">@Html.DisplayNameFor(model => model.OrdersList[0].PriceOfOrder)</a>
+                
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.OrderStatus_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].OrderStatus)</a>
+                
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.Address_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].Address)</a>
+                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersList[0].PostalCode)
+                
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.Notes_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].Notes)</a>
+                
+            </th>
+            <th>
+                <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.DateOfOrder_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].DateOfOrder)</a>
+                
+            </th>
+            <th>
+                  <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.shipping_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].FreeShipping)</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrdersList.DistinctBy(i=>i.DateOfOrder)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accounts.Email)
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.PriceOfOrder)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfOrder)
+            </td>
+             <td>
+                        @if (item.FreeShipping == 1)
+                        {
+                            <p>Yes</p>
+                        }
+                        else
+                        {
+                              <p>No</p>
+                        }
+            </td>
+            <td>
+                @{
+					var datetime = item.DateOfOrder.ToString("yyyy-MM-dd HH:mm:ss");
+				 }
+					<a asp-page="./ViewOrderDetails" asp-route-date="@datetime" asp-route-id="@item.Accounts.Id" >Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.OrdersList.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.OrdersList.HasNextPage ? "disabled" : "";
+
+}
+ @*this one is the droplist when user choose any option it will redict to that pages base on the option value  *@
+<form method="get" >
+            <div class="col-3 pr-0">
+               <label >Items per page</label> 
+               <select onchange="location=this.value">
+            @{
+
+                            string returnUrl = null;
+                            returnUrl ??= Url.Content("~/");
+                            var v1 = @returnUrl + "AdminPages/ViewAllOrders?NumPage=five";
+                            var v2 = @returnUrl + "AdminPages/ViewAllOrders?NumPage=ten";
+                            var v3 = @returnUrl + "AdminPages/ViewAllOrders?NumPage=fivete";
+                            var v4 = @returnUrl + "AdminPages/ViewAllOrders?NumPage=hun";
+
+                if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 5)
+                {
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 10)
+                {
+                            <option >10</option>
+                            <option value=@v1>5</option >
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 50)
+                {
+                            <option value=@v3>50</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v4>100</option>
+                }
+                else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 100)
+                {
+                            <option value=@v4>100</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                }
+                else
+                {
+                    //@HttpContext.Session.GetString("_Name")
+                            <option >Default : 10</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
+                }
+            }
+               </select>
+            </div> 
+</form>
+
+<div class="pb-3">
+  <div class="pb-3">
+      <div class="pb-3">
+        <a asp-page="./ViewAllOrders" asp-route-pageIndex="@(Model.OrdersList.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+        Previous    
+        </a>
+        <a asp-page="./ViewAllOrders" asp-route-pageIndex="@(Model.OrdersList.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
+        Next    
+        </a>
+      </div>
+  </div>
+</div>
+
+  
+

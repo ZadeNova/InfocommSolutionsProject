@@ -233,12 +233,7 @@ body {top:0 !important;}
 			<a href="#" onclick="doGTranslate('en|en');return false;" title="English" class="gflag nturl" style="background-position:-0px -0px;"></a>
 			<br /><select onchange="doGTranslate(this);"><option value="">Select Language</option><option value="en|af">Afrikaans</option><option value="en|sq">Albanian</option><option value="en|ar">Arabic</option><option value="en|hy">Armenian</option><option value="en|az">Azerbaijani</option><option value="en|eu">Basque</option><option value="en|be">Belarusian</option><option value="en|bg">Bulgarian</option><option value="en|ca">Catalan</option><option value="en|zh-CN">Chinese (Simplified)</option><option value="en|zh-TW">Chinese (Traditional)</option><option value="en|hr">Croatian</option><option value="en|cs">Czech</option><option value="en|da">Danish</option><option value="en|nl">Dutch</option><option value="en|en">English</option><option value="en|et">Estonian</option><option value="en|tl">Filipino</option><option value="en|fi">Finnish</option><option value="en|fr">French</option><option value="en|gl">Galician</option><option value="en|ka">Georgian</option><option value="en|de">German</option><option value="en|el">Greek</option><option value="en|ht">Haitian Creole</option><option value="en|iw">Hebrew</option><option value="en|hi">Hindi</option><option value="en|hu">Hungarian</option><option value="en|is">Icelandic</option><option value="en|id">Indonesian</option><option value="en|ga">Irish</option><option value="en|it">Italian</option><option value="en|ja">Japanese</option><option value="en|ko">Korean</option><option value="en|lv">Latvian</option><option value="en|lt">Lithuanian</option><option value="en|mk">Macedonian</option><option value="en|ms">Malay</option><option value="en|mt">Maltese</option><option value="en|no">Norwegian</option><option value="en|fa">Persian</option><option value="en|pl">Polish</option><option value="en|pt">Portuguese</option><option value="en|ro">Romanian</option><option value="en|ru">Russian</option><option value="en|sr">Serbian</option><option value="en|sk">Slovak</option><option value="en|sl">Slovenian</option><option value="en|es">Spanish</option><option value="en|sw">Swahili</option><option value="en|sv">Swedish</option><option value="en|th">Thai</option><option value="en|tr">Turkish</option><option value="en|uk">Ukrainian</option><option value="en|ur">Urdu</option><option value="en|vi">Vietnamese</option><option value="en|cy">Welsh</option><option value="en|yi">Yiddish</option></select><div id="google_translate_element2"></div>
 		    </li>
-           @* <li class="list-inline-item dropdown"><a class="nav-link dropdown-toggle text-sm text-reset px-1 px-lg-0" id="languages" rel="nofollow" data-bs-target="#" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Images/AdminPageImages/GB.png" alt="English"><span class="d-none d-sm-inline-block ms-2">English</span></a>
-              <ul class="dropdown-menu dropdown-menu-end mt-sm-3 dropdown-menu-dark" aria-labelledby="languages">
-                <li><a class="dropdown-item" rel="nofollow" href="#"> <img class="me-2" src="~/Images/AdminPageImages/DE.png" alt="English"><span>German</span></a></li>
-                <li><a class="dropdown-item" rel="nofollow" href="#"> <img class="me-2" src="~/Images/AdminPageImages/FR.png" alt="English"><span>French                   </span></a></li>
-              </ul>
-            </li>*@
+          
             <li class="list-inline-item logout px-lg-2">     
             <form id="logoutForm"  class="nav-link text-sm text-reset px-1 px-lg-0" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
 				<button id="logout" type="submit" class="d-none d-sm-inline-block">Logout</button>
@@ -254,63 +249,7 @@ body {top:0 !important;}
     </header>
     <div class="d-flex align-items-stretch">
     <nav id="sidebar">
-        <!-- Sidebar Header-->
-        @*<div class="sidebar-header d-flex align-items-center p-4"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-6.jpg" alt="...">
-          <div class="ms-3 title">
-            <h1 class="h5 mb-1"></h1>
-            <p class="text-sm text-gray-700 mb-0 lh-1">Web Designer</p>
-          </div>
-        </div><span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Main</span>
-        <ul class="list-unstyled">
-              <li class="sidebar-item active"><a class="sidebar-link" href="index.html"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#real-estate-1"> </use>
-                      </svg><span>Home </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="tables.html"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#portfolio-grid-1"> </use>
-                      </svg><span>Tables </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="charts.html"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#sales-up-1"> </use>
-                      </svg><span>Charts </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="forms.html"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#survey-1"> </use>
-                      </svg><span>Forms </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#exampledropdownDropdown" data-bs-toggle="collapse"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#browser-window-1"> </use>
-                      </svg><span>Example dropdown </span></a>
-                <ul class="collapse list-unstyled " id="exampledropdownDropdown">
-                  <li><a class="sidebar-link" href="#">Page</a></li>
-                  <li><a class="sidebar-link" href="#">Page</a></li>
-                  <li><a class="sidebar-link" href="#">Page</a></li>
-                </ul>
-              </li>
-              <li class="sidebar-item"><a class="sidebar-link" href="login.html"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#disable-1"> </use>
-                      </svg><span>Login page </span></a></li>
-        </ul><span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Extras</span>
-        <ul class="list-unstyled">
-              <li class="sidebar-item"><a class="sidebar-link" href="#"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#imac-screen-1"> </use>
-                      </svg><span>Demo </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#chart-1"> </use>
-                      </svg><span>Demo </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#quality-1"> </use>
-                      </svg><span>Demo </span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#security-shield-1"> </use>
-                      </svg><span>Demo </span></a></li>
-        </ul>*@
+       
          <div>
                   <partial name="_LoginPartial" />
               

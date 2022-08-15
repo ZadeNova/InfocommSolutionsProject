@@ -180,11 +180,16 @@ var ProdChart = new Chart(document.getElementById("SalesOverTime_ForProduct"), {
           title: {
           display: true,
           text: 'Sales for @Model.Product.Name Over Time',
+          color: 'PaleGoldenRod',
+          font:{
+
+              size:14,
+          },
         }
       },
       animation: {
 
-           duration: 600,
+           duration: 800,
            easing: 'linear'
       },
     
@@ -239,6 +244,8 @@ FilterDate = (btn) => {
             var ProductSalesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@Model.ProductSales_Month));
 
             document.getElementById("salestodaytext").innerHTML = "$" + @Model.Total_ProductSales_Month;
+            document.getElementById("avgtxt").innerHTML = "This Year average Rating";
+            document.getElementById("avgtxtnum").innerHTML = @Model.Avg_Rating_Month;
 
             ProdChart.data.labels = Object.keys(ProductSalesData)
             ProdChart.data.datasets[0].data = Object.values(ProductSalesData)

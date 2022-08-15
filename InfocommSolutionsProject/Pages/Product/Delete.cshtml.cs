@@ -73,11 +73,7 @@ namespace InfocommSolutionsProject.Pages.Product
 
                 // Delete Image related to product also.
                 
-                
-
-
-
-
+               
 
             }
 

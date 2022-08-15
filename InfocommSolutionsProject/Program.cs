@@ -96,6 +96,7 @@ services.AddRazorPages(options =>
     options.Conventions.AuthorizePage("/CustomerPages/CheckOut", "ALL");
     options.Conventions.AuthorizePage("/CustomerPages/OrderDetails", "ALL");
     options.Conventions.AuthorizePage("/CustomerPages/ViewRating", "ALL");
+    options.Conventions.AuthorizeFolder("/AdminPages", "RequirbothRole");
     //options.Conventions.AuthorizePage("/CustomerPages/Shop", "ALL");
     //options.Conventions.AuthorizePage("/Contact");
     //options.Conventions.AuthorizeFolder("/Private");

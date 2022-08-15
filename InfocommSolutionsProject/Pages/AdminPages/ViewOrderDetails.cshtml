@@ -1,0 +1,140 @@
+﻿@page
+@model InfocommSolutionsProject.Pages.AdminPages.ViewOrderDetailsModel
+@*@using Microsoft.AspNetCore.Http;*@
+@{
+	ViewData["Title"] = "Details";
+}
+
+<h1>Full Details</h1>
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Product)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].quantity)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].PriceOfOrder)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Accounts)
+				</th>
+				
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Address)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].PostalCode)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].DateOfOrder)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].OrderStatus)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].Notes)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].FreeShipping)
+				</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.OrderDetail)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Product.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.quantity)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.PriceOfOrder)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Accounts.Email)
+						<input type="hidden" id="accountid" name="accountid" value="@item.Accounts.Id" />
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem =>item.Address)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem =>item.PostalCode)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DateOfOrder)
+						<input type="hidden" id="datenow" name="datenow" value="@item.DateOfOrder" />
+
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.OrderStatus)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Notes)
+					</td>
+					 <td>
+                    @if (item.FreeShipping == 1)
+                    {
+                        <p>Yes</p>
+                    }
+                    else
+                    {
+                        <p>No</p>
+                    }
+				</td>
+				<td>
+					
+						@{
+							var date=  @item.DateOfOrder.ToString("yyyy-MM-dd HH:mm:ss");
+						}
+						@if (item.OrderStatus == "Shipping")
+						{
+							
+						}
+						else
+						{
+						<form asp-page-handler="UPDATE" asp-route-date="@date" asp-route-id="@item.Accounts.Id"  method="post">
+							<button type="submit">Update Status to Shipping</button>
+						</form>
+						}
+					
+				</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>
+<div>
+	<h2>Sub amount</h2>
+	<p>$@Math.Round(@Model.totalamount,2,MidpointRounding.AwayFromZero)</p>
+	<h2>Shipping Fee</h2>
+	@if (@Model.totalamount>99)
+	{
+		<p>Free Shipping above $99</p>
+	}
+	else
+	{
+		<p>$9.9</p>
+	}
+	<h3>Total Amount</h3>
+	<p>$@Math.Round(@Model.findalamount,2,MidpointRounding.AwayFromZero)</p>
+</div>
+
+
+<div class="pb-3">
+  <div class="pb-3">
+      <div class="pb-3">
+<div>
+	<a asp-page="./ViewAllOrders">Back to List</a>
+</div>
+</div>
+</div>
+</div>

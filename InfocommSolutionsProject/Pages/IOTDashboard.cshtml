@@ -5,226 +5,6 @@
    
 }
 
-<script type="text/javascript">
-    //document.addEventListener('DOMContentLoaded', function () {
-    //  // Real-time Chart Example written by Simon Brunel (Plunker: https://plnkr.co/edit/Imxwl9OQJuaMepLNy6ly?p=info)
-    //  var samples = 100;
-    //  var speed = 250;
-    //  var values0 = [];
-    //  var values1 = [];
-    //   var values2 = [];
-    //     var values3 = [];
-    //  var labels = [];
-    //  var charts = [];
-    //  //var value = 0;
-      
-    //  values0.length = samples;
-    //  values1.length = samples;
-    //   values2.length = samples;
-    //     values3.length = samples;
-    //  labels.length = samples;
-    //  values0.fill(0);
-    //  values1.fill(0);
-    //    values2.fill(0);
-    //      values3.fill(0);
-    //  labels.fill(0);
-
-    //  charts.push(new Chart(document.getElementById("chart0"),
-    //    {
-    //      type: 'line',
-    //      data: {
-    //        labels: labels,
-    //        datasets: [
-    //          {
-    //            data: values0,
-    //            backgroundColor: 'rgba(255, 99, 132, 0.1)',
-    //            borderColor: 'rgb(255, 99, 132)',
-    //            borderWidth: 2,
-    //            lineTension: 0.25,
-    //            pointRadius: 0
-    //          }
-    //        ]
-    //      },
-    //      options: {
-    //        responsive: false,
-    //        animation: {
-    //          duration: speed * 1.5,
-    //          easing: 'linear'
-    //        },
-    //        legend: false,
-    //        scales: {
-    //          xAxes: [
-    //            {
-    //              display: false
-    //            }
-    //          ],
-    //          yAxes: [
-    //            {
-    //              ticks: {
-    //                max: 50,
-    //                min: -10
-    //              }
-    //            }
-    //          ]
-    //        }
-    //      }
-    //    }),
-    //    new Chart(document.getElementById("chart1"),
-    //    {
-    //      type: 'line',
-    //      data: {
-    //        labels: labels,
-    //        datasets: [
-    //          {
-    //            data: values1,
-    //            backgroundColor: 'rgba(71, 148, 254, 0.1)',
-    //            borderColor: 'rgb(71, 148, 254)',
-    //            borderWidth: 2,
-    //            lineTension: 0.25,
-    //            pointRadius: 0
-    //          }
-    //        ]
-    //      },
-    //      options: {
-    //        responsive: false,
-    //        animation: {
-    //          duration: speed * 1.5,
-    //          easing: 'linear'
-    //        },
-    //        legend: false,
-    //        scales: {
-    //          xAxes: [
-    //            {
-    //              display: false
-                  
-    //            }
-    //          ],
-    //          yAxes: [
-    //            {
-    //              ticks: {
-    //                max: 80,
-    //                min: 20
-    //              }
-    //            }
-    //          ]
-    //        }
-    //      }
-    //    }),
-    //    new Chart(document.getElementById("chart2"),
-    //    {
-    //      type: 'line',
-    //      data: {
-    //        labels: labels,
-    //        datasets: [
-    //          {
-    //            data: values2,
-    //            backgroundColor: 'rgba(71, 148, 254, 0.1)',
-    //            borderColor: 'rgb(71, 148, 254)',
-    //            borderWidth: 2,
-    //            lineTension: 0.25,
-    //            pointRadius: 0
-    //          }
-    //        ]
-    //      },
-    //      options: {
-    //        responsive: false,
-    //        animation: {
-    //          duration: speed * 1.5,
-    //          easing: 'linear'
-    //        },
-    //        legend: false,
-    //        scales: {
-    //          xAxes: [
-    //            {
-    //              display: false
-                  
-    //            }
-    //          ],
-    //          yAxes: [
-    //            {
-    //              ticks: {
-    //                max: 80,
-    //                min: 20
-    //              }
-    //            }
-    //          ]
-    //        }
-    //      }
-    //    }),
-    //    new Chart(document.getElementById("chart3"),
-    //    {
-    //      type: 'line',
-    //      data: {
-    //        labels: labels,
-    //        datasets: [
-    //          {
-    //            data: values3,
-    //            backgroundColor: 'rgba(71, 148, 254, 0.1)',
-    //            borderColor: 'rgb(71, 148, 254)',
-    //            borderWidth: 2,
-    //            lineTension: 0.25,
-    //            pointRadius: 0
-    //          }
-    //        ]
-    //      },
-    //      options: {
-    //        responsive: false,
-    //        animation: {
-    //          duration: speed * 1.5,
-    //          easing: 'linear'
-    //        },
-    //        legend: false,
-    //        scales: {
-    //          xAxes: [
-    //            {
-    //              display: false
-                  
-    //            }
-    //          ],
-    //          yAxes: [
-    //            {
-    //              ticks: {
-    //                max: 80,
-    //                min: 20
-    //              }
-    //            }
-    //          ]
-    //        }
-    //      }
-    //    }));
-      
-    //  var connection = new signalR.HubConnectionBuilder().withUrl("/sensor").build();
-    //    //var connection = new signalR.HubConnection("/sensor");
-    //  connection.on('Broadcast',
-    //    function (sender, message) {
-    //      var TheData = JSON.parse(message);
-    //      //console.log(TheData.temperature);
-    //      //console.log(TheData["humidity"]);
-    //      //console.log(sender);
-    //      values0.push(TheData["temperature"]);
-    //      //console.log(TheData);
-    //      values0.shift();
-    //      charts[0].update();
-          
-    //      values1.push(TheData["humidity"]);
-    //      values1.shift();
-    //      charts[1].update();
-          
-    //      //hj added chart 2 , 3 
-
-    //      values2.push(TheData["lightValue"]);
-    //      values2.shift();
-    //      charts[2].update();
-
-    //      values3.push(TheData["moisture"]);
-    //      values3.shift();
-    //      charts[3].update();
-    //    });
-       
-    //  connection.start();
-    //});
-  </script>
-
 @*<h1>IoT Sensor Data</h1>
 <h2>Temperature</h2>
 <canvas id="chart0" style="width:512px;height:320px"></canvas>
@@ -326,9 +106,7 @@
                   <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between mb-2">
                       <div class="me-2">
-                           @* <svg class="svg-icon svg-icon-sm svg-icon-heavy text-gray-600 mb-2">
-                              <use xlink:href="#paper-stack-1"> </use>
-                            </svg>*@
+                           
                             <i class="fa-solid fa-user"></i>
                         <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Number of Users</p>
                       </div>
@@ -340,6 +118,60 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                       
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Avg Sales per Order</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:steelblue">$@Model.AveragePricePerOrder</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:steelblue" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+               <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                          
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Total Sales per Order</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:goldenrod">$@Model.TotalSales</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:goldenrod" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                          
+                            <i class="fa-solid fa-gift"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Accounts with wishlist</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:hotpink">@Model.Accounts_That_Have_Wishlist</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:hotpink" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -597,48 +429,7 @@
             </div>
           </div>
         </section>
-        <section class="pt-0">
-          <div class="container-fluid">
-            <div class="row gy-4">
-              <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="h4 mb-0">Credit Sales</h3>
-                    <p class="text-sm fw-light mb-5">Lorem ipsum dolor sit</p>
-                    <div class="position-relative text-center">
-                      <canvas id="pieChartHome1"></canvas>
-                      <div class="position-absolute top-50 start-50 translate-middle"><strong class="text-lg d-block">$2.145</strong><span class="d-block">Sales</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="h4 mb-0">Channel Sales</h3>
-                    <p class="text-sm fw-light mb-5">Lorem ipsum dolor sit</p>
-                    <div class="position-relative text-center">
-                      <canvas id="pieChartHome2"></canvas>
-                      <div class="position-absolute top-50 start-50 translate-middle"><strong class="text-lg d-block">$7.784</strong><span class="d-block">Sales</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="h4 mb-0">Direct Sales</h3>
-                    <p class="text-sm fw-light mb-5">Lorem ipsum dolor sit</p>
-                    <div class="position-relative text-center">
-                      <canvas id="pieChartHome3"></canvas>
-                      <div class="position-absolute top-50 start-50 translate-middle"><strong class="text-lg d-block">$4.957</strong><span class="d-block">Sales</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        
         <!-- Page Footer-->
         <script src="~/js/AdminPageJs/AdminPageCharts/TempChart.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>

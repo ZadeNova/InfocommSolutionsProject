@@ -158,7 +158,17 @@ namespace InfocommSolutionsProject.Pages
 
         public List<string> Months { get; set; }
 
-        public List<BestSellerClass> TheTopSellers { get; set; }
+        
+
+        public List<LatestOrders> Top_8_LatestOrders { get; set; }
+
+        public int Accounts_That_Have_Wishlist { get; set; }
+
+
+
+
+
+        
 
         public void OnGet()
         {
@@ -170,12 +180,31 @@ namespace InfocommSolutionsProject.Pages
             NumberOfUsersInWebApplication = _userManager.Users.Count();
             OrdersList = _context.Orders.ToList();
             ProductList = _context.Products.ToList();
+
+            // Get wishlist data
+
+            Accounts_That_Have_Wishlist = (_context.wishLists.Where(x => x.Status == "Waiting").Select(x => x.Accounts).Distinct()).Count();
+
+            
+            // Get Latest Orders
+
             LatestOrders = _context.Orders.OrderByDescending(x => x.DateOfOrder).Take(8).ToList();
+
+            
+
+
+            Top_8_LatestOrders = (from order in _context.Orders
+                       join prod in _context.Products on order.Product.Id equals prod.Id
+                       select new LatestOrders { User_Account = order.Accounts , Product = order.Product , Price_OfOrder = order.PriceOfOrder , Order_Status = order.OrderStatus , DateOf_Order = order.DateOfOrder , Notes = order.Notes , Category = prod.Category }).OrderByDescending(x => x.DateOf_Order).Take(8).ToList();
+
+
+
+
+
             LatestRatings = _context.Ratings.OrderByDescending(x => x.CreatedOn).Take(8).ToList();
             TotalSales = Math.Round(_context.Orders.Sum(x => x.PriceOfOrder) , 2);
             AveragePricePerOrder = Math.Round((_context.Orders.Sum(x => x.PriceOfOrder) / _context.Orders.Count()), 2);
             
-           // ProductsCategory = _context.Categories.Where(x => x.CategoryFor.ToLower() == "product" || x.CategoryFor.ToLower() == "products").ToList();
             
             var UserList = _userManager.Users.ToList();
             var testvar = from a in _userManager.Users select a.CreatedAt;
@@ -191,7 +220,6 @@ namespace InfocommSolutionsProject.Pages
                 Revenue = g.Sum(a => a.PriceOfOrder)
             }).ToDictionary( dic => dic.TheDate , dic => dic.Revenue);
 
-            foreach (var i in SalesOverTime) System.Diagnostics.Debug.WriteLine($"{i.Key} , {i.Value}");
 
             // Start Of Initialization of data values for LineChart
             Time_Hours = new List<string> {
@@ -353,17 +381,7 @@ namespace InfocommSolutionsProject.Pages
             SalesOverTime_Yesterday = Yesterday_DictSales_Final;
             SalesOverTime_Monthly = MonthlyDictSales;
 
-            foreach (KeyValuePair<string, double> entry in MonthlyDictSales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
-            //foreach (KeyValuePair<string, double> entry in TwentyEight_DictSales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
-
-
             // End of Initialization of Data values for LineChart
-
-
-
-
-
-
 
             TopCategories = (from cat in _context.Orders join prod in _context.Products on cat.Product.Id equals prod.Id select new { cat.Product , prod.Category , cat.quantity}).GroupBy(x => x.Category).Select(y => new
             {
@@ -376,14 +394,6 @@ namespace InfocommSolutionsProject.Pages
                 Category = y.Key,
                 Count = Math.Round(y.Sum( a => a.PriceOfOrder) , 2)
             }).ToDictionary(x => x.Category, x => x.Count);
-
-
-           
-            //foreach (var i in getNumberOfCategory) System.Diagnostics.Debug.WriteLine($"{i.Category} , {i.Count}");
-
-
-            
-
 
 
             TopCustomers = OrdersList.GroupBy(x => x.Accounts).Select(g => new
@@ -399,14 +409,7 @@ namespace InfocommSolutionsProject.Pages
                 Sales = Math.Round(g.Sum(x => x.PriceOfOrder) , 2)
             }).OrderByDescending(v => v.Sales).Take(5).ToDictionary(m => m.Product , m => m.Sales);
 
-            //TopProducts_byQuantity = OrdersList.GroupBy(x => x.Product).Select(g => new
-            //{
-            //    Product = g.Key,
-            //    Quantity = g.Sum(x => x.quantity)
-
-            //}).OrderByDescending(x => x.Quantity).Take(5).ToDictionary(m => m.Product.Name, m => m.Quantity);
-
-            //Dictionary<Guid, int> Thetestdict = new Dictionary<Guid, int>();
+            
 
 
             var Top_ProductBy_Quantity = OrdersList.GroupBy(x => x.Product).Select(g => new
@@ -416,28 +419,22 @@ namespace InfocommSolutionsProject.Pages
 
             }).OrderByDescending(x => x.Quantity).Take(5).ToDictionary(m => m.Product , m => m.Quantity);
 
-            //TheTopSellers = new List<BestSellerClass>();
+            
 
             TopProducts_byAmount = new List<BestSellerClass>();
             TopProducts_byQuantity = new List<BestSellerClass>();
 
             foreach(var key in Top_ProductBy_Quantity)
             {
-                System.Diagnostics.Debug.WriteLine($"{key.Key} {key.Value}");
                 
-
-                TopProducts_byQuantity.Add(new BestSellerClass { ProductName = key.Key.Name , Sales = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.PriceOfOrder) , UnitsSold = key.Value });
+                TopProducts_byQuantity.Add(new BestSellerClass { ProductName = key.Key.Name , Sales = Math.Round(_context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.PriceOfOrder), 2) , UnitsSold = key.Value });
             }
 
             foreach (var key in Top_ProductBy_Sales)
             {
-                TopProducts_byAmount.Add(new BestSellerClass { ProductName = key.Key.Name, Sales = key.Value, UnitsSold = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.quantity) });
+                TopProducts_byAmount.Add(new BestSellerClass { ProductName = key.Key.Name, Sales = Math.Round(key.Value,2), UnitsSold = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.quantity) });
 
             }
-
-
-            //foreach (var i in TopProducts_byQuantity) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value}");
-            //foreach (var b in Prods) System.Diagnostics.Debug.WriteLine($"{b.Key} {b.Value} Sussybaka");
 
             CategoryData_Sales();
             CategoryData_Quantity();
@@ -467,7 +464,7 @@ namespace InfocommSolutionsProject.Pages
 
             }).ToDictionary(x => x.TheDate, x => x.Sales);
 
-            // For Seeds
+            // For Herbs
             Dictionary<string, double> MonthlyDictSales_Herbs = new Dictionary<string, double>();
             Dictionary<string, double> SevenDayDictSales_Herbs = new Dictionary<string, double>();
             Dictionary<string, double> TwentyEight_DictSales_Herbs = new Dictionary<string, double>();
@@ -607,7 +604,7 @@ namespace InfocommSolutionsProject.Pages
             Herbs_SalesOver_Yesterday = Yesterday_DictSales_Final_Herbs;
             Herbs_SalesOver_Monthly = MonthlyDictSales_Herbs;
 
-            //End of Seed
+            //End of Herbs
             // Start of vegetable
             foreach (KeyValuePair<DateTime, double> entry in Vegetable_sales)
             {
@@ -685,9 +682,6 @@ namespace InfocommSolutionsProject.Pages
             Vegetable_SalesOver_Today = Today_DictSales_Final_Vegetable;
             Vegetable_SalesOver_Yesterday = Yesterday_DictSales_Final_Vegetable;
             Vegetable_SalesOver_Monthly = MonthlyDictSales_Vegetable;
-
-            foreach (KeyValuePair<DateTime, double> entry in Vegetable_sales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
-
 
             foreach (KeyValuePair<DateTime, double> entry in Fruits_sales)
             {
@@ -912,7 +906,7 @@ namespace InfocommSolutionsProject.Pages
                     }
                 }
             }
-            // This is for seed 
+            // This is for Herbs 
             foreach (var key in Today_Dict_Quantity_Final_Herbs)
             {
                 if (Today_Dict_Quantity_Herbs.ContainsKey(key.Key.Substring(0, 2)))
@@ -934,7 +928,7 @@ namespace InfocommSolutionsProject.Pages
             Herbs_Quantity_Over_7Day = SevenDayDict_Quantity_Herbs;
             Herbs_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Herbs;
             Herbs_Quantity_Over_Monthly = MonthlyDict_Quantity_Herbs;
-            // End of seed
+            // End of Herbs
             // Start of Vegetable
 
             foreach (KeyValuePair<DateTime, int> entry in Vegetable_Quantity)
@@ -1017,7 +1011,7 @@ namespace InfocommSolutionsProject.Pages
             Vegetable_Quantity_Over_7Day = SevenDayDict_Quantity_Vegetable;
             Vegetable_Quantity_Over_28Day = TwentyEight_Dict_Quantity_Vegetable;
             Vegetable_Quantity_Over_Monthly = MonthlyDict_Quantity_Vegetable;
-            //foreach (KeyValuePair<DateTime, int> entry in Seed_Quantity) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
+
 
             foreach (KeyValuePair<DateTime, int> entry in Fruits_Quantity)
             {
