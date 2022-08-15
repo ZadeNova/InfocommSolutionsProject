@@ -25,6 +25,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public Accounts AccountModel { get; set; } = default!;
         public double TotalCost { get; set; }
         public string userid { get; set; }
+        public string value123 { get; set; }
         public SelectList PaymentList { get; set; }
         public PaymentModel PaymentModel1 { get; set; } = default!;
         public IList<PaymentModel> PaymentModel2 { get; set; } = default!;
