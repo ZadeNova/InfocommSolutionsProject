@@ -6,8 +6,11 @@ namespace InfocommSolutionsProject.Models
         public Guid Id { get; set; }
         [Required]
         public DateTime CreatedOn { get; set; }
+        [Required]
+        public string Status { get; set; }
         public virtual Accounts Accounts { get; set; }
         public virtual ProductModel Product { get; set; }
+        
 
     }
 }

@@ -19,7 +19,9 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
         public IList<ProductModel> LatestProducts2 { get; set; }
 
-        public IList<ProductModel> TopRatedProducts { get; set; }
+        public IList<OrdersModel> orderDetails { get; set; }
+        public IList<OrdersModel> TopRatedProducts { get; set; }
+        public IList<OrdersModel> TopRatedProducts2 { get; set; }
         public IList<WishListModel> wish1 { get; set; }
         public IList<ProductModel> TopReviewsProduct { get; set; }
         public List<ShoppingCartItem> TheShoppingCart { get; set; }
@@ -47,15 +49,21 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         {
             await GetCurrentUserId();
             Products = _context.Products.ToList();
-         
+            orderDetails = _context.Orders.ToList();
             //get current path to use for _Aftercustomerloginlayout
             path1 = HttpContext.Request.Path;
             System.Diagnostics.Debug.WriteLine(path1);
             var TheLatestProductList = Products.OrderByDescending(x => x.CreatedOn).Take(6).ToList();
             LatestProducts = TheLatestProductList.Take(3).ToList();
             LatestProducts2 = TheLatestProductList.TakeLast(3).ToList();
-            
-            System.Diagnostics.Debug.WriteLine(LatestProducts2.LongCount());
+
+			//var TheTopRatingList = _context.Orders.GroupBy(q => q.Product.Id) .OrderByDescending(gp => gp.Count()).Take(6).ToList();
+   //         var idk=TheTopRatingList.Take(3).ToList();
+   //         TopRatedProducts = idk;
+			//TopRatedProducts = TheTopRatingList.Take(3).ToList();
+			//TopRatedProducts2 = TheTopRatingList.TakeLast(3).ToList();
+
+			System.Diagnostics.Debug.WriteLine(LatestProducts2.LongCount());
             Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();
             //foreach (var item in LatestProducts) System.Diagnostics.Debug.WriteLine($"{item.Name} {item.CreatedOn} Wtf bruh {item.UpdatedOn}");
             //foreach (var item in LatestProducts2) System.Diagnostics.Debug.WriteLine($"{item.Name} {item.CreatedOn} Wtf bruh {item.UpdatedOn}");
@@ -122,7 +130,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             Guid id12 = Guid.Parse(id);
             await GetCurrentUserAsync();
             var userid123 = Request.Form["accountid"].ToString();
-            var  checkwish= _context.wishLists.Where(i => i.Product.Id == id12).Where(i => i.Accounts.Id == userid123).ToList();
+            var  checkwish= _context.wishLists.Where(i => i.Product.Id == id12).Where(i => i.Accounts.Id == userid123).Where(i => i.Status == "Waiting").ToList();
           
             if (checkwish.Count()==0)
             {
@@ -130,6 +138,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 wish.Product = _context.Products.First(m => m.Id == id12);
                 wish.Accounts = _context.Users.First(m => m.Id == userid123);
                 wish.Id = new Guid();
+                wish.Status = "Waiting";
                 wish.CreatedOn = DateTime.Parse(datenow);
                 _context.wishLists.Add(wish);
                 await _context.SaveChangesAsync();

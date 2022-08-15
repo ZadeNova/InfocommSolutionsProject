@@ -28,8 +28,9 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public SelectList PaymentList { get; set; }
         public PaymentModel PaymentModel1 { get; set; } = default!;
         public IList<PaymentModel> PaymentModel2 { get; set; } = default!;
+     
         private readonly InfocommSolutionsProject.Data.InfocommSolutionsProjectContext _context;
-
+        
         public CheckOutModel(InfocommSolutionsProjectContext context, UserManager<Accounts> userManager)
         {
             _context = context;
@@ -56,7 +57,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         [BindProperty]
         public Accounts Accounts { get; set; } = default!;
         private Task<Accounts> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
-        public int cardid { get; set; }
+   
         public async Task OnGet(string returnUrl = null)
         {
             
@@ -66,10 +67,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             PaymentModel1 = await _context.Payment.FirstOrDefaultAsync(m => m.Accounts.Id == userid);
             PaymentModel2 = await _context.Payment.Where(i => i.Accounts.Id == userid).ToListAsync();
             AccountModel = await _context.Users.FirstOrDefaultAsync(m => m.Id == userid);
-            if (cardid == 0)
-            {
-                cardid = PaymentModel1.Id;
-            }
+
             returnUrl ??= Url.Content("~/");
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             // Check if shopping cart have items.
@@ -150,6 +148,29 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
             var total_number_of_distint = TheShoppingCart.Distinct().Count();
             var cart = TheShoppingCart;
+            int Freeshipping ;
+            foreach (var item in TheShoppingCart) 
+            {
+                if (item.Product.DiscountStatus == true)
+                {
+                    TotalCost += Math.Round((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity, 2, MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    TotalCost += Math.Round(item.Product.Price * item.Quantity, 2, MidpointRounding.AwayFromZero);
+                }
+            }
+            if (TotalCost >= 99)
+            {
+                Freeshipping = 1;
+            }
+            else {
+                TotalCost += 9.9;
+                Freeshipping = 0;
+
+            }
+
+
 
             for (var i = 0; i < total_number_of_distint; i++)
             {
@@ -189,7 +210,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 ordersmodel.Accounts = _context.Users.First(i => i.Id == Request.Form["AccountModel.Id"].ToString());
                 ordersmodel.DateOfOrder = DateTime.Parse(datenow);
                 ordersmodel.Payment = _context.Payment.First(i => i.Id == Convert.ToInt32(Request.Form["PaymentModel1.CardNumber"]));
-
+                ordersmodel.FreeShipping = Freeshipping;
                 ordersmodel.quantity = quantity;
                 ordersmodel.PriceOfOrder =Math.Round ((item.Product.Price - (item.Product.Price * item.Product.Discount / 100)) * item.Quantity,2, MidpointRounding.AwayFromZero);
                 ordersmodel.Product = _context.Products.First(i => i.Id == product.Id);

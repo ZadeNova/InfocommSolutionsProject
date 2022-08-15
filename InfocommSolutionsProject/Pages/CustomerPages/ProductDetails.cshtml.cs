@@ -28,6 +28,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public List<ShoppingCartItem> TheShoppingCart { get; set; }
         public string userid { get; set; }
         [BindProperty]
+        public WishListModel wish { get; set; } = default!;
+        [BindProperty]
         public RatingsModel rating1 { get; set; } = default!;
 
         [BindProperty]
@@ -172,6 +174,41 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             _context.Ratings.Add(rating2);
             await _context.SaveChangesAsync();
             return Redirect("~/CustomerPages/ProductDetails?id=" + id);
+
+        }
+        public async Task<IActionResult> OnPostAddToWishList(string id)
+        {
+            Guid id12 = Guid.Parse(id);
+            await GetCurrentUserAsync();
+            var userid123 = Request.Form["accountid"].ToString();
+            var checkwish = _context.wishLists.Where(i => i.Product.Id == id12).Where(i => i.Accounts.Id == userid123).Where(i => i.Status == "Waiting").ToList();
+
+            if (checkwish.Count() == 0)
+            {
+                var datenow = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                wish.Product = _context.Products.First(m => m.Id == id12);
+                wish.Accounts = _context.Users.First(m => m.Id == userid123);
+                wish.Id = new Guid();
+                wish.CreatedOn = DateTime.Parse(datenow);
+                wish.Status = "Waiting";
+                _context.wishLists.Add(wish);
+                await _context.SaveChangesAsync();
+                //Products = _context.Products.ToList();
+                ////get current path to use for _Aftercustomerloginlayout
+                //path1 = HttpContext.Request.Path;
+                //System.Diagnostics.Debug.WriteLine(path1);
+                //var TheLatestProductList = Products.OrderByDescending(x => x.CreatedOn).Take(6).ToList();
+                //LatestProducts = TheLatestProductList.Take(3).ToList();
+                //LatestProducts2 = TheLatestProductList.TakeLast(3).ToList();
+                //System.Diagnostics.Debug.WriteLine(LatestProducts2.LongCount());
+                //Products_Category = (from cat in _context.Categories where (cat.CategoryFor.ToLower() != "supplier") && (cat.CategoryFor.ToLower() != "suppliers") select cat).ToList();
+                return Redirect("~/CustomerPages/ProductDetails?id=" + id);
+            }
+            else
+            {
+                return Redirect("/CustomerPages/ViewWishList");
+            }
+
 
         }
 

@@ -3,15 +3,22 @@
 
 @{
     ViewData["Title"] = "View Wish List";
-   
+
 }
 <div class="container">
-    <h1>Index</h1>
-
-<p>
+   
+    @if (@Model.wishLists.Count() == 0)
+    {
+     <p>No Record Found</p>
+        <a asp-page="/CustomerPages/Shop">Add some Wish List?</a>
+    }
+    else
+    {
+         <h1>Your Wish List :)</h1>
+           <p>
     <a asp-page="/CustomerPages/Shop">Add More Item</a>
-</p>
-<table class="table">
+    </p>
+    <table class="table">
     <thead>
         <tr>
             <th>
@@ -39,12 +46,23 @@
                 @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+               <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Product.Id" method="post">
+                     <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                     <input type="hidden" value="@item.Id" id="cateid" name="cateid">
+                    <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+               </form>
+               <form asp-page-handler="WishListDelete" asp-route-id="@item.Product.Id" method="post">
+                    <input type="hidden" value="@item.Id" id="cateid" name="cateid">
+                    <button type="submit" >Remove</button>
+               </form>
+         
             </td>
         </tr>
 }
     </tbody>
 </table>
+    }
+  
+
 </div>
 
