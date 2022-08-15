@@ -29,9 +29,10 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public string DateOfOrderSort { get; set; }
         public string OrderStatusSort { get; set; }
         public string NotesSort { get; set; }
-      
-      
-      
+
+        public string shipping { get; set; }
+
+
 
         // Used to show how many items are on the page
 
@@ -65,7 +66,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 OrderStatusSort = String.IsNullOrEmpty(sortOrder) ? "OrderStatusSort" : "";
                 NotesSort = String.IsNullOrEmpty(sortOrder) ? "NotesSortSort" : "";
                 DateOfOrderSort = sortOrder == "Date" ? "date_desc" : "Date";
-
+                shipping= String.IsNullOrEmpty(sortOrder) ? "ship" : "";
 
                 // For Page sort
                 Current_NumProdPerPage = NumPage;
@@ -118,6 +119,9 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 {
                     case "Email":
                         ProductQueryable = ProductQueryable.OrderByDescending(x => x.Accounts.Email);
+                        break;
+                    case "ship":
+                        ProductQueryable = ProductQueryable.OrderByDescending(x => x.FreeShipping);
                         break;
                     case "OrderStatusSort":
                         ProductQueryable = ProductQueryable.OrderByDescending(x => x.OrderStatus);

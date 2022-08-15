@@ -20,7 +20,8 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             _context = context;
         }
 
-       
+        public double totalamount { get; set; }
+        public double findalamount { get; set; }
         public IList<OrdersModel> OrderDetail { get; set; } = default!;
         public IList<ProductModel> Products { get; set; } = default!;
         public IList<PaymentModel> payments { get; set; } = default!;
@@ -44,6 +45,18 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             Products = _context.Products.ToList();
 
             payments = _context.Payment.ToList();
+            foreach (var item in OrderDetail) {
+                totalamount += item.PriceOfOrder;
+            }
+            if (totalamount >= 99)
+            {
+                findalamount += totalamount;
+              
+            }
+            else {
+                findalamount += totalamount;
+                findalamount += 9.9;
+            }
 
             return Page();
         }

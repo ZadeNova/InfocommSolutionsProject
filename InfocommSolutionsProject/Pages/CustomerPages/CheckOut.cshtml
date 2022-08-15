@@ -146,12 +146,12 @@
 						<div>
 							<h4>Payment Details</h4>
 							@{
-											<div class="form-group">
-												<label asp-for="PaymentModel1.CardNumber" class="control-label"></label>
-												<select asp-for="PaymentModel1.CardNumber" class="form-control" id="mySelect" asp-items="@Model.PaymentList" onChange="SelectedValue(this)">
-												</select>
-												<span asp-validation-for="PaymentModel1.CardNumber" class="text-danger"></span>
-											</div>
+												<div class="form-group">
+													<label asp-for="PaymentModel1.CardNumber" class="control-label"></label>
+													<select asp-for="PaymentModel1.CardNumber" class="form-control" id="mySelect" asp-items="@Model.PaymentList" onChange="SelectedValue(this)">
+													</select>
+													<span asp-validation-for="PaymentModel1.CardNumber" class="text-danger"></span>
+												</div>
 
 
 			//	@if (@Model.cardid != 0)
@@ -206,7 +206,22 @@
 
 							</ul>
 							<div class="checkout__order__subtotal">Subtotal <span>$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
-							<div class="checkout__order__total">Total <span>$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
+							@if (@Math.Round(Model.TotalCost, 2, MidpointRounding.AwayFromZero) >= 99)
+							{
+								<div>Shipping Fee <span>Free Shipping</span></div>
+								<div class="checkout__order__total">Total <span name="to" id="to">$@Math.Round(Model.TotalCost,2,MidpointRounding.AwayFromZero)</span></div>
+							}
+							else
+							{
+								<div>Shipping Fee <span>$9.9</span></div>
+
+								var totalamount = @Math.Round(Model.TotalCost, 2, MidpointRounding.AwayFromZero) ;
+								totalamount += 9.9;
+
+								<div class="checkout__order__total">Total <span name="to" id="to">$ @Math.Round( totalamount,2,MidpointRounding.AwayFromZero)</span></div>
+							}
+							
+							
 							<div class="checkout__input__checkbox">
 								<div class="checkout__input__checkbox">
 									<label for="paypal">

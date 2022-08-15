@@ -6,7 +6,6 @@
 }
 
 <h1>Order Details</h1>
-
 <form asp-page="./OrderDetails" method="get">
     <div class="form-actions no-color">
         <p>
@@ -32,6 +31,10 @@
 			<th>
 				<a asp-page="./OrderDetails" asp-route-sortOrder="@Model.NotesSort">@Html.DisplayNameFor(model => model.OrderDetail[0].Notes)</a>
 			</th>
+            <th>
+                
+				<a asp-page="./OrderDetails" asp-route-sortOrder="@Model.shipping">@Html.DisplayNameFor(model => model.OrderDetail[0].FreeShipping)</a>
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -49,6 +52,17 @@
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Notes)
+				</td>
+                <td>
+                    @if (item.FreeShipping == 1)
+                    {
+                        <p>Yes</p>
+                    }
+                    else
+                    {
+                        <p>No</p>
+                    }
+                   @* @Html.DisplayFor(modelItem => item.FreeShipping)*@
 				</td>
 				<td>
 					@{
@@ -83,40 +97,40 @@
                 if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 5)
                 {
                        
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v3>50</option>
-                        <option value=@v4>100</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 10)
                 {
-                        <option >10</option>
-                        <option value=@v1>5</option >
-                        <option value=@v3>50</option>
-                        <option value=@v4>100</option>
+                            <option >10</option>
+                            <option value=@v1>5</option >
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 50)
                 {
-                        <option value=@v3>50</option>
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v4>100</option>
+                            <option value=@v3>50</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 100)
                 {
-                        <option value=@v4>100</option>
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v3>50</option>
+                            <option value=@v4>100</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
                 }
                 else
                 {
                     //@HttpContext.Session.GetString("_Name")
-                        <option >Default : 10</option>
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v3>50</option>
-                        <option value=@v4>100</option>
+                            <option >Default : 10</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
                 }
             }
                </select>
