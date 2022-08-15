@@ -39,6 +39,7 @@ namespace InfocommSolutionsProject.Pages.AdminPages
         public string Quantity_Sort { get; set; }
 
         public string Notes_Sort { get; set; }
+        public string shipping_Sort { get; set; }
 
         public string Current_NumRatingPerPage { get; set; }
 
@@ -69,7 +70,7 @@ namespace InfocommSolutionsProject.Pages.AdminPages
             Address_Sort = String.IsNullOrEmpty(sortOrder) ? "AddressSort" : "";
             Quantity_Sort = String.IsNullOrEmpty(sortOrder) ? "QuantitySort" : "";
             Notes_Sort = String.IsNullOrEmpty(sortOrder) ? "NotesSort" : "";
-
+            shipping_Sort= String.IsNullOrEmpty(sortOrder) ? "shippingsort" : "";
 
             // For Page sort
             Current_NumRatingPerPage = NumPage;
@@ -117,6 +118,9 @@ namespace InfocommSolutionsProject.Pages.AdminPages
             {
                 case "AccSort":
                     OrdersQueryable = OrdersQueryable.OrderByDescending(x => x.Accounts.Email);
+                    break;
+                case "shippingsort":
+                    OrdersQueryable = OrdersQueryable.OrderByDescending(x => x.FreeShipping);
                     break;
                 case "Price_Of_OrderSortDesc":
                     OrdersQueryable = OrdersQueryable.OrderByDescending(x => x.PriceOfOrder);

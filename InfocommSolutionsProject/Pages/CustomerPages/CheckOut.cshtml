@@ -146,15 +146,44 @@
 						<div>
 							<h4>Payment Details</h4>
 							@{
-												<div class="form-group">
-													<label asp-for="PaymentModel1.CardNumber" class="control-label"></label>
-													<select asp-for="PaymentModel1.CardNumber" class="form-control" id="mySelect" asp-items="@Model.PaymentList" onChange="SelectedValue(this)">
-													</select>
-													<span asp-validation-for="PaymentModel1.CardNumber" class="text-danger"></span>
-												</div>
+																	<div class="form-group">
+																		<label asp-for="PaymentModel1.CardNumber" class="control-label"></label>
+																		<select asp-for="PaymentModel1.CardNumber" class="form-control" id="mySelect" asp-items="@Model.PaymentList" onChange="SelectedValue(this)">
+																		</select>
+																		<span asp-validation-for="PaymentModel1.CardNumber" class="text-danger"></span>
+																	</div>
+								if (Model.PaymentList.Count() == 1)
+								{
+																		<div class="col-lg-6">
+																			<div class="checkout__input">
+																				<p>@Html.DisplayNameFor(model => model.PaymentModel1.DateOfExpiry)<span>*</span></p>
+																				<p >@Html.DisplayFor(model=>@model.PaymentModel1.DateOfExpiry)</p>
+																			</div>
+																		</div>
+																		<div class="col-lg-6">
+																			<div class="checkout__input">
+																				<p>@Html.DisplayNameFor(model => model.PaymentModel1.SecurityCode)<span>*</span></p>
+																				<p>@Html.DisplayFor(model=>@model.PaymentModel1.SecurityCode)</p>
+																			</div>
+																		</div>
+								}
+								else
+								{
+																	//<div class="col-lg-6">
+																	//	<div class="checkout__input">
+																	//		<p>@Html.DisplayNameFor(model => model.PaymentModel1.DateOfExpiry)<span>*</span></p>
+																	//		<p id="dateofexpiry"></p>
+																	//	</div>
+																	//</div>
+																	//<div class="col-lg-6">
+																	//	<div class="checkout__input">
+																	//		<p>@Html.DisplayNameFor(model => model.PaymentModel1.SecurityCode)<span>*</span></p>
+																	//		<p id="securitycode"></p>
+																	//	</div>
+																	//</div>
+								}
 
-
-			//	@if (@Model.cardid != 0)
+								//	@if (@Model.cardid != 0)
 								//{
 								//		@foreach (var item in Model.PaymentModel2.Distinct().Where(i => i.Id ==@Model.cardid ))
 								//{
@@ -240,15 +269,17 @@
 </section>
 
 
-<script type="text/javascript">
+<script >
 
 	//To get selected value an text of dropdownlist
 	function SelectedValue(ddlObject) {
 		//Selected value of dropdownlist
 		var selectedValue = ddlObject.value;
+		@Model.value123=selectedValue;
 		//Selected text of dropdownlist
+		//var paylist1 = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PaymentList));
 		var selectedText = ddlObject.options[ddlObject.selectedIndex].innerHTML;
-
+        
 		//window.location.reload();
 		//alert popup with detail of seleceted value and text
 		alert("Selected Text: " + selectedText);

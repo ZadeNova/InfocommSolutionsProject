@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Http;
 @{
 }
-<div class="container">
+
     <h1>View All Product Ratings</h1>
 
 
@@ -135,13 +135,16 @@
                </select>
             </div> 
 </form>
-
-<a asp-page="./ViewAllProductRatings" asp-route-pageIndex="@(Model.AllRatings.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
-Previous    
-</a>
-<a asp-page="./ViewAllProductRatings" asp-route-pageIndex="@(Model.AllRatings.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
-Next    
-</a>
-  
-
+<div class="pb-3">
+  <div class="pb-3">
+      <div class="pb-3">
+    <a asp-page="./ViewAllProductRatings" asp-route-pageIndex="@(Model.AllRatings.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+    Previous    
+    </a>
+    <a asp-page="./ViewAllProductRatings" asp-route-pageIndex="@(Model.AllRatings.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
+    Next    
+    </a>
+     </div>
+  </div>
 </div>
+

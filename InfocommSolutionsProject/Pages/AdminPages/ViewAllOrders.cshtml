@@ -4,7 +4,6 @@
 }
 @using Microsoft.AspNetCore.Http;
 
-<div class="container">
     <h1>View All Product Orders</h1>
 
 <form asp-page="./Index" method="get">
@@ -56,13 +55,12 @@
                 
             </th>
             <th>
-
+                  <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.shipping_Sort">@Html.DisplayNameFor(model => model.OrdersList[0].FreeShipping)</a>
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.OrdersList) {
-    
+@foreach (var item in Model.OrdersList.DistinctBy(i=>i.DateOfOrder)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Accounts.Email)
@@ -92,10 +90,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfOrder)
             </td>
+             <td>
+                        @if (item.FreeShipping == 1)
+                        {
+                            <p>Yes</p>
+                        }
+                        else
+                        {
+                              <p>No</p>
+                        }
+            </td>
             <td>
-                
-               
-               @* <a asp-page="./Delete" asp-route-id="">Delete</a>*@
+                @{
+					var datetime = item.DateOfOrder.ToString("yyyy-MM-dd HH:mm:ss");
+				 }
+					<a asp-page="./ViewOrderDetails" asp-route-date="@datetime" asp-route-id="@item.Accounts.Id" >Details</a> 
             </td>
         </tr>
 }
@@ -122,52 +131,58 @@
 
                 if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 5)
                 {
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v3>50</option>
-                        <option value=@v4>100</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 10)
                 {
-                        <option >10</option>
-                        <option value=@v1>5</option >
-                        <option value=@v3>50</option>
-                        <option value=@v4>100</option>
+                            <option >10</option>
+                            <option value=@v1>5</option >
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 50)
                 {
-                        <option value=@v3>50</option>
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v4>100</option>
+                            <option value=@v3>50</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v4>100</option>
                 }
                 else if (Convert.ToInt32(@HttpContext.Session.GetString("_userset")) == 100)
                 {
-                        <option value=@v4>100</option>
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v3>50</option>
+                            <option value=@v4>100</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
                 }
                 else
                 {
                     //@HttpContext.Session.GetString("_Name")
-                        <option >Default : 10</option>
-                        <option value=@v1>5</option >
-                        <option value=@v2>10</option>
-                        <option value=@v3>50</option>
-                        <option value=@v4>100</option>
+                            <option >Default : 10</option>
+                            <option value=@v1>5</option >
+                            <option value=@v2>10</option>
+                            <option value=@v3>50</option>
+                            <option value=@v4>100</option>
                 }
             }
                </select>
             </div> 
 </form>
 
-<a asp-page="./ViewAllOrders" asp-route-pageIndex="@(Model.OrdersList.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
-Previous    
-</a>
-<a asp-page="./ViewAllOrders" asp-route-pageIndex="@(Model.OrdersList.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
-Next    
-</a>
+<div class="pb-3">
+  <div class="pb-3">
+      <div class="pb-3">
+        <a asp-page="./ViewAllOrders" asp-route-pageIndex="@(Model.OrdersList.PageIndex - 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @prevDisabled">
+        Previous    
+        </a>
+        <a asp-page="./ViewAllOrders" asp-route-pageIndex="@(Model.OrdersList.PageIndex + 1)" asp-route-currentFilter="@(Model.CurrentFilter)" class="btn btn-primary @nextDisabled">
+        Next    
+        </a>
+      </div>
+  </div>
+</div>
+
   
 
-</div>
