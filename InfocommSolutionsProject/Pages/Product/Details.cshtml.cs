@@ -385,11 +385,15 @@ namespace InfocommSolutionsProject.Pages.Product
                     Yesterday_DictSales[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
 
                 }
-
-                if (MonthlyDictSales.ContainsKey(entry.Key.ToString("MMMM")))
+                if (entry.Key.Year == DateTime.Today.Year)
                 {
-                    MonthlyDictSales[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    if (MonthlyDictSales.ContainsKey(entry.Key.ToString("MMMM")))
+                    {
+                        MonthlyDictSales[entry.Key.ToString("MMMM")] += Math.Round(entry.Value, 2);
+                    }
                 }
+
+                
 
 
             }

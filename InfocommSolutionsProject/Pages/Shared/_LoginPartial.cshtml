@@ -31,12 +31,8 @@ body {top:0 !important;}
         </div>
         <span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Settings</span>
         <li class="sidebar-item "><a class="sidebar-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Settings"> 
-                      @*<svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#setting-1"> </use>
-                      </svg>*@<i class="fa-solid fa-gear"></i> <span > Settings </span>
-                      
-                  </a>
-                      
+                      <i class="fa-solid fa-gear"></i> <span > Settings </span>
+                  </a>                    
         </li>
         <span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Main</span>
         <ul class="list-unstyled" id="hreflist">
@@ -71,13 +67,12 @@ body {top:0 !important;}
                   <li><a class="sidebar-link" asp-page="/Product/Index">Product</a></li>
                   <li><a class="sidebar-link" asp-page="/Category/Index">Category</a></li>
                   <li><a class="sidebar-link" asp-page="/Supplier/Index">Supplier</a></li>
-                  <li><a class="sidebar-link" asp-page="/SupplierOrders/Index">SupplierOrders</a></li>               
+                  <li><a class="sidebar-link" asp-page="/SupplierOrders/Index">SupplierOrders</a></li>       
+                  <li><a class="sidebar-link" asp-page="/AdminPages/ViewAllProductRatings">View Product Ratings</a></li>
+                  <li><a class="sidebar-link" asp-page="/AdminPages/ViewAllOrders">View Product Orders</a></li>
                 </ul>
               </li>
-             @* <li class="sidebar-item"><a class="sidebar-link" href="login.html"> 
-                      <svg class="svg-icon svg-icon-sm svg-icon-heavy">
-                        <use xlink:href="#disable-1"> </use>
-                      </svg><span>Login page </span></a></li>*@
+           
         </ul><span class="text-uppercase text-gray-600 text-xs mx-3 px-2 heading mb-2">Extras</span>
         <ul class="list-unstyled">
               <li class="sidebar-item"><a class="sidebar-link" href="#"> 

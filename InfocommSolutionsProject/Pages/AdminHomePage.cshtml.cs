@@ -160,6 +160,10 @@ namespace InfocommSolutionsProject.Pages
 
         public List<BestSellerClass> TheTopSellers { get; set; }
 
+        public List<LatestOrders> Top_8_LatestOrders { get; set; }
+
+        
+
         public void OnGet()
         {
             // Assigning the variables from database
@@ -170,7 +174,26 @@ namespace InfocommSolutionsProject.Pages
             NumberOfUsersInWebApplication = _userManager.Users.Count();
             OrdersList = _context.Orders.ToList();
             ProductList = _context.Products.ToList();
+
+
+            // Get Latest Orders
+
             LatestOrders = _context.Orders.OrderByDescending(x => x.DateOfOrder).Take(8).ToList();
+
+            //var lol = (from order in _context.Orders
+            //          join prod in _context.Products on order.Product.Id equals prod.Id
+            //          select new { order.Accounts, order.PriceOfOrder, order.Product, order.DateOfOrder, order.OrderStatus, order.Notes, prod.Category }).OrderByDescending(x => x.DateOfOrder).Take(8);
+
+
+            Top_8_LatestOrders = (from order in _context.Orders
+                       join prod in _context.Products on order.Product.Id equals prod.Id
+                       select new LatestOrders { User_Account = order.Accounts , Product = order.Product , Price_OfOrder = order.PriceOfOrder , Order_Status = order.OrderStatus , DateOf_Order = order.DateOfOrder , Notes = order.Notes , Category = prod.Category }).OrderByDescending(x => x.DateOf_Order).Take(8).ToList();
+
+
+
+            //foreach (var i in lol) System.Diagnostics.Debug.WriteLine($"{i.TheAccount.Email} {i.Product.Name} {i.Category} {i.DateOf_Order} {i.Notes}");
+
+
             LatestRatings = _context.Ratings.OrderByDescending(x => x.CreatedOn).Take(8).ToList();
             TotalSales = Math.Round(_context.Orders.Sum(x => x.PriceOfOrder) , 2);
             AveragePricePerOrder = Math.Round((_context.Orders.Sum(x => x.PriceOfOrder) / _context.Orders.Count()), 2);
@@ -191,7 +214,7 @@ namespace InfocommSolutionsProject.Pages
                 Revenue = g.Sum(a => a.PriceOfOrder)
             }).ToDictionary( dic => dic.TheDate , dic => dic.Revenue);
 
-            foreach (var i in SalesOverTime) System.Diagnostics.Debug.WriteLine($"{i.Key} , {i.Value}");
+            //foreach (var i in SalesOverTime) System.Diagnostics.Debug.WriteLine($"{i.Key} , {i.Value}");
 
             // Start Of Initialization of data values for LineChart
             Time_Hours = new List<string> {
@@ -353,7 +376,7 @@ namespace InfocommSolutionsProject.Pages
             SalesOverTime_Yesterday = Yesterday_DictSales_Final;
             SalesOverTime_Monthly = MonthlyDictSales;
 
-            foreach (KeyValuePair<string, double> entry in MonthlyDictSales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
+            //foreach (KeyValuePair<string, double> entry in MonthlyDictSales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
             //foreach (KeyValuePair<string, double> entry in TwentyEight_DictSales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
 
 
@@ -423,15 +446,15 @@ namespace InfocommSolutionsProject.Pages
 
             foreach(var key in Top_ProductBy_Quantity)
             {
-                System.Diagnostics.Debug.WriteLine($"{key.Key} {key.Value}");
+                //System.Diagnostics.Debug.WriteLine($"{key.Key} {key.Value}");
                 
 
-                TopProducts_byQuantity.Add(new BestSellerClass { ProductName = key.Key.Name , Sales = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.PriceOfOrder) , UnitsSold = key.Value });
+                TopProducts_byQuantity.Add(new BestSellerClass { ProductName = key.Key.Name , Sales = Math.Round(_context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.PriceOfOrder), 2) , UnitsSold = key.Value });
             }
 
             foreach (var key in Top_ProductBy_Sales)
             {
-                TopProducts_byAmount.Add(new BestSellerClass { ProductName = key.Key.Name, Sales = key.Value, UnitsSold = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.quantity) });
+                TopProducts_byAmount.Add(new BestSellerClass { ProductName = key.Key.Name, Sales = Math.Round(key.Value,2), UnitsSold = _context.Orders.Where(x => x.Product.Id == key.Key.Id).Sum(g => g.quantity) });
 
             }
 
@@ -686,7 +709,7 @@ namespace InfocommSolutionsProject.Pages
             Vegetable_SalesOver_Yesterday = Yesterday_DictSales_Final_Vegetable;
             Vegetable_SalesOver_Monthly = MonthlyDictSales_Vegetable;
 
-            foreach (KeyValuePair<DateTime, double> entry in Vegetable_sales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
+            //foreach (KeyValuePair<DateTime, double> entry in Vegetable_sales) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
 
 
             foreach (KeyValuePair<DateTime, double> entry in Fruits_sales)
