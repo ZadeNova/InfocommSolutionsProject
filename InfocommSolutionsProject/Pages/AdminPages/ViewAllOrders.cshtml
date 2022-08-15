@@ -7,8 +7,6 @@
 <div class="container">
     <h1>View All Product Orders</h1>
 
-
-
 <form asp-page="./Index" method="get">
     <div class="form-actions no-color">
         <p>
@@ -24,7 +22,6 @@
         <tr>
             <th>
                 <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.AccountsSort">@Html.DisplayNameFor(model => model.OrdersList[0].Accounts)</a>
-                
             </th>
             <th>
                 <a asp-page="./ViewAllOrders" asp-route-sortOrder="@Model.ProductSort">@Html.DisplayNameFor(model => model.OrdersList[0].Product)</a>

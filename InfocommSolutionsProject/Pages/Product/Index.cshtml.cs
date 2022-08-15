@@ -61,7 +61,6 @@ namespace InfocommSolutionsProject.Pages.Product
 
         public string CurrentFilter { get; set; }
 
-        //public IList<ProductModel> Product { get;set; } = default!;
 
         public PaginatedList<ProductModel> Product { get; set; }
 
@@ -202,10 +201,6 @@ namespace InfocommSolutionsProject.Pages.Product
                     
                 }
 
-
-                //Product = await _context.Products.ToListAsync();
-                //var pageSize = Configuration.GetValue("PageSize:", 4);
-                //Product = await PaginatedList<ProductModel>.CreateAsync(ProductQueryable.AsNoTracking(), pageIndex ?? 1, pageSize);
 
             }
 

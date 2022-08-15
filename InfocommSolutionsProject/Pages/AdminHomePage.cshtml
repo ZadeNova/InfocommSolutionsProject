@@ -170,6 +170,24 @@
                 </div>
               </div>
 
+              <div class="col-md-3 col-sm-6">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-end justify-content-between mb-2">
+                      <div class="me-2">
+                          
+                            <i class="fa-solid fa-gift"></i>
+                        <p class="text-sm text-uppercase text-gray-600 lh-1 mb-0">Accounts with wishlist</p>
+                      </div>
+                      <p class="text-xxl lh-1 mb-0" style="color:hotpink">@Model.Accounts_That_Have_Wishlist</p>
+                    </div>
+                    <div class="progress" style="height: 3px">
+                      <div class="" role="progressbar" style="width: 100%;background-color:hotpink" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -444,8 +462,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/js/AdminPageJs/AdminPageCharts/AdminHomePageCharts.js"></script>
     <script>
-    //var ProdUserDateChart = new Date()      // Get the time now in miliseconds
-    //var ListDateSpec = []
+    
     var ListDateSpec = [
                     "12:00AM",
                     "01:00AM",
@@ -475,15 +492,7 @@
 
     var ListOfDates = @Html.Raw(Json.Serialize(Model.UserDateList))
     console.log(ListOfDates)
-    //var ListOfDatesNoTime = ListOfDates.map(x => new Date(Date.parse(x)).toDateString())
-        
-    //    ListOfDates.map(x => x.toDateString())
-    //    ListOfDates.forEach((val) => console.log(typeof(val)))
-
-     //var myDate = new Date(parseInt(datetimechart[index].replace(/[^0-9 +]/g, '')));
-
-     //           datetimechart[index] = myDate.getFullYear() + '-' + ('0' + (myDate.getMonth() + 1)).slice(-2) + '-' + ('0' + myDate.getDate()).slice(-2);
-     //           datetimechart[index] = datetimechart[index];
+    
 
     
 
@@ -537,7 +546,7 @@
                 {
                     label: "Number Of Users Registered",
                     fill: true,
-                    lineTension: 0.2,
+                    lineTension: 0.3,
                     backgroundColor: "transparent",
                     borderColor: "#57DECE",
                     pointBorderColor: "#57DECE",
@@ -1044,9 +1053,12 @@
             plugins: {
                 title: {
                     display: true,
-                    fontColor: 'white',
-                    fontSize:20,
+                    color: 'PaleGoldenRod',
+                    
                     text: 'Number of Products sold Per Category',
+                    font:{
+                    size:14,
+                }
                 }
             },
             scales: {
@@ -1074,33 +1086,27 @@
                 {
                     label: "Data Set 1",
                     backgroundColor: [
-                        "rgba(210, 224, 80, 0.8)",
-                        "rgba(224, 153, 80, 0.8)",
-                        "rgba(155, 223, 167, 0.8)",
-                        "rgba(117, 89, 89, 0.8)",
-                        "rgba(101, 67, 99, 0.8)",
-                        "rgba(227, 53, 143, 0.8)",
-                        "rgba(55, 230, 224, 0.8)",
+                        "#b30000", "#7c1158", "#4421af", "#1a53ff", "#0d88e6", "#00b7c7", "#5ad45a", "#8be04e", "#ebdc78",
                     ],
                     hoverBackgroundColor: [
-                        "rgba(210, 224, 80, 0.8)",
-                        "rgba(224, 153, 80, 0.8)",
-                        "rgba(155, 223, 167, 0.8)",
-                        "rgba(117, 89, 89, 0.8)",
-                        "rgba(101, 67, 99, 0.8)",
-                        "rgba(227, 53, 143, 0.8)",
-                        "rgba(55, 230, 224, 0.8)",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
                     ],
                     borderColor: [
 
                         
-                        "rgba(210, 224, 80, 0.8)",
-                        "rgba(224, 153, 80, 0.8)",
-                        "rgba(155, 223, 167, 0.8)",
-                        "rgba(117, 89, 89, 0.8)",
-                        "rgba(101, 67, 99, 0.8)",
-                        "rgba(227, 53, 143, 0.8)",
-                        "rgba(55, 230, 224, 0.8)",
+                        "#B8860B",
+                        "#B8860B",
+                        "#B8860B",
+                        "#B8860B",
+                        "#B8860B",
+                        "#B8860B",
+                        "#B8860B",
                         
                     ],
                     borderWidth: 1,
@@ -1121,18 +1127,23 @@
             plugins: {
                 title: {
                     display: true,
-                    fontColor: 'white',
-                    fontSize:20,
+                    
                     text: 'Sales Per Category',
+                    color: 'PaleGoldenRod',
+                    font:{
+                        size:14,
+                    }
                 }
             },
             scales: {
                 xAxes: [
                     {
                         display: false,
+                        
                         gridLines: {
                             color: "#eee",
                         },
+                        
                     },
                 ],
                 yAxes: [
@@ -1151,31 +1162,31 @@
                 {
                     label: "Data Set 1",
                     backgroundColor: [
-                        "rgba(227, 53, 143, 0.8)",
-                        "rgba(55, 230, 224, 0.8)",
-                        "rgba(210, 224, 80, 0.8)",
-                        "rgba(224, 153, 80, 0.8)",
-                        "rgba(155, 223, 167, 0.8)",
-                        "rgba(101, 67, 99, 0.8)",
-                        "rgba(117, 89, 89, 0.8)",
+                        "#1192e8",
+                        "#9f1853",
+                        "#ee538b",
+                        "#fd7f6f",
+                        "#b2e061",
+                        "#fdcce5",
+                        "#beb9db",
                     ],
                     hoverBackgroundColor: [
-                        "rgba(227, 53, 143, 0.8)",
-                        "rgba(55, 230, 224, 0.8)",
-                        "rgba(210, 224, 80, 0.8)",
-                        "rgba(224, 153, 80, 0.8)",
-                        "rgba(155, 223, 167, 0.8)",
-                        "rgba(101, 67, 99, 0.8)",
-                        "rgba(117, 89, 89, 0.8)",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
+                        "#OOBFFF",
                     ],
                     borderColor: [
-                        "rgba(227, 53, 143, 0.8)",
-                        "rgba(55, 230, 224, 0.8)",
-                        "rgba(210, 224, 80, 0.8)",
-                        "rgba(224, 153, 80, 0.8)",
-                        "rgba(155, 223, 167, 0.8)",
-                        "rgba(101, 67, 99, 0.8)",
-                        "rgba(117, 89, 89, 0.8)",
+                        "#DAA520",
+                        "#DAA520",
+                        "#DAA520",
+                        "#DAA520",
+                        "#DAA520",
+                        "#DAA520",
+                        "#DAA520",
                     ],
                     borderWidth: 1,
                     data: @Html.Raw(Json.Serialize(Model.TopCategoriesBySales.Select(item => item.Value).ToList())),
@@ -1202,6 +1213,15 @@
     var Herbs_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Herbs_Quantity_Over_Today));
     var Fruits_Quantity_Today = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Fruits_Quantity_Over_Today));
 
+
+    document.getElementById("stats_sales").innerHTML = "Total Sales For Today: $" + @Math.Round(Model.SalesOverTime_Today.Sum(x => x.Value));
+    document.getElementById("cat1").innerHTML = "Total Herbs Category Sales Today: $" + @Math.Round(Model.Herbs_SalesOver_Today.Sum(x => x.Value));
+    document.getElementById("cat2").innerHTML = "Total Vegetable Category Sales Today: $" + @Math.Round(Model.Vegetable_SalesOver_Today.Sum(x => x.Value)); 
+    document.getElementById("cat3").innerHTML = "Total Fruits Category Sales Today: $" + @Math.Round(Model.Fruits_SalesOver_Today.Sum(x => x.Value));
+
+    document.getElementById("catunit1").innerHTML = "Herbs Category Units sold Today:" + @Model.Herbs_Quantity_Over_Today.Sum(x => x.Value);
+    document.getElementById("catunit2").innerHTML = "Vegetable Category Units sold Today:" + @Model.Vegetable_Quantity_Over_Today.Sum(x => x.Value); 
+    document.getElementById("catunit3").innerHTML = "Fruits Category Units sold Today:" + @Model.Fruits_Quantity_Over_Today.Sum(x => x.Value);
    
 
     const SalesOver_Time_Chart = document.getElementById("SalesOverTimeChart");
@@ -1212,17 +1232,27 @@
                  title: {
                 display:true,
                 text: "Sales Over Time",
-
+                color: 'PaleGoldenRod',
+                font:{
+                    size:14,
                 },
+                },
+            },
+            animation: {
+
+               duration: 700,
+               easing: 'linear'
             },
            
             scales: {
                 xAxes: [
-                    {
+                    {   
+                        
                         display: true,
                         gridLines: {
                             display: true,
                         },
+                        
                     },
                 ],
                 yAxes: [
@@ -1241,6 +1271,7 @@
             },
             legend: {
                 display: true,
+                
             },
         },
         data: {
@@ -1310,10 +1341,17 @@
               plugins: {
                   title: {
                        display: true,
-                       fontColor: 'white',
-                       fontSize:20,
+                       color: 'PaleGoldenRod',
                        text: 'Revenue per Category Over Time',
+                       font:{
+                            size:14,
+                        }
                     },
+            },
+              animation: {
+
+               duration: 700,
+               easing: 'linear'
             },
           }
         });
@@ -1356,10 +1394,18 @@
               plugins: {
                   title: {
                        display: true,
-                       fontColor: 'white',
+                       color: 'PaleGoldenRod',
                        fontSize:20,
                        text: 'Number of Units sold Per Category',
+                       font:{
+                            size:14,
+                        }
                     },
+            },
+            animation: {
+
+               duration: 700,
+               easing: 'linear'
             },
           }
         });

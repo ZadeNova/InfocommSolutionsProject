@@ -14,20 +14,21 @@
     var LightData = [];
     var DateLightData = [];
 
-    //TempData.length = 100;
-    //DateTempData.length = 100;
-    //TempData.fill(0);
-    //DateTempData.fill(0);
+ 
     var ChartsList = [];
     var TheTempchart = new Chart(document.getElementById("TempChart"), {
         type: "line",
         options: {
+           
             
             plugins: {
                 title: {
                     display: true,
                     text: 'Real Time Temperature Chart',
-                    fontColor: 'white',
+                    color: 'PaleGoldenRod',
+                    font: {
+                        size: 14,
+                    }
                 }
             },
             scales: {
@@ -67,7 +68,7 @@
                 {
                     label: "Temperature",
                     fill: true,
-                    lineTension: 0.2,
+                    lineTension: 0.3,
                     backgroundColor: "transparent",
                     borderColor: "#864DD9",
                     pointBorderColor: "#864DD9",
@@ -99,7 +100,10 @@
                 title: {
                     display: true,
                     text: 'Real Time Humidity Chart',
-                    fontColor: 'white',
+                    color: 'PaleGoldenRod',
+                    font: {
+                        size: 14,
+                    }
                 }
             },
             scales: {
@@ -139,7 +143,7 @@
                 {
                     label: "Humidity",
                     fill: true,
-                    lineTension: 0.2,
+                    lineTension: 0.3,
                     backgroundColor: "transparent",
                     borderColor: "#57DECE",
                     pointBorderColor: "#57DECE",
@@ -171,7 +175,10 @@
                 title: {
                     display: true,
                     text: 'Real Time Light Chart',
-                    fontColor: 'white',
+                    color: 'PaleGoldenRod',
+                    font: {
+                        size: 14,
+                    }
                 }
             },
             scales: {
@@ -211,7 +218,7 @@
                 {
                     label: "Light",
                     fill: true,
-                    lineTension: 0.2,
+                    lineTension: 0.3,
                     backgroundColor: "transparent",
                     borderColor: "#FE9360",
                     pointBorderColor: "#FE9360",

@@ -76,18 +76,12 @@ namespace InfocommSolutionsProject.Pages.Product
                 System.Diagnostics.Debug.WriteLine("execute model state ss");
                 return Page();
             }
-            //System.Diagnostics.Debug.WriteLine($"Is it empty? {Product.ImagePath}");
-            //System.Diagnostics.Debug.WriteLine($"{ImageUpload != null} {Product.ImagePath != null}");
-
-
 
             // Update date for product
             Product.UpdatedOn = DateTime.Now;
             Product.Category = Request.Form["Product.Category"].ToString();
 
-            //var TheProduct = _context.Products.FirstOrDefault(x => x.Id == ProductID);
-            
-            //Product.CreatedOn = Product.CreatedOn;
+
             if (ImageUpload != null)
             {
                 if (Product.ImagePath != null)
