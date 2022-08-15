@@ -41,6 +41,10 @@
 				<th>
 					@Html.DisplayNameFor(model => model.OrderDetail[0].Notes)
 				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.OrderDetail[0].FreeShipping)
+				</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -88,13 +92,38 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.Notes)
 					</td>
-					<td>
-					</td>
+					 <td>
+                    @if (item.FreeShipping == 1)
+                    {
+                        <p>Yes</p>
+                    }
+                    else
+                    {
+                        <p>No</p>
+                    }
+                   @* @Html.DisplayFor(modelItem => item.FreeShipping)*@
+				</td>
 
 				</tr>
 			}
 		</tbody>
 	</table>
+
+</div>
+<div>
+	<h2>Sub amount</h2>
+	<p>$@Math.Round(@Model.totalamount,2,MidpointRounding.AwayFromZero)</p>
+	<h2>Shipping Fee</h2>
+	@if (@Model.totalamount>99)
+	{
+		<p>Free Shipping above $99</p>
+	}
+	else
+	{
+		<p>$9.9</p>
+	}
+	<h3>Total Amount</h3>
+	<p>$@Math.Round(@Model.findalamount,2,MidpointRounding.AwayFromZero)</p>
 </div>
 <div>
 

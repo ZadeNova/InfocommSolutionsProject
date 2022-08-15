@@ -39,8 +39,11 @@
                 @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+               <form asp-page-handler="AddToShoppingCart" asp-route-id="@item.Product.Id" method="post">
+                    <input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+                    <button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+               </form>
+                <a asp-page="/WishListDelete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -20,8 +20,8 @@ namespace InfocommSolutionsProject.Pages.Product
         }
 
         public ProductModel Product { get; set; } = default!;
-        
-        public Dictionary<DateTime , double> SalesOverTime_ForProduct { get; set; }
+
+        public Dictionary<DateTime, double> SalesOverTime_ForProduct { get; set; }
 
         public List<string> Time_Hours { get; } = new List<string> {
                 "00:00",
@@ -66,7 +66,7 @@ namespace InfocommSolutionsProject.Pages.Product
             "December"
          };
 
-        public Dictionary<string , double> ProductSales_Today { get; set; }
+        public Dictionary<string, double> ProductSales_Today { get; set; }
 
         public Dictionary<string, double> ProductSales_Yesterday { get; set; }
 
@@ -85,6 +85,29 @@ namespace InfocommSolutionsProject.Pages.Product
         public double Total_ProductSales_28Day { get; set; }
 
         public double Total_ProductSales_Month { get; set; }
+
+        //public double Ratings_OverTime { get; set; }
+
+        public Dictionary<DateTime, int> Ratings_OverTime {get; set;}
+
+        public Dictionary<string, double> Avg_Rating_Today { get; set; }
+
+        public Dictionary<string, double> Avg_Rating_Yesterday { get; set; }
+
+        public Dictionary<string, double> Avg_Rating_7Day { get; set; }
+
+        public Dictionary<string, double> Avg_Rating_28Day { get; set; }
+
+        public Dictionary<string, double> Avg_Rating_Month { get; set; }
+
+        public double AvgRating_Tdy { get; set; }
+
+        public double AvgRating_Yest { get; set; }
+
+        public double AvgRating_7Day { get; set; }
+
+        public double AvgRating_28Day { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -113,7 +136,7 @@ namespace InfocommSolutionsProject.Pages.Product
                     TheDate = l.Key,
                     Sales = l.Sum(p => p.PriceOfOrder)
                 }).ToDictionary(m => m.TheDate , m => m.Sales);
-
+                
                 CategorizeToDates_Sales();
 
                 Total_ProductSales_Today = Math.Round(SalesOverTime_ForProduct.Where(x => x.Key.Date == DateTime.Today).Sum(x => x.Value) , 2);
@@ -121,15 +144,189 @@ namespace InfocommSolutionsProject.Pages.Product
                 Total_ProductSales_7Day = Math.Round(ProductSales_7Day.Sum(x => x.Value) , 2);
                 Total_ProductSales_28Day = Math.Round(ProductSales_28Day.Sum(x => x.Value) , 2);
                 Total_ProductSales_Month = Math.Round(ProductSales_Month.Sum(x => x.Value),2);
-                
-                foreach (KeyValuePair<DateTime, double> entry in SalesOverTime_ForProduct) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value} wtf");
-                System.Diagnostics.Debug.WriteLine("OI HELLO THEREa");
 
+                //foreach (KeyValuePair<DateTime, double> entry in SalesOverTime_ForProduct) System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value} wtf");
+                //System.Diagnostics.Debug.WriteLine("OI HELLO THEREa");
+                Ratings_OverTime = _context.Ratings.Where(x => x.Product.Id == id).GroupBy(x => x.CreatedOn).Select(l => new
+                {
+                    TheDate = l.Key,
+                    Rating = l.Sum(x => x.rating)
+                }).ToDictionary(m => m.TheDate, m => m.Rating);
+
+                //CategorizeToDates_Ratings();
+
+
+                var check_If_Zero = Ratings_OverTime.Where(x => x.Key.Date == DateTime.Today).Count();
+                var check_IfZero2 = Ratings_OverTime.Where(x => x.Key.Date == DateTime.Today.AddDays(-1)).Count();
+                var check_If_Zero3 = Ratings_OverTime.Where(x => x.Key.Date > DateTime.Today.AddDays(-7)).Count();
+                var check_If_Zero4 = Ratings_OverTime.Where(x => x.Key.Date > DateTime.Today.AddDays(-28)).Count();
+
+                if (check_If_Zero != 0)
+                {
+                    AvgRating_Tdy = Ratings_OverTime.Where(x => x.Key.Date == DateTime.Today).Sum(x => x.Value) / Ratings_OverTime.Where(x => x.Key.Date == DateTime.Today).Count();
+                    
+                    
+                    
+                }
+                if (check_IfZero2 != 0)
+                {
+                    AvgRating_Yest = Ratings_OverTime.Where(x => x.Key.Date == DateTime.Today.AddDays(-1)).Sum(x => x.Value) / Ratings_OverTime.Where(x => x.Key.Date == DateTime.Today.AddDays(-1)).Count();
+                }
+                if (check_If_Zero3 != 0)
+                {
+                    AvgRating_7Day = Ratings_OverTime.Where(x => x.Key.Date > DateTime.Today.AddDays(-7)).Sum(x => x.Value) / Ratings_OverTime.Where(x => x.Key.Date > DateTime.Today.AddDays(-7)).Count();
+                }
+                if (check_If_Zero4 != 0)
+                {
+                    AvgRating_28Day = Ratings_OverTime.Where(x => x.Key.Date > DateTime.Today.AddDays(-28)).Sum(x => x.Value) / Ratings_OverTime.Where(x => x.Key.Date > DateTime.Today.AddDays(-28)).Count();
+                }
+
+
+                
+
+                //AvgRating_Tdy = Math.Round(AvgRating_Tdy);
+                //AvgRating_Yest = Math.Round(AvgRating_Yest);
+                //Avg_Rating_7Day =
+                //Avg_Rating_28Day =
+                //Avg_Rating_Month = 
+                //System.Diagnostics.Debug.WriteLine($"{AvgRating_Tdy} {AvgRating_Yest} {test} YOLOOOO");
+
+                     //(_context.Ratings.Where(x => x.Product.Id == id).Sum(x => x.rating)) / _context.Ratings.Where(l => l.Product.Id == id).Count();
+                //var ratings = (from P in _context.Ratings join x in _context.Users on P.Accounts.Id equals x.Id where P.Product.Id == id select P).ToList();
+
+              
+
+                var testt = _context.Users.ToList();
+
+
+
+                //foreach (KeyValuePair<DateTime,int> entry in lol)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"{entry.Key} {entry.Value}");
+                //}
+
+                //foreach (var i in testt) System.Diagnostics.Debug.WriteLine($"{i.Email} {i.UserName}");
 
 
             }
             return Page();
         }
+
+        //public void CategorizeToDates_Ratings()
+        //{
+        //    Dictionary<string, double> MonthlyDictRatings = new Dictionary<string, double>();
+        //    Dictionary<string, double> SevenDayDictRatings = new Dictionary<string, double>();
+        //    Dictionary<string, double> TwentyEight_DictRatings = new Dictionary<string, double>();
+        //    Dictionary<string, double> Today_DictRatings = new Dictionary<string, double>();
+        //    Dictionary<string, double> Today_DictRatings_Final = new Dictionary<string, double>();
+        //    Dictionary<string, double> Yesterday_DictRatings = new Dictionary<string, double>();
+        //    Dictionary<string, double> Yesterday_DictRatings_Final = new Dictionary<string, double>();
+
+        //    for (int i = 0; i < Time_Hours.Count; i++)
+        //    {
+        //        Today_DictRatings_Final[Time_Hours[i]] = 0;
+        //        Yesterday_DictRatings_Final[Time_Hours[i]] = 0;
+
+        //    }
+
+        //    for (int i = 0; i < Months.Count; i++)
+        //    {
+        //        MonthlyDictRatings[Months[i]] = 0;
+        //    }
+
+        //    for (int i = 1; i < 29; i++)
+        //    {
+        //        TwentyEight_DictRatings[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+        //    }
+
+
+        //    for (int i = 1; i < 8; i++)
+        //    {
+        //        SevenDayDictRatings[DateTime.Now.AddDays(-1 * i).ToString("dd/MM/yyyy")] = 0.0;
+        //    }
+
+        //    // Add data points if date exists.
+        //    foreach (KeyValuePair<DateTime, int> entry in Ratings_OverTime)
+        //    {
+        //        if (TwentyEight_DictRatings.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+        //        {
+        //            TwentyEight_DictRatings[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
+        //            if (SevenDayDictRatings.ContainsKey(entry.Key.ToString("dd/MM/yyyy")))
+        //            {
+        //                SevenDayDictRatings[entry.Key.ToString("dd/MM/yyyy")] += entry.Value;
+        //            }
+        //        }
+
+        //        if (entry.Key.Date == DateTime.Today)
+        //        {
+        //            Today_DictRatings[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+        //        }
+
+        //        if (entry.Key.Date == DateTime.Today.AddDays(-1))
+        //        {
+
+        //            Yesterday_DictRatings[entry.Key.TimeOfDay.ToString().Substring(0, 2)] = 0;
+
+        //        }
+
+        //        if (MonthlyDictRatings.ContainsKey(entry.Key.ToString("MMMM")))
+        //        {
+        //            MonthlyDictRatings[entry.Key.ToString("MMMM")] += entry.Value;
+        //        }
+
+        //    }
+
+        //    // For today and Yesterday only
+        //    foreach (KeyValuePair<DateTime, int> entry in Ratings_OverTime)
+        //    {
+        //        if (entry.Key.Date == DateTime.Today)
+        //        {
+        //            if (Today_DictRatings.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+        //            {
+        //                Today_DictRatings[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+        //            }
+        //        }
+
+
+        //        if (entry.Key.Date == DateTime.Today.AddDays(-1))
+        //        {
+        //            if (Yesterday_DictRatings.ContainsKey(entry.Key.TimeOfDay.ToString().Substring(0, 2)))
+        //            {
+        //                Yesterday_DictRatings[entry.Key.TimeOfDay.ToString().Substring(0, 2)] += entry.Value;
+        //            }
+        //        }
+        //    }
+
+        //    foreach (var key in Today_DictRatings_Final)
+        //    {
+        //        if (Today_DictRatings.ContainsKey(key.Key.Substring(0, 2)))
+        //        {
+        //            Today_DictRatings_Final[key.Key] = Math.Round(Today_DictRatings[key.Key.Substring(0, 2)], 2);
+        //        }
+        //    }
+
+        //    foreach (var key in Yesterday_DictRatings_Final)
+        //    {
+        //        if (Yesterday_DictRatings.ContainsKey(key.Key.Substring(0, 2)))
+        //        {
+        //            Yesterday_DictRatings_Final[key.Key] = Math.Round(Yesterday_DictRatings[key.Key.Substring(0, 2)], 2);
+        //        }
+        //    }
+
+
+        //    Avg_Rating_Today = Today_DictRatings_Final;
+        //    Avg_Rating_Yesterday = Yesterday_DictRatings_Final;
+        //    Avg_Rating_7Day = SevenDayDictRatings;
+        //    Avg_Rating_28Day = TwentyEight_DictRatings;
+        //    Avg_Rating_Month = MonthlyDictRatings;
+
+
+
+        //    foreach (var i in Avg_Rating_Today) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value}");
+        //    System.Diagnostics.Debug.WriteLine("Hisssssssss");
+        //    foreach (var i in Avg_Rating_Yesterday) System.Diagnostics.Debug.WriteLine($"{i.Key} {i.Value}");
+
+        //}
 
         // Categorize all data to the dates
         public void CategorizeToDates_Sales()

@@ -30,8 +30,11 @@ namespace InfocommSolutionsProject.Models
         [Required]
         [Display(Name = "Quantity")]
         public int quantity { get; set; }
+        [Required]
+        [Display(Name = "Free Shipping")]
+        public int FreeShipping { get; set; }
 
-      
+
         [Display(Name = "Notes")]
         public string? Notes { get; set; }
 
