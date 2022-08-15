@@ -126,7 +126,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             Guid id12 = Guid.Parse(id);
             await GetCurrentUserAsync();
             var userid123 = Request.Form["accountid"].ToString();
-            var checkwish = _context.wishLists.Where(i => i.Product.Id == id12).Where(i => i.Accounts.Id == userid123).ToList();
+            var checkwish = _context.wishLists.Where(i => i.Product.Id == id12).Where(i => i.Accounts.Id == userid123).Where(i => i.Status == "Waiting").ToList();
             var product = _context.Products.FirstOrDefault(m => m.Id == id12);
             Product = product;
             cate = product.Category;
@@ -137,6 +137,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 wish.Accounts = _context.Users.First(m => m.Id == userid123);
                 wish.Id = new Guid();
                 wish.CreatedOn = DateTime.Parse(datenow);
+                wish.Status = "Waiting";
                 _context.wishLists.Add(wish);
                 await _context.SaveChangesAsync();
                 //Products = _context.Products.ToList();

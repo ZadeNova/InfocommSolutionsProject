@@ -1,4 +1,4 @@
-﻿ @page
+﻿@page
 @model InfocommSolutionsProject.Pages.CustomerPages.ProductDetailsModel
 
 @{
@@ -87,27 +87,8 @@
 							{
 								<i class="starFadeN"></i>
 							}
-							//foreach (var item123 in Model.ratings)
-							//{
-
-
-
-							//	for (var i = 1; i <= item123.rating;  i++ )
-							//	{
-							//			<i class="starGlowN"></i>
-							//	}
-							//	for (var i = (item123.rating +1); i <= 5; i++)
-							//	{
-							//			<i	 class="starFadeN"></i	>
-							//	}
-							//}
-
 						}
-						@*<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star-half-o"></i>*@
+
 						<span>@Model.ratings.Count()</span>
 					</div>
 					@{
@@ -141,7 +122,10 @@
 
 						}
 					</form>
-					<a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+					<form asp-page-handler="AddToWishList" asp-route-id="@Model.Product.Id" method="post">
+						<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+						<button type="submit"><i class="fa fa-heart"></i></button>
+					</form>
 					<ul>
 						@if (@Model.Product.Quantity <= 0)
 						{
@@ -305,15 +289,15 @@
 														@Html.DisplayFor(modelItem => item.Accounts.Email)
 													</td>
 													<td>
-														@for (var i = 1; i <= item.rating;  i++ )
-													{
-													<i class="starGlowN"></i>
+														@for (var i = 1; i <= item.rating; i++)
+														{
+															<i class="starGlowN"></i>
 														}
-														@for (var i = (item.rating +1); i <= 5; i++)
-													{
-													<i class="starFadeN"></i>
+														@for (var i = (item.rating + 1); i <= 5; i++)
+														{
+															<i class="starFadeN"></i>
 														}
-														
+
 													</td>
 													<td>
 														@Html.DisplayFor(modelItem => item.Description)
@@ -359,9 +343,13 @@
 								{
 									<div style="color:red;">Out Of Stock</div>
 									<ul class="product__item__pic__hover">
-										<li><a href="#"><i class="fa fa-heart"></i></a></li>
+										<li>
+											<form asp-page-handler="AddToWishList" asp-route-id="@item123.Id" method="post">
+												<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+												<button type="submit"><i class="fa fa-heart"></i></button>
+											</form>
+										</li>
 										<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-
 									</ul>
 								}
 								else
@@ -375,16 +363,22 @@
 
 									}
 
-									<form asp-page-handler="AddToShoppingCart" asp-route-id="@item123.Id" method="post">
-										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
-											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-											<li>
+									<ul class="product__item__pic__hover">
+										<li>
+											<form asp-page-handler="AddToWishList" asp-route-id="@item123.Id" method="post">
+												<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+												<button type="submit"><i class="fa fa-heart"></i></button>
+											</form>
+										</li>
+										<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+										<li>
+											<form asp-page-handler="AddToShoppingCart" asp-route-id="@item123.Id" method="post">
 												<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
 												<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-											</li>
-										</ul>
-									</form>
+											</form>
+										</li>
+									</ul>
+
 								}
 
 							</div>
