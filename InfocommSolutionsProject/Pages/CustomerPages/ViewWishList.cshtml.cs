@@ -40,7 +40,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
             if (_context.wishLists != null)
             {
                 await GetCurrentUserId();
-                wishLists = await _context.wishLists.ToListAsync();
+                wishLists = await _context.wishLists.Where(i=>i.Accounts.Id==userid).Where(i=>i.Status=="Waiting").ToListAsync();
                 var lol = _context.Users.ToList();
                 var idk = _context.Products.ToList();
             }
@@ -48,59 +48,80 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
 
 
 
-        public async Task<IActionResult> OnPostAddToShoppingCart(string id, int ItemQuantity)
+        public async Task<IActionResult> OnPostAddToShoppingCart(string id, int ItemQuantity , string cateid)
         {
             Guid id1 = Guid.Parse(id);
             var product = _context.Products.FirstOrDefault(m => m.Id == id1);
             Product = product;
             TheShoppingCart = SessionHelper.GetObjectFromJson<List<ShoppingCartItem>>(HttpContext.Session, "ShoppingCart");
-            var wishlist = _context.wishLists.Where(i => i.Product.Id == id1).Where(x => x.Accounts.Id == userid);
-            if (wishLists != null)
+            if (TheShoppingCart == null)
             {
-                if (TheShoppingCart == null)
-                {
-                    TheShoppingCart = new List<ShoppingCartItem>();
-                    TheShoppingCart.Add(
-                        new ShoppingCartItem
-                        {
-                            Product = _context.Products.Find(Guid.Parse(id)),
-                            Quantity = ItemQuantity
-                        });
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
+                TheShoppingCart = new List<ShoppingCartItem>();
+                TheShoppingCart.Add(
+                    new ShoppingCartItem
+                    {
+                        Product = _context.Products.Find(Guid.Parse(id)),
+                        Quantity = ItemQuantity
+                    });
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
 
+            }
+            else
+            {
+                int index = Exists(TheShoppingCart, id);
+                if (index == -1)
+                {
+                    TheShoppingCart.Add(new ShoppingCartItem
+                    {
+                        Product = _context.Products.Find(Guid.Parse(id)),
+                        Quantity = ItemQuantity
+
+                    });
                 }
                 else
                 {
-                    int index = Exists(TheShoppingCart, id);
-                    if (index == -1)
-                    {
-                        TheShoppingCart.Add(new ShoppingCartItem
-                        {
-                            Product = _context.Products.Find(Guid.Parse(id)),
-                            Quantity = ItemQuantity
-
-                        });
-                    }
-                    else
-                    {
-                        TheShoppingCart[index].Quantity += ItemQuantity;
-
-                    }
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
-
-
+                    TheShoppingCart[index].Quantity += ItemQuantity;
 
                 }
-                //wishList123.Product.Id = id1;
-                //_context.wishLists.Remove(wishList123).State = EntityState.Modified;
-                //await _context.SaveChangesAsync();
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "ShoppingCart", TheShoppingCart);
+
+
 
             }
+            var idk1 =Guid.Parse( cateid);
+            var idk =await _context.wishLists.FirstOrDefaultAsync(i => i.Id==idk1) ;
+            if (idk != null) {
+                wishList123 = idk;
+                wishList123.Status = "AddToCart";
+                _context.wishLists.Add(wishList123).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+               
+            }
 
-            //return RedirectToPage("ProductDetails" + id);
             return Redirect("~/CustomerPages/ViewWishList");
 
         }
+
+
+        public async Task<IActionResult> OnPostWishListDelete(string cateid)
+        {
+           
+           
+            var idk1 = Guid.Parse(cateid);
+            var idk = await _context.wishLists.FirstOrDefaultAsync(i => i.Id == idk1);
+            if (idk != null)
+            {
+                wishList123 = idk;
+                wishList123.Status = "Remove";
+                _context.wishLists.Add(wishList123).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+            }
+
+            return Redirect("~/CustomerPages/ViewWishList");
+
+        }
+
 
 
         private int Exists(List<ShoppingCartItem> cart, string id)

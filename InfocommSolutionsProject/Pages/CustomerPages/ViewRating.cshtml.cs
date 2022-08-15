@@ -94,7 +94,7 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
                 Accounts = await _context.Users.Where(i => i.Id == userid).ToListAsync();
                 //Product =  await _context.Products.ToListAsync();
                 var lol = _context.Products.ToList();
-                IQueryable<RatingsModel> ProductQueryable = from cat in _context.Ratings join dog in _context.Users on cat.Accounts.Id equals dog.Id join idk in _context.Products on cat.Product.Id equals idk.Id where (cat.Accounts.Id == userid)  select cat;
+                IQueryable<RatingsModel> ProductQueryable = from cat in _context.Ratings.Include(x => x.Accounts).Include(x =>x.Product) join dog in _context.Users on cat.Accounts.Id equals dog.Id join idk in _context.Products on cat.Product.Id equals idk.Id  where (cat.Accounts.Id == userid)   select cat ;
 
                 switch (NumPage)
                 {
