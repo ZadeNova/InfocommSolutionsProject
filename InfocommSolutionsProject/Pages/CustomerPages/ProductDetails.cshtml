@@ -81,11 +81,11 @@
 						@{
 							for (var i = 1; i <= @Model.averangenum; i++)
 							{
-								<i class="starGlowN"></i>
+									<i class="starGlowN"></i>
 							}
 							for (var i = (@Model.averangenum + 1); i <= 5; i++)
 							{
-								<i class="starFadeN"></i>
+									<i class="starFadeN"></i>
 							}
 						}
 
@@ -100,7 +100,9 @@
 					@* <div>Discounted Price :</div>
 					<div class="product__details__price">$@FinalPrice</div>*@
 					<p>@Model.Product.Description</p>
-					<form asp-page-handler="AddToShoppingCart" asp-route-id="@Model.Product.Id" method="post">
+					@if (User.Identity.IsAuthenticated)
+					{
+						<form asp-page-handler="AddToShoppingCart" asp-route-id="@Model.Product.Id" method="post">
 
 						@if (@Model.Product.Quantity <= 0)
 						{
@@ -126,6 +128,8 @@
 						<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
 						<button type="submit"><i class="fa fa-heart"></i></button>
 					</form>
+					}
+					
 					<ul>
 						@if (@Model.Product.Quantity <= 0)
 						{
@@ -204,7 +208,9 @@
 									<dt>
 										Comment
 									</dt>
-									@if (@Model.checkifuserhavebuy == 0)
+									@if (User.Identity.IsAuthenticated)
+									{
+										@if (@Model.checkifuserhavebuy == 0)
 									{
 
 										<p>Comment will be enable after you have make an Order</p>
@@ -250,6 +256,11 @@
 												@*}*@
 											</div>
 										</dd>
+										}
+									}
+									else
+									{
+										<p>Kindly login to make an comment</p>
 									}
 
 
@@ -283,28 +294,28 @@
 										@{
 											foreach (var item in Model.ratings)
 											{
-												<tr>
-													<td>
-														@Html.DisplayFor(modelItem => item.Accounts.Email)
-													</td>
-													<td>
-														@for (var i = 1; i <= item.rating; i++)
+													<tr>
+														<td>
+															@Html.DisplayFor(modelItem => item.Accounts.Email)
+														</td>
+														<td>
+															@for (var i = 1; i <= item.rating; i++)
 														{
-															<i class="starGlowN"></i>
+																<i class="starGlowN"></i>
 														}
-														@for (var i = (item.rating + 1); i <= 5; i++)
+															@for (var i = (item.rating + 1); i <= 5; i++)
 														{
-															<i class="starFadeN"></i>
+																<i class="starFadeN"></i>
 														}
 
-													</td>
-													<td>
-														@Html.DisplayFor(modelItem => item.Description)
-													</td>
-													<td>
-														@Html.DisplayFor(modelItem => item.CreatedOn)
-													</td>
-												</tr>
+														</td>
+														<td>
+															@Html.DisplayFor(modelItem => item.Description)
+														</td>
+														<td>
+															@Html.DisplayFor(modelItem => item.CreatedOn)
+														</td>
+													</tr>
 											}
 										}
 
@@ -335,71 +346,77 @@
 				foreach (var item123 in Model.Products1)
 				{
 					string ImgPath1 = "~/Images/ProductImages/" + item123.ImagePath;
-					<div class="col-lg-3 col-md-4 col-sm-6">
-						<div class="product__discount__item">
-							<div class="product__discount__item__pic set-bg" data-setbg="@Url.Content(ImgPath1)">
-								@if (item123.Quantity == 0)
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="product__discount__item">
+								<div class="product__discount__item__pic set-bg" data-setbg="@Url.Content(ImgPath1)">
+									@if (item123.Quantity == 0)
 								{
-									<div style="color:red;">Out Of Stock</div>
-									<ul class="product__item__pic__hover">
-										<li>
-											<form asp-page-handler="AddToWishList" asp-route-id="@item123.Id" method="post">
-												<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
-												<button type="submit"><i class="fa fa-heart"></i></button>
-											</form>
-										</li>
-										<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-									</ul>
+										<div style="color:red;">Out Of Stock</div>
+										<ul class="product__item__pic__hover">
+											<li>
+												@if (User.Identity.IsAuthenticated)
+											{
+													<form asp-page-handler="AddToWishList" asp-route-id="@item123.Id" method="post">
+													<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+													<button type="submit"><i class="fa fa-heart"></i></button>
+												</form>
+											}
+
+												
+											</li>
+											<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+										</ul>
 								}
 								else
 								{
-									@if (item123.DiscountStatus == true && item123.Discount != 0)
+										@if (item123.DiscountStatus == true && item123.Discount != 0)
 									{
-										<div class="product__discount__percent">-@item123.Discount%</div>
+											<div class="product__discount__percent">-@item123.Discount%</div>
 									}
 									else
 									{
 
 									}
-
-									<ul class="product__item__pic__hover">
-										<li>
-											<form asp-page-handler="AddToWishList" asp-route-id="@item123.Id" method="post">
-												<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
-												<button type="submit"><i class="fa fa-heart"></i></button>
-											</form>
-										</li>
-										<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-										<li>
-											<form asp-page-handler="AddToShoppingCart" asp-route-id="@item123.Id" method="post">
-												<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
-												<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
-											</form>
-										</li>
-									</ul>
-
+										@if (User.Identity.IsAuthenticated)
+									{
+											<ul class="product__item__pic__hover">
+												<li>
+													<form asp-page-handler="AddToWishList" asp-route-id="@item123.Id" method="post">
+														<input type="hidden" id="accountid" name="accountid" value="@Model.userid" />
+														<button type="submit"><i class="fa fa-heart"></i></button>
+													</form>
+												</li>
+												<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+												<li>
+													<form asp-page-handler="AddToShoppingCart" asp-route-id="@item123.Id" method="post">
+														<input type="hidden" value="1" id="ItemQuantity" name="ItemQuantity">
+														<button type="submit" onclick="myFunction()"><i class="fa fa-shopping-cart"></i></button>
+													</form>
+												</li>
+											</ul>
+									}
 								}
 
-							</div>
-							@if (@item123.DiscountStatus == true && item123.Discount != 0)
+								</div>
+								@if (@item123.DiscountStatus == true && item123.Discount != 0)
 							{
 								var FinalPrice1 = @item123.Price - (@item123.Price * @item123.Discount / 100);
-								<div class="featured__item__text">
-									<h6><a asp-page="./ProductDetails" asp-route-id="@item123.Id">@item123.Name</a></h6>
-									<h5>$@FinalPrice1</h5>
-								</div>
+									<div class="featured__item__text">
+										<h6><a asp-page="./ProductDetails" asp-route-id="@item123.Id">@item123.Name</a></h6>
+										<h5>$@FinalPrice1</h5>
+									</div>
 							}
 							else
 							{
-								<div class="featured__item__text">
-									<h6><a asp-page="./ProductDetails" asp-route-id="@item123.Id">@item123.Name</a></h6>
-									<h5>$@item123.Price</h5>
-								</div>
+									<div class="featured__item__text">
+										<h6><a asp-page="./ProductDetails" asp-route-id="@item123.Id">@item123.Name</a></h6>
+										<h5>$@item123.Price</h5>
+									</div>
 
 							}
-						</div>
+							</div>
 
-					</div>
+						</div>
 				}
 			}
 			@*<div class="col-lg-3 col-md-4 col-sm-6">
