@@ -50,7 +50,10 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         }
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            await GetCurrentUserId();
+            if (User.Identity.IsAuthenticated) {
+                await GetCurrentUserId();
+            }
+           
             if (id == null || _context.Products == null)
             {
                 return NotFound();

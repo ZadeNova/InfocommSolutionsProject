@@ -40,7 +40,10 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         public IList<Categories> Products_Category { get; set; }
         public async Task<IActionResult> OnGet()
         {
-            await GetCurrentUserId();
+            if (User.Identity.IsAuthenticated) {
+                await GetCurrentUserId();
+            }
+           
             Products = _context.Products.ToList();
 
             ProductsDiscount = (from prod in _context.Products where prod.DiscountStatus == true select prod).OrderByDescending(x => x.Discount).Take(6).ToList();

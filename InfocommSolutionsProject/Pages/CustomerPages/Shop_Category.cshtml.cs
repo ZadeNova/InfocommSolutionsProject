@@ -43,7 +43,10 @@ namespace InfocommSolutionsProject.Pages.CustomerPages
         private Task<Accounts> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         public async Task <IActionResult> OnGet(string? category )
         {
-            await GetCurrentUserId();
+            if (User.Identity.IsAuthenticated) {
+               await GetCurrentUserId();
+            }
+
             if (category == null || _context.Products == null)
             {
                 return NotFound();

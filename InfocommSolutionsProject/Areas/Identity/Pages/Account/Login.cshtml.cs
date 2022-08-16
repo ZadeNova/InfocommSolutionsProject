@@ -204,7 +204,23 @@ namespace InfocommSolutionsProject.Areas.Identity.Pages.Account
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                    if (user.AccountStatus == "Activate") {
+                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    }
+                    else if (user.AccountStatus == "Deactivated")
+                    {
+                        ModelState.AddModelError(String.Empty, "Your Account has been Deactivated , kindly contact the customer support ! thank you ");
+                        await _signInManager.SignOutAsync();
+                        return Page();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(String.Empty, "Your Account has been Ban , kindly contact the customer support ! thank you ");
+                        await _signInManager.SignOutAsync();
+                        return Page();
+                    }
                 }
                 if (result.IsLockedOut)
                 {
