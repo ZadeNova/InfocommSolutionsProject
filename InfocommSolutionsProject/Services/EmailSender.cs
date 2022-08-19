@@ -14,8 +14,8 @@ namespace InfocommSolutionsProject.Services
         }
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            string fromMail = "projectsec6@gmail.com";
-            string fromPassword = "wxondfqmtwvjxquu";
+            string fromMail = "";
+            string fromPassword = "";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
